@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>images/state_blue.png</file>
+        <file>images/state_gray.png</file>
+        <file>images/state_green.png</file>
+        <file>images/state_red.png</file>
+        <file>images/state_yellow.png</file>
+        <file>images/button_blue.png</file>
+        <file>images/button_lightred.png</file>
+        <file>images/button_red.png</file>
+        <file>images/JiartLogo.png</file>
+    </qresource>
+</RCC>
