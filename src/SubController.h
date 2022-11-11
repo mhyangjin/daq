@@ -35,7 +35,7 @@ class SubController :public DAQViz {
 private:
 
 public:
-    SubController(Ui::DaqMain*,QString, ros::MultiThreadedSpinner* );
+    SubController(Ui::DaqMain*,QString, QString, ros::MultiThreadedSpinner* );
     ~SubController();
     void clicked();
     virtual void showWindow();

@@ -8,29 +8,53 @@
 //======================================================================*/
 #include "RvizController.h"
 
-RvizController::RvizController(Ui::DaqMain* ui, QString _rvizName)
-:DAQViz(ui, _rvizName)
+RvizController::RvizController(Ui::DaqMain* ui, QString _rvizName,QString _title)
+:DAQViz(ui, _rvizName, _title)
 {
     loadConfig(DAQViz::rvizName, &config);
     if ( !config.isValid()) {
         exit(-1);
-    }   
+    } 
+    panel_= new rviz::RenderPanel();  
+    manager= new rviz::VisualizationManager(panel_);
+    
+    rviz::Config childConfig=config.mapGetChild("Visualization Manager");
+    if ( childConfig.isValid()) {
+        cout <<"showRviz:Visualization Manager is Valid! : "<< qPrintable(DAQViz::rvizName) <<endl;
+    }
+    panel_->initialize(manager->getSceneManager(), manager);
+    manager->initialize();  
+    manager->load(childConfig);
+    //DAQViz::display_layout.addWidget(panel_);
+    //panel_->hide();
 }
 
-RvizController::RvizController(Ui::DaqMain* ui, QString _rvizName, int xpos, int ypos)
-:DAQViz(ui, _rvizName)
+RvizController::RvizController(Ui::DaqMain* ui, QString _rvizName, QString _title,int _xpos, int _ypos)
+:DAQViz(ui, _rvizName,_title),
+xpos(_xpos),
+ypos(_ypos)
 {
     loadConfig(DAQViz::rvizName, &config);
     if ( !config.isValid()) {
         exit(-1);
-    }   
+    }  
+    panel_= new rviz::RenderPanel();  
+    manager= new rviz::VisualizationManager(panel_);
+    
+    rviz::Config childConfig=config.mapGetChild("Visualization Manager");
+    if ( childConfig.isValid()) {
+        cout <<"showRviz:Visualization Manager is Valid! : "<< qPrintable(DAQViz::rvizName) <<endl;
+    }
+    panel_->initialize(manager->getSceneManager(), manager);
+    manager->initialize();  
+    manager->load(childConfig);
 }
 
 RvizController::~RvizController() {
 }
 
 void RvizController::clicked(){
-    cout <<"RvizController::clicked()" <<endl;
+    cout <<"RvizController::clicked()"<<qPrintable(DAQViz::rvizName)  <<endl;
     if ( DAQViz::buttonState == ButtonState::ON){
         closeWindow();
         DAQViz::buttonState=ButtonState::OFF;
@@ -44,28 +68,32 @@ void RvizController::clicked(){
 
 void RvizController::showWindow() {
     DAQViz::buttonState=ButtonState::ON;
-    panel_= new rviz::RenderPanel();  
-    //printConfig(&config);
-    manager= new rviz::VisualizationManager(panel_);
-    
-     rviz::Config childConfig=config.mapGetChild("Visualization Manager");
-    if ( childConfig.isValid()) {
-        cout <<"showRviz:Visualization Manager is Valid! : "<< qPrintable(DAQViz::rvizName) <<endl;
+    if ( ypos >  0) {
+        ui->rviz_layout->addWidget(DAQViz::title, 0, ypos);
+        ui->rviz_layout->addWidget(panel_, xpos, ypos);
     }
-    panel_->initialize(manager->getSceneManager(), manager);
-    manager->initialize();  
-    manager->load(childConfig);
-    ui->rviz_layout->addWidget(panel_);
+    else {
+        ui->rviz_layout->addWidget(DAQViz::title,0,0);
+        ui->rviz_layout->addWidget(panel_,1,0);
+    }
     manager->startUpdate();
+    DAQViz::title->show();
+    panel_->show();
+    ui->rviz_layout->update();
+    if (DAQViz::rvizName.contains("camera")) {
+         
+    }
     
 }
 void RvizController::closeWindow(){
     DAQViz::buttonState=ButtonState::OFF;
+    DAQViz::title->hide();
+    panel_->hide();
     manager->stopUpdate();
-    manager->removeAllDisplays();
+    ui->rviz_layout->removeWidget(DAQViz::title);
     ui->rviz_layout->removeWidget(panel_);
-    delete panel_;
-    delete manager;
+    ui->rviz_layout->update();
+    
 }
 
 

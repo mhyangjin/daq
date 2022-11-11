@@ -12,11 +12,17 @@
 #include <rviz/display_group.h>
 #include <rviz/config.h>
 
-DAQViz::DAQViz(Ui::DaqMain* daqMain, QString _rvizName)
+DAQViz::DAQViz(Ui::DaqMain* daqMain, QString _rvizName, QString _title)
 :ui(daqMain),
 rvizName(_rvizName),
+title(new QLabel(_title)),
 buttonState(ButtonState::OFF)
 {
+    title->setMaximumSize(10000,20);
+    title->adjustSize();
+    title->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);    //display_layout.addWidget(&title);
+    title->setAlignment(Qt::AlignCenter);
+    title->hide();
 }
 
 DAQViz::~DAQViz() {

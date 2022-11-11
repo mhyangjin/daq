@@ -184,22 +184,6 @@
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="btn_imu">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="styleSheet">
-                <string notr="true"/>
-               </property>
-               <property name="text">
-                <string>IMU</string>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="QPushButton" name="btn_lidarTop">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -276,6 +260,22 @@
                </property>
                <property name="text">
                 <string>GPS</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_imu">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
+               <property name="text">
+                <string>IMU</string>
                </property>
               </widget>
              </item>
@@ -428,6 +428,18 @@
            <number>1</number>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
+           <property name="leftMargin">
+            <number>4</number>
+           </property>
+           <property name="topMargin">
+            <number>4</number>
+           </property>
+           <property name="rightMargin">
+            <number>4</number>
+           </property>
+           <property name="bottomMargin">
+            <number>4</number>
+           </property>
            <item>
             <layout class="QGridLayout" name="rviz_layout"/>
            </item>
@@ -475,28 +487,6 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="7">
-            <widget class="QLabel" name="img_imu">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color:rgb(243, 243, 243)</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="pixmap">
-              <pixmap resource="images.qrc">:/img/images/state_gray.png</pixmap>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
            <item row="4" column="4">
             <widget class="QLabel" name="img_lidar_side2">
              <property name="styleSheet">
@@ -528,28 +518,6 @@
            </item>
            <item row="3" column="7">
             <widget class="QLabel" name="img_radar">
-             <property name="styleSheet">
-              <string notr="true">color:rgb(243, 243, 243)</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="pixmap">
-              <pixmap resource="images.qrc">:/img/images/state_gray.png</pixmap>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="9">
-            <widget class="QLabel" name="img_car">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
              <property name="styleSheet">
               <string notr="true">color:rgb(243, 243, 243)</string>
              </property>
@@ -705,26 +673,13 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="8">
-            <widget class="QLabel" name="label_radar">
-             <property name="styleSheet">
-              <string notr="true">color:rgb(243, 243, 243)</string>
-             </property>
-             <property name="text">
-              <string>Car Info</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
            <item row="2" column="3">
             <widget class="QLabel" name="label_lidartop1">
              <property name="styleSheet">
               <string notr="true">color:rgb(243, 243, 243)</string>
              </property>
              <property name="text">
-              <string>Lidar Top1</string>
+              <string>LiDAR Top1</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -738,19 +693,6 @@
              </property>
              <property name="text">
               <string>Sensor Status</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="6">
-            <widget class="QLabel" name="label_imu">
-             <property name="styleSheet">
-              <string notr="true">color:rgb(243, 243, 243)</string>
-             </property>
-             <property name="text">
-              <string>IMU </string>
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -789,7 +731,7 @@
               <string notr="true">color:rgb(243, 243, 243)</string>
              </property>
              <property name="text">
-              <string>Lidar Side1</string>
+              <string>LiDAR Side1</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -802,7 +744,7 @@
               <string notr="true">color:rgb(243, 243, 243)</string>
              </property>
              <property name="text">
-              <string>Lidar Side2</string>
+              <string>LiDAR Side2</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -838,6 +780,76 @@
               </size>
              </property>
             </spacer>
+           </item>
+           <item row="2" column="8">
+            <widget class="QLabel" name="label_imu">
+             <property name="styleSheet">
+              <string notr="true">color:rgb(243, 243, 243)</string>
+             </property>
+             <property name="text">
+              <string>IMU </string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="6">
+            <widget class="QLabel" name="label_radar">
+             <property name="styleSheet">
+              <string notr="true">color:rgb(243, 243, 243)</string>
+             </property>
+             <property name="text">
+              <string>Car Info</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="7">
+            <widget class="QLabel" name="img_car">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color:rgb(243, 243, 243)</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="images.qrc">:/img/images/state_gray.png</pixmap>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="9">
+            <widget class="QLabel" name="img_imu">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color:rgb(243, 243, 243)</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="images.qrc">:/img/images/state_gray.png</pixmap>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>

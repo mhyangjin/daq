@@ -32,13 +32,15 @@ void RosDaqSub::subscribeCallBack(const std_msgs::String::ConstPtr& messages) {
 }
 
 
-SubController::SubController(Ui::DaqMain* ui, QString _rvizName, ros::MultiThreadedSpinner* spnner)
-:DAQViz(ui, _rvizName),
+SubController::SubController(Ui::DaqMain* ui, QString _rvizName, QString _title, ros::MultiThreadedSpinner* spnner)
+:DAQViz(ui, _rvizName,_title),
 rosDaqSub(new RosDaqSub(_rvizName, spnner) )
 {
     QObject::connect(rosDaqSub, &RosDaqSub::dataUpdated, this, &SubController::on_data_update_triggered);
     QStringListModel* qstringList=rosDaqSub->getListModel();
     qlistView.setModel(qstringList);
+    //DAQViz::display_layout.addWidget(&qlistView);
+    qlistView.hide();
 }
 
 SubController::~SubController() {
@@ -55,21 +57,28 @@ void SubController::clicked(){
         showWindow();
         DAQViz::buttonState=ButtonState::ON;
     }
-    
 }
 
 void SubController::showWindow() {
     cout << "SubController::start() " << qPrintable(DAQViz::rvizName)<<endl;
-    ui->rviz_layout->addWidget(&qlistView);
+
+    ui->rviz_layout->addWidget(DAQViz::title,0,0);
+    ui->rviz_layout->addWidget(&qlistView,1,0);
+    
+    DAQViz::title->show();
+    qlistView.show();
+    ui->rviz_layout->update();
     DAQViz::buttonState=ButtonState::ON;
 }
 
 void SubController::closeWindow() {
     cout << "SubController::stop() " <<endl;
-    //DAQViz::closeRviz();
-    
-    ui->rviz_layout->removeWidget(&qlistView);
+    DAQViz::title->hide();
+    qlistView.hide();
     DAQViz::buttonState=ButtonState::OFF;
+    ui->rviz_layout->removeWidget(DAQViz::title);
+    ui->rviz_layout->removeWidget(&qlistView);
+    ui->rviz_layout->update();
 }
 
 void SubController::on_data_update_triggered() {

@@ -8,35 +8,36 @@
 #include "DaqCameraDisplay.h"
 #include "SubController.h"
 #include <QFileDialog>
+
  SideButtonActions::SideButtonActions(Ui::DaqMain *_ui)
  :ui(_ui){
     spiner= new ros::MultiThreadedSpinner(4);
     //윈도우 생성시 미리 GUI창을 미리 만들어 둔다.
     rvizMap=new QMap<QString, QList<DAQViz*>*>();
     QList<DAQViz*> *lidar_tmp= new QList<DAQViz*>();
-    lidar_tmp->append( (DAQViz*) new RvizController(ui,"./rvizs/ouster.rviz" ));
+    lidar_tmp->append( (DAQViz*) new RvizController(ui,"./rvizs/ouster.rviz","liDar Top"));
 
     QList<DAQViz*> *camera_tmp= new QList<DAQViz*>();
-    camera_tmp->append( (DAQViz*) new RvizController(ui,"./rvizs/cameras.rviz" ));
+    camera_tmp->append( (DAQViz*) new DaqCameraDisplay(ui,"./rvizs/cameras.rviz", "Camera" ));
 
     QList<DAQViz*> *l_side_tmp= new QList<DAQViz*>();
-    l_side_tmp->append( (DAQViz*) new RvizController(ui,"./rvizs/left_vel.rviz" ));
-    l_side_tmp->append( (DAQViz*) new RvizController(ui,"./rvizs/right_vel.rviz" ));
+    l_side_tmp->append( (DAQViz*) new RvizController(ui,"./rvizs/left_vel.rviz", "liDAR Side-Left",1,0 ));
+    l_side_tmp->append( (DAQViz*) new RvizController(ui,"./rvizs/right_vel.rviz", "LiDAR Side-right",1,1 ));
 
     QList<DAQViz*> *gps_tmp= new QList<DAQViz*>();
-    gps_tmp->append( (DAQViz*) new SubController(ui,"/gps/fix", spiner));
-     QList<DAQViz*> *imp_tmp= new QList<DAQViz*>();
-    imp_tmp->append( (DAQViz*) new SubController(ui,"/gps/imu", spiner ));
+     QList<DAQViz*> *imu_tmp= new QList<DAQViz*>();
+    gps_tmp->append( (DAQViz*) new SubController(ui,"/gps/fix", "GPS", spiner));
+    imu_tmp->append( (DAQViz*) new SubController(ui,"/gps/imu", "IMU", spiner ));
      QList<DAQViz*> *radar_tmp= new QList<DAQViz*>();
-    radar_tmp->append( (DAQViz*) new SubController(ui,"/can/radar", spiner ));
+    radar_tmp->append( (DAQViz*) new SubController(ui,"/can/radar","radar", spiner ));
      QList<DAQViz*> *car_tmp= new QList<DAQViz*>();
-    car_tmp->append( (DAQViz*) new SubController(ui,"/can/car", spiner ));
+    car_tmp->append( (DAQViz*) new SubController(ui,"/can/car","Car", spiner ));
 
     rvizMap->insert("lidarTop", lidar_tmp);
     rvizMap->insert("cameras", camera_tmp);
     rvizMap->insert("lidarSide", l_side_tmp);
     rvizMap->insert("gps", gps_tmp);
-    rvizMap->insert("imu", imp_tmp);
+    rvizMap->insert("imu", imu_tmp);
     rvizMap->insert("radar", radar_tmp);
     rvizMap->insert("car", car_tmp);
     
@@ -62,7 +63,7 @@ void SideButtonActions::allViewClicked(){
 void SideButtonActions::cameraClicked(){
     this->allStop("cameras");
     cout << "SideButtonActions::cameraClicked()"<<endl;
-    RvizController* controller=(RvizController*)rvizMap->find("cameras").value()->at(0);
+    DaqCameraDisplay* controller=(DaqCameraDisplay*)rvizMap->find("cameras").value()->at(0);
     controller->clicked();    
 }
 
@@ -143,7 +144,7 @@ void SideButtonActions::allStart(QString except_one) {
         if ( iter.key() == except_one) continue;
         QList<DAQViz*> *dapArray=iter.value();
         for (int i=0; i < dapArray->size(); i++) {
-            RvizController* controller=(RvizController*)dapArray->at(i);
+            DAQViz* controller=dapArray->at(i);
             if (controller->getButtonState() == ButtonState::OFF)
                 controller->showWindow();
         }
@@ -155,7 +156,7 @@ void SideButtonActions::allStop(QString except_one) {
         if ( iter.key() == except_one) continue;
         QList<DAQViz*> *dapArray=iter.value();
         for (int i=0; i < dapArray->size(); i++) {
-            RvizController* controller=(RvizController*)dapArray->at(i);
+            DAQViz* controller=dapArray->at(i);
             if (controller->getButtonState() == ButtonState::ON)
                  controller->closeWindow();
         }

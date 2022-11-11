@@ -10,20 +10,24 @@
 #define DAQVIZ_H
 #include "init.h"
 #include <QMainWindow>
-
+#include <QLabel>
+#include <QGridLayout>
 
 class DAQViz: public QObject
 {
 Q_OBJECT
 public:
-    DAQViz(Ui::DaqMain*, QString);
+    DAQViz(Ui::DaqMain*, QString,QString);
     ~DAQViz();
     virtual void showWindow()=0;
     virtual void closeWindow()=0;
     inline ButtonState getButtonState() {return buttonState;};
+public:
+    QLabel*  title;
 protected:
     Ui::DaqMain* ui=NULL;
     ButtonState buttonState;
+    QGridLayout display_layout;
     QString rvizName;
 };
 #endif // DAQVIZ_H

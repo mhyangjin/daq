@@ -7,7 +7,7 @@ project(daq)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-set(CMAKE_PREFIX_PATH "/opt/ros/noetic;${CMAKE_MODULE_PATH};/usr/lib/aarch64-linux-gnu/qt5;/usr/lib/aarch64-linux-gnu;/usr/include")
+set(CMAKE_PREFIX_PATH "/opt/ros/noetic/lib;/opt/ros/noetic;${CMAKE_MODULE_PATH};/usr/lib/aarch64-linux-gnu/qt5;/usr/lib/aarch64-linux-gnu;/usr/include")
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rviz
@@ -53,7 +53,8 @@ set( QT_SOURCES
   src/daqmain.cpp
   src/RvizController.h
   src/RvizController.cpp
-  #src/IDisplay.h
+  src/DaqCameraDisplay.h
+  src/DaqCameraDisplay.cpp
   src/RecordStarter.h
   src/RecordStarter.cpp
   src/SubController.h

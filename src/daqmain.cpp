@@ -81,8 +81,8 @@ void Daqmain::lidarSideClicked(){
 
 }
 void Daqmain::lidarTopClicked(){
+    
     sideButtonActions->lidarTopClicked();
-
 }
 void Daqmain::radarClicked(){
     sideButtonActions->radarClicked();

@@ -15,8 +15,8 @@
 
 class RvizController :public DAQViz{
 public:
-    RvizController(Ui::DaqMain*,QString);
-    RvizController(Ui::DaqMain*,QString, int xpos, int ypos);
+    RvizController(Ui::DaqMain*,QString,QString);
+    RvizController(Ui::DaqMain*,QString, QString,int xpos, int ypos);
     ~RvizController();
 
     void clicked();
@@ -35,7 +35,8 @@ private:
 
     rviz::VisualizationManager* manager=NULL;
     rviz::RenderPanel* panel_=NULL;
-    
     rviz::Config config;
+    int xpos=0;
+    int ypos=0;
 };
 #endif

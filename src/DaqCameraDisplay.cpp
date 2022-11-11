@@ -1,83 +1,196 @@
 //======================================================================*/
 //   Create Date: 2022/11/07
-//   ClassName  : DAQCameraDisplay
+//   ClassName  : DaqCameraDisplay
 //   Author     : mhjin julu1@naver.com
 //   Class Def  : Camera Display를  rendering하여 GUI로 보내기 위한 class
 //======================================================================*/
 #include "DaqCameraDisplay.h"
-#include <rviz/image/image_display_base.h>
+#include <rviz/display.h>
 
-using namespace rviz;
-// CameraDisplay::CameraDisplay() {
-//     IDisplay::panel= new rviz::RenderPanel();  
-//     IDisplay::manager= new rviz::VisualizationManager(IDisplay::panel);
+DaqCameraDisplay::DaqCameraDisplay(Ui::DaqMain* ui, QString _rvizName, QString _title)
+:DAQViz(ui, _rvizName, _title)
+{
+    loadConfig(DAQViz::rvizName, &config);
+    if ( !config.isValid()) {
+        exit(-1);
+    } 
+    panel_= new rviz::RenderPanel();  
+    manager= new rviz::VisualizationManager(panel_);
+    
+    rviz::Config childConfig=config.mapGetChild("Visualization Manager");
+    if ( childConfig.isValid()) {
+        cout <<"showRviz:Visualization Manager is Valid! : "<< qPrintable(DAQViz::rvizName) <<endl;
+    }
+    rviz::Display* cameraDisplay= manager->createDisplay("rviz/Image","front_camera",false);
+    rviz::Config front_camera=childConfig.listChildAt(0);
+    cameraDisplay->load(front_camera);
 
-// }
-// CameraDisplay::~CameraDisplay(){
-//     delete IDisplay::panel;
-//     delete IDisplay::manager;
-// }
-// rviz::RenderPanel* CameraDisplay::makeRender(){
+    panel_->initialize(manager->getSceneManager(), manager);
+    manager->initialize();  
+    //DAQViz::display_layout.addWidget(panel_);
+    panel_->hide();
+    //manager->load(childConfig);
+}
 
-//     IDisplay::panel->initialize(IDisplay::manager->getSceneManager(), manager);
-//     IDisplay::manager->initialize();  
-//     return panel;
-// }
-// void CameraDisplay::visualManagerStart(){
-//     IDisplay::manager->startUpdate();
-//     rviz::CameraDisplay* front_camera=(rviz::CameraDisplay* )IDisplay::manager->createDisplay("rviz/Image","front_camera", true);
-//     front_camera->setTopic("/front_camera/image_raw","raw");
-// }
-// void CameraDisplay::visualManagerStop(){
-//     IDisplay::manager->stopUpdate();
-//     IDisplay::manager->removeAllDisplays();
+DaqCameraDisplay::DaqCameraDisplay(Ui::DaqMain* ui, QString _rvizName, QString _title, int xpos, int ypos)
+:DAQViz(ui, _rvizName, _title)
+{
+    loadConfig(DAQViz::rvizName, &config);
+    if ( !config.isValid()) {
+        exit(-1);
+    }   
+}
 
-// }
+DaqCameraDisplay::~DaqCameraDisplay() {
+}
 
- 
+void DaqCameraDisplay::clicked(){
+    cout <<"RvizController::clicked()"<<qPrintable(DAQViz::rvizName)  <<endl;
+    if ( DAQViz::buttonState == ButtonState::ON){
+        closeWindow();
+        DAQViz::buttonState=ButtonState::OFF;
+    }
+    else {
+        showWindow();
+        DAQViz::buttonState=ButtonState::ON;
+    }
+    
+}
 
- DAQCameraDisplay::DAQCameraDisplay()
- {
-   rviz::CameraDisplay::image_position_property_ =
-       new EnumProperty("Image Rendering", BOTH,
-                        "Render the image behind all other geometry or overlay it on top, or both.", this,
-                        SLOT(rviz::CameraDisplay::forceRender()));
-   rviz::CameraDisplay::image_position_property_->addOption(BACKGROUND);
-   rviz::CameraDisplay::image_position_property_->addOption(OVERLAY);
-   rviz::CameraDisplay::image_position_property_->addOption(BOTH);
-  
-   rviz::CameraDisplay::alpha_property_ = new FloatProperty(
-       "Overlay Alpha", 0.5,
-       "The amount of transparency to apply to the camera image when rendered as overlay.", this,
-       SLOT(rviz::CameraDisplay::updateAlpha()));
-   rviz::CameraDisplay::alpha_property_->setMin(0);
-   rviz::CameraDisplay::alpha_property_->setMax(1);
-  
-   rviz::CameraDisplay::zoom_property_ = new FloatProperty(
-       "Zoom Factor", 1.0,
-       "Set a zoom factor below 1 to see a larger part of the world, above 1 to magnify the image.", this,
-       SLOT(rviz::CameraDisplay::forceRender()));
-   rviz::CameraDisplay::zoom_property_->setMin(0.00001);
-   rviz::CameraDisplay::zoom_property_->setMax(100000);
- }
-  /*
- DAQCameraDisplay::~DAQCameraDisplay()
- {
-   if (initialized())
-   {
-     render_panel_->getRenderWindow()->removeListener(this);
-  
-     CameraDisplay::unsubscribe();
-  
-     delete render_panel_;
-     delete bg_screen_rect_;
-     delete fg_screen_rect_;
-  
-     removeAndDestroyChildNode(bg_scene_node_->getParentSceneNode(), bg_scene_node_);
-     removeAndDestroyChildNode(fg_scene_node_->getParentSceneNode(), fg_scene_node_);
-  
-     context_->visibilityBits()->freeBits(vis_bit_);
-   }
- }
- */
-  
+void DaqCameraDisplay::showWindow() {
+    DAQViz::buttonState=ButtonState::ON;
+    ui->rviz_layout->addWidget(DAQViz::title);
+    ui->rviz_layout->addWidget(panel_);
+    manager->startUpdate();
+    DAQViz::title->show();
+    panel_->show();
+    ui->rviz_layout->update();
+    if (DAQViz::rvizName.contains("camera")) {
+         
+    }
+    
+}
+void DaqCameraDisplay::closeWindow(){
+    DAQViz::buttonState=ButtonState::OFF;
+    panel_->hide();
+    DAQViz::title->hide();
+    manager->stopUpdate();
+    ui->rviz_layout->removeWidget(DAQViz::title);
+    ui->rviz_layout->removeWidget(panel_);
+    ui->rviz_layout->update();
+}
+
+
+
+void DaqCameraDisplay::loadConfig( QString rvizFileName,rviz::Config *config) {
+    //rviz::YamlConfigReader가 .rviz 로 저장된 yaml의 array type을 읽어오지 못해서 내부 구현 함
+    /*
+    rviz::YamlConfigReader config_reader;
+    rviz::Config config_;
+    config_reader.readFile(config_, rvizFileName);
+    */
+    YAML::Node _rootNode=YAML::LoadFile(qPrintable(rvizFileName));
+    //printNodes(&_rootNode);
+    loadNodes(&_rootNode, config);
+}
+
+void DaqCameraDisplay::loadNodes(YAML::Node* node, rviz::Config* config) {
+    for(YAML::const_iterator it=node->begin(); it!=node->end(); it++) {
+        YAML::Node _node=it->first;
+        YAML::Node _value=it->second;
+        string nodeStr=_node.as<string>();
+        string valueStr;
+        rviz::Config childConfig;
+        switch ( _value.Type()) {
+            case YAML::NodeType::Scalar: 
+                valueStr=_value.as<string>();
+                //cout <<"NODE:"<< nodeStr << endl;
+                //cout <<"VALUE:"<< valueStr << endl;
+                config->mapSetValue(QString::fromStdString(nodeStr),QString::fromStdString(valueStr));
+                break;
+            case YAML::NodeType::Sequence:
+                //cout <<"NODE:"<< nodeStr <<"-SEQ-"<<_value.size()<< endl;
+                childConfig=config->mapMakeChild(QString::fromStdString(nodeStr));
+                
+                for (size_t i=0; i< _value.size(); i++) {
+                    YAML::Node arrayValue=_value[i];
+                    rviz::Config seqConfig=childConfig.listAppendNew();
+                    if (arrayValue.Type() == YAML::NodeType::Scalar) {
+                        valueStr=arrayValue.as<string>();
+                    //    cout<<"-" << valueStr<< endl;
+                        seqConfig.setValue(QString::fromStdString(valueStr));
+                    }
+                    else 
+                        loadNodes(&arrayValue, &seqConfig);
+                }
+                break;
+            case YAML::NodeType::Map:
+                //cout <<"NODE:"<< nodeStr <<"-map"<< endl;
+                childConfig=config->mapMakeChild(QString::fromStdString(nodeStr));
+                loadNodes(&_value, &childConfig);
+                break;
+            default :
+                cout <<"NONE:"<< _node.as<string>() << endl;
+        }
+    }
+}
+
+void DaqCameraDisplay::printNodes(YAML::Node* node) {
+    for(YAML::const_iterator it=node->begin(); it!=node->end(); it++) {
+        YAML::Node _node=it->first;
+        YAML::Node value=it->second;
+        cout<<_node.as<string>()<< ": ";
+        switch ( value.Type()) {
+            case YAML::NodeType::Scalar: 
+                cout << "(S)"<<value.as<string>()<<endl;
+                break;
+            case YAML::NodeType::Sequence:
+                cout <<"  - ";
+                for (size_t i=0; i< value.size(); i++) {
+                    YAML::Node arrayValue=value[i];
+                    if (arrayValue.Type() == YAML::NodeType::Scalar) {
+                        cout << "(A)"<<arrayValue.as<string>()<<endl;
+                    }
+                    else 
+                        printNodes(&arrayValue);
+                }
+                break;
+            case YAML::NodeType::Map:
+                printNodes(&value);
+                break;
+            default :
+                cout <<"NONE" << endl;
+        }
+    }
+}
+
+void DaqCameraDisplay::printConfig(rviz::Config* config) {
+    rviz::Config::MapIterator master_iter=config->mapIterator();;
+    for ( ; master_iter.isValid(); master_iter.advance()) {
+        QString key=master_iter.currentKey();
+        cout <<  qPrintable(key)<<" : ";
+        rviz::Config childConfig=master_iter.currentChild();
+        switch(childConfig.getType()) {
+            case rviz::Config::Type::Map:
+                printConfig(&childConfig);
+            break;
+            case rviz::Config::Type::List:
+                for (size_t i=0; i< childConfig.listLength(); i++) {
+                    rviz::Config listNode =childConfig.listChildAt(i);
+                    if (listNode.getType() == rviz::Config::Type::Value) {
+                        cout << "-" << qPrintable(listNode.getValue().toString())<<endl;
+                    }
+                    else 
+                        printConfig(&listNode);
+                }
+            break;
+            case rviz::Config::Type::Value:
+                cout << endl;
+                cout << qPrintable(childConfig.getValue().toString())<<endl;
+            break;
+            defaut:
+            break;
+
+        }
+    }
+}
