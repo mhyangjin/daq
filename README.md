@@ -34,6 +34,16 @@ cp ~catkin_ws/src/daq/src/rvizs/* ./rvizs/
 ```bash
 ~/catkin_ws/build/daq$./daq
 ```
+### 구현된 기능
+1. LiDAR Top 화면 display
+2. LiDAR Side 화면 display
+3. Radar 화면 display
+4. Car Info Display
+5. GPS Display
+6.IMY Display
+7. Data Acquisition 버튼 선택 시 folder 선택 
+   - test를 위해 default folder가 제 ubuntu home으로 되어 있습니다만, 보내드릴때는 요청하신 default folder로 변경하겠습니다.
+  - start 시 datetime으로 자동 file name 생성
 
 ### restriction
 1. runtime시에 자동으로 rviz node  실행은 아직 적용되지 않았습니다. run으로 node를 실행시켜야 합니다.
