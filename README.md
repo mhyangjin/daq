@@ -11,7 +11,7 @@
 
 ```bash
 cd ~/catkin_ws/src
-~/catkin_ws/src$git clone git@github.com:mhyangjin/daq.git
+~/catkin_ws/src$git clone https://github.com/mhyangjin/daq.git
 ```
 2. catkin_ws/ 밑에서 컴파일 합니다.
 
