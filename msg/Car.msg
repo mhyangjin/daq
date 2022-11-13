@@ -1,0 +1,5 @@
+float64 veh_speed
+float64 steering_angle
+float64 yaw_rate
+float64 lon_accel
+float64 lat_accel

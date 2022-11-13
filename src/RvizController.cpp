@@ -9,9 +9,10 @@
 #include "RvizController.h"
 
 RvizController::RvizController(Ui::DaqMain* ui, QString _rvizName,QString _title)
-:DAQViz(ui, _rvizName, _title)
+:DAQViz(ui, _title),
+rvizName(_rvizName)
 {
-    loadConfig(DAQViz::rvizName, &config);
+    loadConfig(rvizName, &config);
     if ( !config.isValid()) {
         exit(-1);
     } 
@@ -20,7 +21,7 @@ RvizController::RvizController(Ui::DaqMain* ui, QString _rvizName,QString _title
     
     rviz::Config childConfig=config.mapGetChild("Visualization Manager");
     if ( childConfig.isValid()) {
-        cout <<"showRviz:Visualization Manager is Valid! : "<< qPrintable(DAQViz::rvizName) <<endl;
+        cout <<"showRviz:Visualization Manager is Valid! : "<< qPrintable(rvizName) <<endl;
     }
     panel_->initialize(manager->getSceneManager(), manager);
     manager->initialize();  
@@ -30,11 +31,12 @@ RvizController::RvizController(Ui::DaqMain* ui, QString _rvizName,QString _title
 }
 
 RvizController::RvizController(Ui::DaqMain* ui, QString _rvizName, QString _title,int _xpos, int _ypos)
-:DAQViz(ui, _rvizName,_title),
+:DAQViz(ui, _title),
 xpos(_xpos),
-ypos(_ypos)
+ypos(_ypos),
+rvizName(_rvizName)
 {
-    loadConfig(DAQViz::rvizName, &config);
+    loadConfig(rvizName, &config);
     if ( !config.isValid()) {
         exit(-1);
     }  
@@ -43,7 +45,7 @@ ypos(_ypos)
     
     rviz::Config childConfig=config.mapGetChild("Visualization Manager");
     if ( childConfig.isValid()) {
-        cout <<"showRviz:Visualization Manager is Valid! : "<< qPrintable(DAQViz::rvizName) <<endl;
+        cout <<"showRviz:Visualization Manager is : Valid! : "<< qPrintable(rvizName) <<endl;
     }
     panel_->initialize(manager->getSceneManager(), manager);
     manager->initialize();  
@@ -54,7 +56,7 @@ RvizController::~RvizController() {
 }
 
 void RvizController::clicked(){
-    cout <<"RvizController::clicked()"<<qPrintable(DAQViz::rvizName)  <<endl;
+    cout <<"RvizController::clicked()"<<qPrintable(rvizName)  <<endl;
     if ( DAQViz::buttonState == ButtonState::ON){
         closeWindow();
         DAQViz::buttonState=ButtonState::OFF;
@@ -80,9 +82,6 @@ void RvizController::showWindow() {
     DAQViz::title->show();
     panel_->show();
     ui->rviz_layout->update();
-    if (DAQViz::rvizName.contains("camera")) {
-         
-    }
     
 }
 void RvizController::closeWindow(){

@@ -36,6 +36,7 @@ private:
     rviz::VisualizationManager* manager=NULL;
     rviz::RenderPanel* panel_=NULL;
     rviz::Config config;
+    QString rvizName;
     int xpos=0;
     int ypos=0;
 };

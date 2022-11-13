@@ -11,7 +11,13 @@ set(CMAKE_PREFIX_PATH "/opt/ros/noetic/lib;/opt/ros/noetic;${CMAKE_MODULE_PATH};
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rviz
+  message_generation
+  std_msgs
+  sensor_msgs
 )
+add_message_files(FILES Sensor_status.msg Car.msg Radar.msg Track.msg Sim.msg )
+
+generate_messages(DEPENDENCIES std_msgs)
 
 ####################################################
 # QT Environment
@@ -48,9 +54,12 @@ add_definitions( -std=c++11 -fPIC)
 
 set( QT_SOURCES
   src/main.cpp
+  src/defines.h
   src/init.h
   src/daqmain.h
   src/daqmain.cpp
+  src/TopicSubscribers.h
+  src/TopicSubscribers.cpp
   src/RvizController.h
   src/RvizController.cpp
   src/DaqCameraDisplay.h
@@ -81,7 +90,8 @@ include_directories(
 # Binaries
 ##############################################################################
 
-add_executable(${PROJECT_NAME} ${QT_SOURCES} ${QT_RESOURCES_CPP} ${QT_FORMS_HPP} ${QT_MOC_HPP})
+add_executable(${PROJECT_NAME} ${QT_SOURCES} ${QT_RESOURCES_CPP} ${QT_FORMS_HPP} ${QT_MOC_HPP} ${FILES})
+
 target_link_libraries(${PROJECT_NAME}
   ${catkin_LIBRARIES}
   Qt5::Core
@@ -89,4 +99,5 @@ target_link_libraries(${PROJECT_NAME}
   Qt5::Widgets
   libyaml-cpp.so
 )
+
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

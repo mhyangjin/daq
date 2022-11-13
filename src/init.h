@@ -9,10 +9,8 @@
 #include "ui_daqmain.h"
 #include <QString>
 #include <iostream>
+#include "defines.h"
+
 using namespace std; 
 
-enum ButtonState {
-    OFF=0,
-    ON=1   
-};
 #endif

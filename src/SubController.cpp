@@ -8,36 +8,12 @@
 //======================================================================*/
 #include "SubController.h"
 
-RosDaqSub::RosDaqSub(QString rvizName,ros::MultiThreadedSpinner* _spiner) 
-:spiner(_spiner){ 
-    ros::start(); 
-    subscriber = nodeHandle.subscribe(qPrintable(rvizName), 1000, &
-RosDaqSub::subscribeCallBack,this );
-    this->start();
-        
-}
-
-void RosDaqSub::run() {
-    spiner->spin();
-}
-QStringListModel*  RosDaqSub::getListModel() {
-    return &qstringList;
-}
-void RosDaqSub::subscribeCallBack(const std_msgs::String::ConstPtr& messages) {
-    cout<<"subscribeCallBack" << messages->data.c_str()<<endl;
-    QVariant new_data(QString(messages->data.c_str()));
-    qstringList.insertRows(qstringList.rowCount(), 1);
-    qstringList.setData(qstringList.index(qstringList.rowCount()-1), new_data);
-    Q_EMIT dataUpdated();
-}
-
-
-SubController::SubController(Ui::DaqMain* ui, QString _rvizName, QString _title, ros::MultiThreadedSpinner* spnner)
-:DAQViz(ui, _rvizName,_title),
-rosDaqSub(new RosDaqSub(_rvizName, spnner) )
+SubController::SubController(Ui::DaqMain* ui, SignalsSlot* _topicSubscribers, QString _title)
+:DAQViz(ui, _title),
+topicSubscribers(_topicSubscribers )
 {
-    QObject::connect(rosDaqSub, &RosDaqSub::dataUpdated, this, &SubController::on_data_update_triggered);
-    QStringListModel* qstringList=rosDaqSub->getListModel();
+    QObject::connect(topicSubscribers, &SignalsSlot::dataUpdated, this, &SubController::on_data_update_triggered);
+    QStringListModel* qstringList=topicSubscribers->getListModel();
     qlistView.setModel(qstringList);
     //DAQViz::display_layout.addWidget(&qlistView);
     qlistView.hide();
@@ -60,7 +36,7 @@ void SubController::clicked(){
 }
 
 void SubController::showWindow() {
-    cout << "SubController::start() " << qPrintable(DAQViz::rvizName)<<endl;
+    cout << "SubController::start() " <<endl;
 
     ui->rviz_layout->addWidget(DAQViz::title,0,0);
     ui->rviz_layout->addWidget(&qlistView,1,0);

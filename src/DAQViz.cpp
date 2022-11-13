@@ -12,9 +12,8 @@
 #include <rviz/display_group.h>
 #include <rviz/config.h>
 
-DAQViz::DAQViz(Ui::DaqMain* daqMain, QString _rvizName, QString _title)
+DAQViz::DAQViz(Ui::DaqMain* daqMain,  QString _title)
 :ui(daqMain),
-rvizName(_rvizName),
 title(new QLabel(_title)),
 buttonState(ButtonState::OFF)
 {

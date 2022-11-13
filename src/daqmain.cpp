@@ -13,10 +13,7 @@ Daqmain::Daqmain(QWidget *parent)
     ui(new Ui::DaqMain)
 {
     ui->setupUi(this);
-    //test
-    connect(ui->sensor_runtest, SIGNAL(clicked()), this, SLOT(sensorRunStatus()));
-    connect(ui->sensor_stoptest, SIGNAL(clicked()), this, SLOT(sensorStopStatus()));
-
+  
     //button을 클릭할 떄 수행할 Actions를 등록해 준다.
     connect(ui->btn_acquisition, SIGNAL(clicked()), this, SLOT(acquisitionClicked()));
     connect(ui->btn_all, SIGNAL(clicked()), this, SLOT(allViewClicked()));
@@ -27,13 +24,14 @@ Daqmain::Daqmain(QWidget *parent)
     connect(ui->btn_lidarSide, SIGNAL(clicked()), this, SLOT(lidarSideClicked()));
     connect(ui->btn_lidarTop, SIGNAL(clicked()), this, SLOT(lidarTopClicked()));
     connect(ui->btn_radar, SIGNAL(clicked()), this, SLOT(radarClicked()));
-    connect(ui->btn_sensor, SIGNAL(clicked()), this, SLOT(sesorClicked()));
     connect(ui->btn_start, SIGNAL(clicked()), this, SLOT(startClicked()));
     connect(ui->btn_stop, SIGNAL(clicked()), this, SLOT(stopClicked()));
     
+    //sideBuuttonActions에서 ros::start, spiner를 생성
+    //acquisitionStatus에서도 ros spiner를 사용하므로 생성 순서를 바꾸지 말 것
     sideButtonActions=new SideButtonActions(ui);
-    //DAQViz* daqViz= new DAQViz(ui);
-    //acquisitionStatus->setDefaultImages();
+    acquisitionStatus=new AcquisitionStatus(ui);
+    
     ui->btn_start->setDisabled(true);
     ui->btn_stop->setDisabled(true);
 }
@@ -42,14 +40,6 @@ Daqmain::~Daqmain()
 {
 }
 
-void Daqmain::sensorRunStatus(){
-    sideButtonActions->sensorRunStatus();
-
-}
-void Daqmain::sensorStopStatus(){
-    sideButtonActions->sensorStopStatus();
-
-}
 void Daqmain::acquisitionClicked(){
     QString dir = QFileDialog::getExistingDirectory(this, "Open Directory", "/home/mhjin", QFileDialog::ShowDirsOnly);
     if (dir != NULL) 
@@ -88,10 +78,7 @@ void Daqmain::radarClicked(){
     sideButtonActions->radarClicked();
 
 }
-void Daqmain::sesorClicked(){
-    sideButtonActions->sesorClicked();
 
-}
 void Daqmain::startClicked(){
     sideButtonActions->startClicked();
 

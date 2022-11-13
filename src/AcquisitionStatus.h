@@ -7,35 +7,43 @@
 #ifndef ACQUISITIONSTATUS_H
 #define ACQUISITIONSTATUS_H
 #include <QMainWindow>
+#include <QThread>
 #include "init.h"
+#include <ros/ros.h>
+#include <std_msgs/String.h>
+#include "daq/Sensor_status.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class DaqMain; }
 QT_END_NAMESPACE
 
+
 class AcquisitionStatus
 {
 private:
-    enum AcquisitonStateEnum {
-        DEFAULT=0,
-        RUN,
-        STOP
+    class SensorStatus {
+    public:
+        SensorStatus(QString,QLabel*);
+        void changeState(AcquisitonStateEnum);
+        inline AcquisitonStateEnum getState(){return label_state;}
+    protected:
+        
+        AcquisitonStateEnum label_state;
+        QString sensor_name;
+        QLabel* label;
     };
 
 public:
     AcquisitionStatus(Ui::DaqMain* daqMain);
     ~AcquisitionStatus();
-    void setDefaultImages();
     void setRunStatus(QString);
     void setStopStatus(QString);
+    void subscribeCallBack(const daq::Sensor_status&);
 private:
-    /// @brief 
-    Ui::DaqMain* ui;
-    const QString img_source[3]={
-        ":img/images/state_gray.png",
-        ":img/images/state_blue.png",
-        ":img/images/state_red.png"
-    };
-    QMap<QString, QLabel*>* statusLabelMap;
+    Ui::DaqMain* ui;   
+    QMap<StsName, AcquisitionStatus::SensorStatus*>* statusMap;
+    ros::Subscriber subscriber;
+    ros::NodeHandle nodeHandle;
+    QStringList  sensorTopicList;
 };
 #endif // DAQMAIN_H

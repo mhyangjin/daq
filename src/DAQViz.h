@@ -17,7 +17,7 @@ class DAQViz: public QObject
 {
 Q_OBJECT
 public:
-    DAQViz(Ui::DaqMain*, QString,QString);
+    DAQViz(Ui::DaqMain*, QString);
     ~DAQViz();
     virtual void showWindow()=0;
     virtual void closeWindow()=0;
@@ -28,6 +28,6 @@ protected:
     Ui::DaqMain* ui=NULL;
     ButtonState buttonState;
     QGridLayout display_layout;
-    QString rvizName;
+
 };
 #endif // DAQVIZ_H

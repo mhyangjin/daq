@@ -1,0 +1,9 @@
+uint8 sim_function
+uint8 sim_status
+uint8 sim_track_id
+float32 sim_angle
+float32 sim_lat_pos
+float32 sim_lat_rate
+uint8 sim_range
+float32 sim_range_accel
+float32 sim_range_rate

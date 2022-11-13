@@ -20,9 +20,7 @@ class Daqmain : public QMainWindow
 {
 Q_OBJECT
     public slots:
-    //test
-    void sensorRunStatus();
-    void sensorStopStatus();
+
     void acquisitionClicked();
     void allViewClicked();
     void cameraClicked();
@@ -32,7 +30,6 @@ Q_OBJECT
     void lidarSideClicked();
     void lidarTopClicked();
     void radarClicked();
-    void sesorClicked();
     void startClicked();
     void stopClicked();    
 
@@ -45,7 +42,7 @@ public:
 private:
     Ui::DaqMain *ui;
     SideButtonActions *sideButtonActions;
-//    AcquisitionStatus *acquisitionStatus;
+    AcquisitionStatus *acquisitionStatus;
 
 };
 #endif // DAQMAIN_H

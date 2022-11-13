@@ -1,0 +1,12 @@
+bool track_oncoming
+bool track_grouping_changed
+float32 track_lat_rate
+uint8 track_status
+float32 track_angle
+float32 track_range
+float32 track_width
+bool track_rolling_count
+bool track_bridge_object
+float32 track_range_accel
+uint8 track_med_range_mode
+float32 track_range_rate

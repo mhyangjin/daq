@@ -20,7 +20,7 @@ cd ~/catkin_ws
 ~/catkin_ws$catkin_make
 ```
 
-3. 실행파일은 ~catkin_ws/build/daq밑에 있습니다. 
+3. 실행파일은 ~catkin_ws/build/daq밑에 있습니다. 또는 ~catkin_ws/devel/lib/daq 밑에 있음.
    실행하기에 앞서 .rviz 파일들이 실행 파일이 있는 dir/rvizs 폴더에 있어야 합니다.
    가지고 있는 .rviz file을 복사하거나 소스에 포함된 파일을 복사해 둡니다.
 
@@ -40,20 +40,19 @@ cp ~catkin_ws/src/daq/src/rvizs/* ./rvizs/
 3. Radar 화면 display
 4. Car Info Display
 5. GPS Display
-6.IMY Display
+6. IMU Display
 7. Data Acquisition 버튼 선택 시 folder 선택 
    - test를 위해 default folder가 제 ubuntu home으로 되어 있습니다만, 보내드릴때는 요청하신 default folder로 변경하겠습니다.
   - start 시 datetime으로 자동 file name 생성
+8. sensor상태로부터 상태 아이콘 적용
 
 ### restriction
 1. runtime시에 자동으로 rviz node  실행은 아직 적용되지 않았습니다. run으로 node를 실행시켜야 합니다.
 2. camera 기능이 아직 구현되지 않았습니다. imageview를 패널 안으로 넣는데 문제가 있어서 확인 중입니다.
 3. recored기능이 아직 구현되지 않았습니다. 버튼의 동작만 우선 확인해주십시요.
-4. sensor의 run/stop 기능이 아직 구현되지 않았습니다.
-5. all view 기능이 아직 구현되지 않았습니다.
-6. sensor상태로부터 상태 아이콘 적용 기능이 아직 구현되지 않았습니다.
-7. daq 종료 시 core가 발생하는 문제가 있습니다. 보완 예정입니다.
-8. menu에서 exit 을 추가할 예정입니다.
+4. all view 기능이 아직 구현되지 않았습니다.
+5. daq 종료 시 core가 발생하는 문제가 있습니다. 보완 예정입니다.
+6. menu에서 exit 을 추가할 예정입니다.
 
 
 

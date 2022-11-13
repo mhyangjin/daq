@@ -122,36 +122,6 @@
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="btn_sensor">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>10</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true"/>
-               </property>
-               <property name="text">
-                <string>Run/Stop sensor</string>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>7</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="flat">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="QPushButton" name="btn_all">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -748,20 +718,6 @@
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="8">
-            <widget class="QPushButton" name="sensor_runtest">
-             <property name="text">
-              <string>sensorRun</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="8">
-            <widget class="QPushButton" name="sensor_stoptest">
-             <property name="text">
-              <string>sensorStop</string>
              </property>
             </widget>
            </item>

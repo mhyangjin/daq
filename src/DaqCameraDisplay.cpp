@@ -8,9 +8,10 @@
 #include <rviz/display.h>
 
 DaqCameraDisplay::DaqCameraDisplay(Ui::DaqMain* ui, QString _rvizName, QString _title)
-:DAQViz(ui, _rvizName, _title)
+:DAQViz(ui, _title),
+rvizName(_rvizName)
 {
-    loadConfig(DAQViz::rvizName, &config);
+    loadConfig(rvizName, &config);
     if ( !config.isValid()) {
         exit(-1);
     } 
@@ -19,7 +20,7 @@ DaqCameraDisplay::DaqCameraDisplay(Ui::DaqMain* ui, QString _rvizName, QString _
     
     rviz::Config childConfig=config.mapGetChild("Visualization Manager");
     if ( childConfig.isValid()) {
-        cout <<"showRviz:Visualization Manager is Valid! : "<< qPrintable(DAQViz::rvizName) <<endl;
+        cout <<"showRviz:Visualization Manager is Valid! : "<< qPrintable(rvizName) <<endl;
     }
     rviz::Display* cameraDisplay= manager->createDisplay("rviz/Image","front_camera",false);
     rviz::Config front_camera=childConfig.listChildAt(0);
@@ -33,9 +34,9 @@ DaqCameraDisplay::DaqCameraDisplay(Ui::DaqMain* ui, QString _rvizName, QString _
 }
 
 DaqCameraDisplay::DaqCameraDisplay(Ui::DaqMain* ui, QString _rvizName, QString _title, int xpos, int ypos)
-:DAQViz(ui, _rvizName, _title)
+:DAQViz(ui, _title)
 {
-    loadConfig(DAQViz::rvizName, &config);
+    loadConfig(rvizName, &config);
     if ( !config.isValid()) {
         exit(-1);
     }   
@@ -45,7 +46,7 @@ DaqCameraDisplay::~DaqCameraDisplay() {
 }
 
 void DaqCameraDisplay::clicked(){
-    cout <<"RvizController::clicked()"<<qPrintable(DAQViz::rvizName)  <<endl;
+    cout <<"RvizController::clicked()"<<qPrintable(rvizName)  <<endl;
     if ( DAQViz::buttonState == ButtonState::ON){
         closeWindow();
         DAQViz::buttonState=ButtonState::OFF;
@@ -65,9 +66,7 @@ void DaqCameraDisplay::showWindow() {
     DAQViz::title->show();
     panel_->show();
     ui->rviz_layout->update();
-    if (DAQViz::rvizName.contains("camera")) {
-         
-    }
+
     
 }
 void DaqCameraDisplay::closeWindow(){
