@@ -41,7 +41,8 @@ Daqmain::~Daqmain()
 }
 
 void Daqmain::acquisitionClicked(){
-    QString dir = QFileDialog::getExistingDirectory(this, "Open Directory", "/home/mhjin/project", QFileDialog::ShowDirsOnly);
+    //QString dir = QFileDialog::getExistingDirectory(this, "Open Directory", "/home/ㅓㅑ/project", QFileDialog::ShowDirsOnly);
+    QString dir = QFileDialog::getExistingDirectory(this, "Open Directory", "/home/jiat/Data", QFileDialog::ShowDirsOnly);
     if (dir != NULL) 
         sideButtonActions->acquisitionClicked(dir );
 
@@ -89,5 +90,6 @@ void Daqmain::stopClicked(){
 }
 
 void Daqmain::closeEvent(QCloseEvent *event) {
-    system ("/home/mhjin/script/kill.sh");
+    //system ("/home/mhjin/script/kill.sh");
+    system ("/home/jiat/script/kill.sh");
 }

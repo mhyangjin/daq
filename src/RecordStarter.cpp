@@ -49,8 +49,9 @@ void RecordStarter::setRecordDir( QString dirName_){
 QString RecordStarter::start_record(){
     fileName=QDateTime::currentDateTime().toString("yyyy-mm-dd-hh-mm-ss") + ".bag";
     cout << "DIR:" << qPrintable(dirName) <<"RECORD FILENAME:" << qPrintable(fileName) <<endl;
-    options.prefix=qPrintable(dirName + "/");
+    options.prefix=qPrintable(dirName + "/"+fileName);
     options.node="Recorder";
+    options.append_date=false;
     this->start(); 
     return fileName;
 }
