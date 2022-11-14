@@ -11,7 +11,7 @@
 #include "init.h"
 #include "AcquisitionStatus.h"
 #include "DAQViz.h"
-#include "RvizController.h"
+#include "RvizViewer.h"
 #include "RecordStarter.h"
 
 class SideButtonActions {

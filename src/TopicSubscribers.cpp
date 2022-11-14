@@ -15,7 +15,7 @@ TopicSubscribers<T>::TopicSubscribers(QString _topicName,ros::MultiThreadedSpinn
 :spiner(_spiner),
 topicName(_topicName)
 { 
-    ros::start(); 
+    //ros::start(); 
     subscriber = nodeHandle.subscribe(qPrintable(topicName), 100, &TopicSubscribers<T>::subscribeCallBack,this );
     this->start();
         

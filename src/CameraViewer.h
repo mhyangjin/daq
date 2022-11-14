@@ -1,11 +1,12 @@
 //======================================================================*/
-//   Create Date: 2022/11/04
-//   ClassName  : RvizController
+//   Create Date: 2022/11/07
+//   ClassName  : CameraDisplay
 //   Author     : mhjin julu1@naver.com
-//   Class Def  : LiDAR_Top을 송출하기 위한 class
+//   Class Def  : Camera Display를  rendering하여 GUI로 보내기 위한 class
 //======================================================================*/
-#ifndef LIDARTOP_H
-#define LIDARTOP_H
+
+#ifndef CameraViewer_H
+#define CameraViewer_H
 #include "init.h"
 #include "DAQViz.h"
 #include <rviz/visualization_manager.h>
@@ -13,11 +14,12 @@
 #include <rviz/config.h>
 #include <yaml-cpp/yaml.h>
 
-class RvizController :public DAQViz{
+
+class CameraViewer : public DAQViz{
 public:
-    RvizController(Ui::DaqMain*,QString,QString);
-    RvizController(Ui::DaqMain*,QString, QString,int xpos, int ypos);
-    ~RvizController();
+    CameraViewer(Ui::DaqMain*,QString, QString);
+    CameraViewer(Ui::DaqMain*,QString, QString, int xpos, int ypos);
+    ~CameraViewer();
 
     void clicked();
     virtual void showWindow();
@@ -35,9 +37,7 @@ private:
 
     rviz::VisualizationManager* manager=NULL;
     rviz::RenderPanel* panel_=NULL;
-    rviz::Config config;
     QString rvizName;
-    int xpos=0;
-    int ypos=0;
+    rviz::Config config;
 };
 #endif

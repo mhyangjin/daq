@@ -8,6 +8,7 @@
 #define ACQUISITIONSTATUS_H
 #include <QMainWindow>
 #include <QThread>
+#include <QTime>
 #include "init.h"
 #include <ros/ros.h>
 #include <std_msgs/String.h>
@@ -18,7 +19,7 @@ namespace Ui { class DaqMain; }
 QT_END_NAMESPACE
 
 
-class AcquisitionStatus
+class AcquisitionStatus : public QThread
 {
 private:
     class SensorStatus {
@@ -26,6 +27,7 @@ private:
         SensorStatus(QString,QLabel*);
         void changeState(AcquisitonStateEnum);
         inline AcquisitonStateEnum getState(){return label_state;}
+        
     protected:
         
         AcquisitonStateEnum label_state;
@@ -36,6 +38,7 @@ private:
 public:
     AcquisitionStatus(Ui::DaqMain* daqMain);
     ~AcquisitionStatus();
+    void run();
     void setRunStatus(QString);
     void setStopStatus(QString);
     void subscribeCallBack(const daq::Sensor_status&);
@@ -45,5 +48,7 @@ private:
     ros::Subscriber subscriber;
     ros::NodeHandle nodeHandle;
     QStringList  sensorTopicList;
+    //message가 들어온 마지막 시간만 저장해 둔다
+    QTime lastTime;
 };
 #endif // DAQMAIN_H

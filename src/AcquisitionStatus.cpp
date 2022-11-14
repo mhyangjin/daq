@@ -5,7 +5,7 @@
 //   Class Def  : AcquisitionStatus 바의 상태 체크를 위한 클래스
 //======================================================================*/
 #include "AcquisitionStatus.h"
-
+#include <sstream>
 
 AcquisitionStatus::SensorStatus::SensorStatus(QString _sensor_name, QLabel* _label) 
 :sensor_name(_sensor_name),
@@ -63,15 +63,35 @@ AcquisitionStatus::AcquisitionStatus(Ui::DaqMain* daqMain)
                 
     subscriber = nodeHandle.subscribe(qPrintable(pubName), 10, &AcquisitionStatus::subscribeCallBack,this );
     
+    //topic 이 제대로 들어오는지 감시하기 위한 thread
+    this->start();
 }
 
 AcquisitionStatus::~AcquisitionStatus(){
 
 }
 
+void AcquisitionStatus::run() {
+    QTime befores=lastTime;
+    QThread::sleep(2);
+    while (true) {
+        if ( befores == lastTime)
+        {
+            ui->statusbar->showMessage("sensor 상태 메시지가 없습니다" );
+        } 
+        else {
+            ui->statusbar->clearMessage( );
+            
+            befores=lastTime;
+        } 
+        QThread::sleep(2);
+    }
+}
+
+
 void AcquisitionStatus::subscribeCallBack(const daq::Sensor_status& msg) {
     QString sensorName=msg.sensor_name.data();
-    cout << "AcquisitionStatus::subscribeCallBack: msg Num:" << msg <<endl;
+    //cout << "AcquisitionStatus::subscribeCallBack: msg Num:" << msg <<endl;
     AcquisitonStateEnum status=AcquisitonStateEnum::DEFAULT;
     //sensorTopicList 배열의 위치는  StsName 과 같다.
     StsName stsEnum =(StsName)sensorTopicList.indexOf(sensorName);
@@ -82,6 +102,8 @@ void AcquisitionStatus::subscribeCallBack(const daq::Sensor_status& msg) {
     
     auto iter=statusMap->find(stsEnum);
     iter.value()->changeState(status);
+
+    lastTime = QTime::currentTime();
 }
 
 

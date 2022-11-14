@@ -5,8 +5,8 @@
 //   Class Def  : side button을 클릭했을 때 수행할 동작들
 //======================================================================*/
 #include "sideButtonActions.h"
-#include "DaqCameraDisplay.h"
-#include "SubController.h"
+#include "CameraViewer.h"
+#include "TopicsViewer.h"
 #include "TopicSubscribers.h"
 
 #include <QFileDialog>
@@ -33,14 +33,14 @@
     //윈도우 생성시 미리 GUI창을 미리 만들어 둔다.
     rvizMap=new QMap<QString, QList<DAQViz*>*>();
     QList<DAQViz*> *lidar_tmp= new QList<DAQViz*>();
-    lidar_tmp->append( (DAQViz*) new RvizController(ui,"./rvizs/ouster.rviz","liDar Top"));
+    lidar_tmp->append( (DAQViz*) new RvizViewer(ui,"./rvizs/ouster.rviz","liDar Top"));
 
     QList<DAQViz*> *camera_tmp= new QList<DAQViz*>();
-    camera_tmp->append( (DAQViz*) new DaqCameraDisplay(ui,"./rvizs/cameras.rviz", "Camera" ));
+    camera_tmp->append( (DAQViz*) new CameraViewer(ui,"./rvizs/cameras.rviz", "Camera" ));
 
     QList<DAQViz*> *l_side_tmp= new QList<DAQViz*>();
-    l_side_tmp->append( (DAQViz*) new RvizController(ui,"./rvizs/left_vel.rviz", "liDAR Side-Left",1,0 ));
-    l_side_tmp->append( (DAQViz*) new RvizController(ui,"./rvizs/right_vel.rviz", "LiDAR Side-right",1,1 ));
+    l_side_tmp->append( (DAQViz*) new RvizViewer(ui,"./rvizs/left_vel.rviz", "liDAR Side-Left",1,0 ));
+    l_side_tmp->append( (DAQViz*) new RvizViewer(ui,"./rvizs/right_vel.rviz", "LiDAR Side-right",1,1 ));
 
     //click event를 받았을 때  display를 hide, show 처리를 위해 map에 넣어둔다.
     rvizMap->insert("lidarTop", lidar_tmp);
@@ -57,19 +57,19 @@ void SideButtonActions::createTopicSubViewers(){
     //gps
     TopicSubscribers<sensor_msgs::NavSatFix>* gps_topic= new TopicSubscribers<sensor_msgs::NavSatFix>("/gps/fix", spiner);
     QList<DAQViz*> *gps_tmp= new QList<DAQViz*>();
-    gps_tmp->append( (DAQViz*) new SubController(ui, (SignalsSlot*)gps_topic, "GPS"));
+    gps_tmp->append( (DAQViz*) new TopicsViewer(ui, (SignalsSlot*)gps_topic, "GPS"));
     //imu
     TopicSubscribers<sensor_msgs::Imu>* imu_topic= new TopicSubscribers<sensor_msgs::Imu>("/gps/imu", spiner);
     QList<DAQViz*> *imu_tmp= new QList<DAQViz*>();
-    imu_tmp->append( (DAQViz*) new SubController(ui, (SignalsSlot*)imu_topic, "IMU"));
+    imu_tmp->append( (DAQViz*) new TopicsViewer(ui, (SignalsSlot*)imu_topic, "IMU"));
     //radar
     TopicSubscribers<daq::Radar>* radar_topic= new TopicSubscribers<daq::Radar>("/can/radar", spiner);
     QList<DAQViz*> *radar_tmp= new QList<DAQViz*>();
-    radar_tmp->append( (DAQViz*) new SubController(ui,(SignalsSlot*)radar_topic,"radar"));
+    radar_tmp->append( (DAQViz*) new TopicsViewer(ui,(SignalsSlot*)radar_topic,"radar"));
     //car
     TopicSubscribers<daq::Car>* car_topic= new TopicSubscribers<daq::Car>("/can/car", spiner);
      QList<DAQViz*> *car_tmp= new QList<DAQViz*>();
-    car_tmp->append( (DAQViz*) new SubController(ui,(SignalsSlot*)car_topic,"Car" ));
+    car_tmp->append( (DAQViz*) new TopicsViewer(ui,(SignalsSlot*)car_topic,"Car" ));
     
     //click event를 받았을 때  display를 hide, show 처리를 위해 map에 넣어둔다.
     rvizMap->insert("gps", gps_tmp);
@@ -86,33 +86,33 @@ void SideButtonActions::allViewClicked(){
 void SideButtonActions::cameraClicked(){
     this->allStop("cameras");
     cout << "SideButtonActions::cameraClicked()"<<endl;
-    DaqCameraDisplay* controller=(DaqCameraDisplay*)rvizMap->find("cameras").value()->at(0);
+    CameraViewer* controller=(CameraViewer*)rvizMap->find("cameras").value()->at(0);
     controller->clicked();    
 }
 
 void SideButtonActions::carInfoClicked(){
     this->allStop("car");
     cout << "SideButtonActions::carClicked()"<<endl;
-    SubController* controller=(SubController*)rvizMap->find("car").value()->at(0);
+    TopicsViewer* controller=(TopicsViewer*)rvizMap->find("car").value()->at(0);
     controller->clicked();
 
 }
 void SideButtonActions::gpsClicked(){
     this->allStop("gps");
     cout << "SideButtonActions::gpsClicked()"<<endl;
-    SubController* controller=(SubController*)rvizMap->find("gps").value()->at(0);
+    TopicsViewer* controller=(TopicsViewer*)rvizMap->find("gps").value()->at(0);
     controller->clicked();
 }
 void SideButtonActions::imuClicked(){
     this->allStop("imu");
     cout << "SideButtonActions::imuClicked()"<<endl;
-    SubController* controller=(SubController*)rvizMap->find("imu").value()->at(0);
+    TopicsViewer* controller=(TopicsViewer*)rvizMap->find("imu").value()->at(0);
     controller->clicked();
 }
 void SideButtonActions::radarClicked(){
     this->allStop("radar");
     cout << "SideButtonActions::radarClicked()"<<endl;
-    SubController* controller=(SubController*)rvizMap->find("radar").value()->at(0);
+    TopicsViewer* controller=(TopicsViewer*)rvizMap->find("radar").value()->at(0);
     controller->clicked();
 }
 
@@ -121,14 +121,14 @@ void SideButtonActions::lidarSideClicked(){
     cout << "SideButtonActions::lidarSideClicked()"<<endl;
     QList<DAQViz*> *dapArray=rvizMap->find("lidarSide").value();
     for (int i=0; i < dapArray->size(); i++) {
-        RvizController* controller=(RvizController*)dapArray->at(i);
+        RvizViewer* controller=(RvizViewer*)dapArray->at(i);
         controller->clicked();
     }
 }
 void SideButtonActions::lidarTopClicked(){
     this->allStop("lidarTop");
     cout << "SideButtonActions::lidarTopClicked()"<<endl;
-    RvizController* controller=(RvizController*)rvizMap->find("lidarTop").value()->at(0);
+    RvizViewer* controller=(RvizViewer*)rvizMap->find("lidarTop").value()->at(0);
     controller->clicked();
 }
 
@@ -147,6 +147,7 @@ void SideButtonActions::startClicked(){
     ui->label_fileName->setText(save_to);
     ui->btn_start->setDisabled(true);
     ui->btn_stop->setEnabled(true);
+    
 
 }
 void SideButtonActions::stopClicked(){

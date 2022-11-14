@@ -1,13 +1,13 @@
 //======================================================================*/
 //   Create Date: 2022/11/07
-//   ClassName  : DaqCameraDisplay
+//   ClassName  : CameraViewer
 //   Author     : mhjin julu1@naver.com
 //   Class Def  : Camera Display를  rendering하여 GUI로 보내기 위한 class
 //======================================================================*/
-#include "DaqCameraDisplay.h"
+#include "CameraViewer.h"
 #include <rviz/display.h>
 
-DaqCameraDisplay::DaqCameraDisplay(Ui::DaqMain* ui, QString _rvizName, QString _title)
+CameraViewer::CameraViewer(Ui::DaqMain* ui, QString _rvizName, QString _title)
 :DAQViz(ui, _title),
 rvizName(_rvizName)
 {
@@ -33,7 +33,7 @@ rvizName(_rvizName)
     //manager->load(childConfig);
 }
 
-DaqCameraDisplay::DaqCameraDisplay(Ui::DaqMain* ui, QString _rvizName, QString _title, int xpos, int ypos)
+CameraViewer::CameraViewer(Ui::DaqMain* ui, QString _rvizName, QString _title, int xpos, int ypos)
 :DAQViz(ui, _title)
 {
     loadConfig(rvizName, &config);
@@ -42,11 +42,11 @@ DaqCameraDisplay::DaqCameraDisplay(Ui::DaqMain* ui, QString _rvizName, QString _
     }   
 }
 
-DaqCameraDisplay::~DaqCameraDisplay() {
+CameraViewer::~CameraViewer() {
 }
 
-void DaqCameraDisplay::clicked(){
-    cout <<"RvizController::clicked()"<<qPrintable(rvizName)  <<endl;
+void CameraViewer::clicked(){
+    cout <<"CameraViewer::clicked()"<<qPrintable(rvizName)  <<endl;
     if ( DAQViz::buttonState == ButtonState::ON){
         closeWindow();
         DAQViz::buttonState=ButtonState::OFF;
@@ -58,7 +58,7 @@ void DaqCameraDisplay::clicked(){
     
 }
 
-void DaqCameraDisplay::showWindow() {
+void CameraViewer::showWindow() {
     DAQViz::buttonState=ButtonState::ON;
     ui->rviz_layout->addWidget(DAQViz::title);
     ui->rviz_layout->addWidget(panel_);
@@ -69,7 +69,7 @@ void DaqCameraDisplay::showWindow() {
 
     
 }
-void DaqCameraDisplay::closeWindow(){
+void CameraViewer::closeWindow(){
     DAQViz::buttonState=ButtonState::OFF;
     panel_->hide();
     DAQViz::title->hide();
@@ -81,7 +81,7 @@ void DaqCameraDisplay::closeWindow(){
 
 
 
-void DaqCameraDisplay::loadConfig( QString rvizFileName,rviz::Config *config) {
+void CameraViewer::loadConfig( QString rvizFileName,rviz::Config *config) {
     //rviz::YamlConfigReader가 .rviz 로 저장된 yaml의 array type을 읽어오지 못해서 내부 구현 함
     /*
     rviz::YamlConfigReader config_reader;
@@ -93,7 +93,7 @@ void DaqCameraDisplay::loadConfig( QString rvizFileName,rviz::Config *config) {
     loadNodes(&_rootNode, config);
 }
 
-void DaqCameraDisplay::loadNodes(YAML::Node* node, rviz::Config* config) {
+void CameraViewer::loadNodes(YAML::Node* node, rviz::Config* config) {
     for(YAML::const_iterator it=node->begin(); it!=node->end(); it++) {
         YAML::Node _node=it->first;
         YAML::Node _value=it->second;
@@ -134,7 +134,7 @@ void DaqCameraDisplay::loadNodes(YAML::Node* node, rviz::Config* config) {
     }
 }
 
-void DaqCameraDisplay::printNodes(YAML::Node* node) {
+void CameraViewer::printNodes(YAML::Node* node) {
     for(YAML::const_iterator it=node->begin(); it!=node->end(); it++) {
         YAML::Node _node=it->first;
         YAML::Node value=it->second;
@@ -163,7 +163,7 @@ void DaqCameraDisplay::printNodes(YAML::Node* node) {
     }
 }
 
-void DaqCameraDisplay::printConfig(rviz::Config* config) {
+void CameraViewer::printConfig(rviz::Config* config) {
     rviz::Config::MapIterator master_iter=config->mapIterator();;
     for ( ; master_iter.isValid(); master_iter.advance()) {
         QString key=master_iter.currentKey();

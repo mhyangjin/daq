@@ -20,7 +20,6 @@ class Daqmain : public QMainWindow
 {
 Q_OBJECT
     public slots:
-
     void acquisitionClicked();
     void allViewClicked();
     void cameraClicked();
@@ -35,6 +34,7 @@ Q_OBJECT
 
 
 public:
+    void closeEvent(QCloseEvent *event);
     Daqmain(QWidget *parent = nullptr);
     ~Daqmain();
     

@@ -7,11 +7,18 @@
 #ifndef RECORDSTARTER_H
 #define RECORDSTARTER_H
 #include "init.h"
+#include <QStringList>
+#include <vector>
+#include <QThread>
 
-class RecordStarter{
+#include "rosbag/recorder.h"
+#include "ros/ros.h"
+
+class RecordStarter : public QThread{
 public:
     RecordStarter();
     ~RecordStarter();
+    void run();
     void setRecordDir(QString);
     QString start_record();
     QString stop_record();
@@ -20,5 +27,8 @@ private:
     QString dirName;
     QString fileName;
     ButtonState buttonState;
+    
+    rosbag::RecorderOptions options;
+    rosbag::Recorder* recorder=NULL;
 };
 #endif

@@ -1,14 +1,14 @@
 //======================================================================*/
 //   Create Date: 2022/11/04
-//   ClassName  : RvizController
+//   ClassName  : RvizViewer
 //   Author     : mhjin julu1@naver.com
 //   Class Def  : .rviz file을 읽어서 rviz::Config로 만든 후 VisualizationManager
 //                를 통해 GUI로 보내기 위한  class.
 //                sensor 별로 이 클래스를 상속받아 하위로 구현한다.
 //======================================================================*/
-#include "RvizController.h"
+#include "RvizViewer.h"
 
-RvizController::RvizController(Ui::DaqMain* ui, QString _rvizName,QString _title)
+RvizViewer::RvizViewer(Ui::DaqMain* ui, QString _rvizName,QString _title)
 :DAQViz(ui, _title),
 rvizName(_rvizName)
 {
@@ -30,7 +30,7 @@ rvizName(_rvizName)
     //panel_->hide();
 }
 
-RvizController::RvizController(Ui::DaqMain* ui, QString _rvizName, QString _title,int _xpos, int _ypos)
+RvizViewer::RvizViewer(Ui::DaqMain* ui, QString _rvizName, QString _title,int _xpos, int _ypos)
 :DAQViz(ui, _title),
 xpos(_xpos),
 ypos(_ypos),
@@ -52,11 +52,11 @@ rvizName(_rvizName)
     manager->load(childConfig);
 }
 
-RvizController::~RvizController() {
+RvizViewer::~RvizViewer() {
 }
 
-void RvizController::clicked(){
-    cout <<"RvizController::clicked()"<<qPrintable(rvizName)  <<endl;
+void RvizViewer::clicked(){
+    cout <<"RvizViewer::clicked()"<<qPrintable(rvizName)  <<endl;
     if ( DAQViz::buttonState == ButtonState::ON){
         closeWindow();
         DAQViz::buttonState=ButtonState::OFF;
@@ -68,7 +68,7 @@ void RvizController::clicked(){
     
 }
 
-void RvizController::showWindow() {
+void RvizViewer::showWindow() {
     DAQViz::buttonState=ButtonState::ON;
     if ( ypos >  0) {
         ui->rviz_layout->addWidget(DAQViz::title, 0, ypos);
@@ -84,7 +84,7 @@ void RvizController::showWindow() {
     ui->rviz_layout->update();
     
 }
-void RvizController::closeWindow(){
+void RvizViewer::closeWindow(){
     DAQViz::buttonState=ButtonState::OFF;
     DAQViz::title->hide();
     panel_->hide();
@@ -97,7 +97,7 @@ void RvizController::closeWindow(){
 
 
 
-void RvizController::loadConfig( QString rvizFileName,rviz::Config *config) {
+void RvizViewer::loadConfig( QString rvizFileName,rviz::Config *config) {
     //rviz::YamlConfigReader가 .rviz 로 저장된 yaml의 array type을 읽어오지 못해서 내부 구현 함
     /*
     rviz::YamlConfigReader config_reader;
@@ -109,7 +109,7 @@ void RvizController::loadConfig( QString rvizFileName,rviz::Config *config) {
     loadNodes(&_rootNode, config);
 }
 
-void RvizController::loadNodes(YAML::Node* node, rviz::Config* config) {
+void RvizViewer::loadNodes(YAML::Node* node, rviz::Config* config) {
     for(YAML::const_iterator it=node->begin(); it!=node->end(); it++) {
         YAML::Node _node=it->first;
         YAML::Node _value=it->second;
@@ -150,7 +150,7 @@ void RvizController::loadNodes(YAML::Node* node, rviz::Config* config) {
     }
 }
 
-void RvizController::printNodes(YAML::Node* node) {
+void RvizViewer::printNodes(YAML::Node* node) {
     for(YAML::const_iterator it=node->begin(); it!=node->end(); it++) {
         YAML::Node _node=it->first;
         YAML::Node value=it->second;
@@ -179,7 +179,7 @@ void RvizController::printNodes(YAML::Node* node) {
     }
 }
 
-void RvizController::printConfig(rviz::Config* config) {
+void RvizViewer::printConfig(rviz::Config* config) {
     rviz::Config::MapIterator master_iter=config->mapIterator();;
     for ( ; master_iter.isValid(); master_iter.advance()) {
         QString key=master_iter.currentKey();

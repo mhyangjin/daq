@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
   std_msgs
   sensor_msgs
+  rosbag
 )
 add_message_files(FILES Sensor_status.msg Car.msg Radar.msg Track.msg Sim.msg )
 
@@ -60,14 +61,14 @@ set( QT_SOURCES
   src/daqmain.cpp
   src/TopicSubscribers.h
   src/TopicSubscribers.cpp
-  src/RvizController.h
-  src/RvizController.cpp
-  src/DaqCameraDisplay.h
-  src/DaqCameraDisplay.cpp
+  src/RvizViewer.h
+  src/RvizViewer.cpp
+  src/CameraViewer.h
+  src/CameraViewer.cpp
   src/RecordStarter.h
   src/RecordStarter.cpp
-  src/SubController.h
-  src/SubController.cpp
+  src/TopicsViewer.h
+  src/TopicsViewer.cpp
   src/sideButtonActions.h
   src/sideButtonActions.cpp
   src/AcquisitionStatus.h

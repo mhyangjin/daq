@@ -1,11 +1,11 @@
 //======================================================================*/
 //   Create Date: 2022/11/08
-//   ClassName  : SubController
+//   ClassName  : TopicsViewer
 //   Author     : mhjin julu1@naver.com
 //   Class Def  : LiDAR_Top을 송출하기 위한 class
 //======================================================================*/
-#ifndef SUBCONTROLLER_H
-#define SUBCONTROLLER_H
+#ifndef TopicsViewer_H
+#define TopicsViewer_H
 #include "init.h"
 #include "DAQViz.h"
 #include "TopicSubscribers.h"
@@ -16,14 +16,14 @@
 #include <QThread>
 
 
-class SubController :public DAQViz {
+class TopicsViewer :public DAQViz {
     Q_OBJECT
 private:
 
 public:
 
-    SubController(Ui::DaqMain*,SignalsSlot*, QString);
-    ~SubController();
+    TopicsViewer(Ui::DaqMain*,SignalsSlot*, QString);
+    ~TopicsViewer();
     void clicked();
     virtual void showWindow();
     virtual void closeWindow();
