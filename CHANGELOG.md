@@ -1,3 +1,9 @@
+# Version 0.5.0 - 2022.11.15
+1. camera 기능 구현
+2. recorder start/stop 구현
+3. all view 기능 구현
+
+
 # Version 0.4.0 - 2022.11.14
 1. record 기능 추가
 2. start/stop시 ros launch, kill 기능 추가

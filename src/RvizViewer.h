@@ -16,11 +16,10 @@
 class RvizViewer :public DAQViz{
 public:
     RvizViewer(Ui::DaqMain*,QString,QString);
-    RvizViewer(Ui::DaqMain*,QString, QString,int xpos, int ypos);
     ~RvizViewer();
 
-    void clicked();
     virtual void showWindow();
+    virtual void showWindow(int, int );
     virtual void closeWindow();
 
 private:
@@ -37,7 +36,5 @@ private:
     rviz::RenderPanel* panel_=NULL;
     rviz::Config config;
     QString rvizName;
-    int xpos=0;
-    int ypos=0;
 };
 #endif

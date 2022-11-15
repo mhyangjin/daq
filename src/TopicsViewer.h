@@ -24,8 +24,8 @@ public:
 
     TopicsViewer(Ui::DaqMain*,SignalsSlot*, QString);
     ~TopicsViewer();
-    void clicked();
     virtual void showWindow();
+    virtual void showWindow(int , int);
     virtual void closeWindow();
 public slots:
     void on_data_update_triggered();

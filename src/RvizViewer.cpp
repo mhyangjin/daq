@@ -30,60 +30,31 @@ rvizName(_rvizName)
     //panel_->hide();
 }
 
-RvizViewer::RvizViewer(Ui::DaqMain* ui, QString _rvizName, QString _title,int _xpos, int _ypos)
-:DAQViz(ui, _title),
-xpos(_xpos),
-ypos(_ypos),
-rvizName(_rvizName)
-{
-    loadConfig(rvizName, &config);
-    if ( !config.isValid()) {
-        exit(-1);
-    }  
-    panel_= new rviz::RenderPanel();  
-    manager= new rviz::VisualizationManager(panel_);
-    
-    rviz::Config childConfig=config.mapGetChild("Visualization Manager");
-    if ( childConfig.isValid()) {
-        cout <<"showRviz:Visualization Manager is : Valid! : "<< qPrintable(rvizName) <<endl;
-    }
-    panel_->initialize(manager->getSceneManager(), manager);
-    manager->initialize();  
-    manager->load(childConfig);
-}
-
 RvizViewer::~RvizViewer() {
-}
-
-void RvizViewer::clicked(){
-    cout <<"RvizViewer::clicked()"<<qPrintable(rvizName)  <<endl;
-    if ( DAQViz::buttonState == ButtonState::ON){
-        closeWindow();
-        DAQViz::buttonState=ButtonState::OFF;
-    }
-    else {
-        showWindow();
-        DAQViz::buttonState=ButtonState::ON;
-    }
-    
 }
 
 void RvizViewer::showWindow() {
     DAQViz::buttonState=ButtonState::ON;
-    if ( ypos >  0) {
-        ui->rviz_layout->addWidget(DAQViz::title, 0, ypos);
-        ui->rviz_layout->addWidget(panel_, xpos, ypos);
-    }
-    else {
-        ui->rviz_layout->addWidget(DAQViz::title,0,0);
-        ui->rviz_layout->addWidget(panel_,1,0);
-    }
+    ui->rviz_layout->addWidget(DAQViz::title,0,0);
+    ui->rviz_layout->addWidget(panel_,1,0);
     manager->startUpdate();
     DAQViz::title->show();
     panel_->show();
     ui->rviz_layout->update();
     
 }
+
+
+void RvizViewer::showWindow(int xpos, int ypos) {
+    DAQViz::buttonState=ButtonState::ON;
+    ui->rviz_layout->addWidget(DAQViz::title, xpos-1, ypos);
+    ui->rviz_layout->addWidget(panel_, xpos, ypos);
+    manager->startUpdate();
+    DAQViz::title->show();
+    panel_->show();
+    ui->rviz_layout->update();
+}
+
 void RvizViewer::closeWindow(){
     DAQViz::buttonState=ButtonState::OFF;
     DAQViz::title->hide();

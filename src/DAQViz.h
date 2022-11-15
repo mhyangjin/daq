@@ -20,6 +20,7 @@ public:
     DAQViz(Ui::DaqMain*, QString);
     ~DAQViz();
     virtual void showWindow()=0;
+    virtual void showWindow(int, int)=0;
     virtual void closeWindow()=0;
     inline ButtonState getButtonState() {return buttonState;};
 public:

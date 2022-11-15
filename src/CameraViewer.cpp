@@ -6,6 +6,7 @@
 //======================================================================*/
 #include "CameraViewer.h"
 #include <rviz/display.h>
+#include "DaqCameraDisplay.h"
 
 CameraViewer::CameraViewer(Ui::DaqMain* ui, QString _rvizName, QString _title)
 :DAQViz(ui, _title),
@@ -15,67 +16,107 @@ rvizName(_rvizName)
     if ( !config.isValid()) {
         exit(-1);
     } 
-    panel_= new rviz::RenderPanel();  
-    manager= new rviz::VisualizationManager(panel_);
-    
+     
     rviz::Config childConfig=config.mapGetChild("Visualization Manager");
     if ( childConfig.isValid()) {
         cout <<"showRviz:Visualization Manager is Valid! : "<< qPrintable(rvizName) <<endl;
     }
-    rviz::Display* cameraDisplay= manager->createDisplay("rviz/Image","front_camera",false);
-    rviz::Config front_camera=childConfig.listChildAt(0);
-    cameraDisplay->load(front_camera);
 
-    panel_->initialize(manager->getSceneManager(), manager);
-    manager->initialize();  
-    //DAQViz::display_layout.addWidget(panel_);
-    panel_->hide();
-    //manager->load(childConfig);
-}
-
-CameraViewer::CameraViewer(Ui::DaqMain* ui, QString _rvizName, QString _title, int xpos, int ypos)
-:DAQViz(ui, _title)
-{
-    loadConfig(rvizName, &config);
-    if ( !config.isValid()) {
-        exit(-1);
-    }   
+    buildDisplay( &childConfig  );
+    
 }
 
 CameraViewer::~CameraViewer() {
 }
 
-void CameraViewer::clicked(){
-    cout <<"CameraViewer::clicked()"<<qPrintable(rvizName)  <<endl;
-    if ( DAQViz::buttonState == ButtonState::ON){
-        closeWindow();
-        DAQViz::buttonState=ButtonState::OFF;
+void CameraViewer::buildDisplay(rviz::Config* config) {
+    for (int i=0; i<3; i++) {
+        panels[i]= new rviz::RenderPanel();  
+        managers[i]= new rviz::VisualizationManager(panels[i]);  
+
+        rviz::Config camera_config   = config->listChildAt(i);
+        displays[i]=new DaqCameraDisplay(panels[i]);
+        displays[i]->load(camera_config);
+        managers[i]-> addDisplay(displays[i], true);
+        managers[i] ->initialize();
+
+        titleLabels[i] = new QLabel();
+        titleLabels[i]->setText(cameraTitles[i]);
+        titleLabels[i]->setMaximumSize(10000,20);
+        titleLabels[i]->adjustSize();
+        titleLabels[i]->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);    //display_layout.addWidget(&title);
+        titleLabels[i]->setAlignment(Qt::AlignCenter);
+        titleLabels[i]->hide();
+        panels[i]->hide();
     }
-    else {
-        showWindow();
-        DAQViz::buttonState=ButtonState::ON;
-    }
-    
 }
 
 void CameraViewer::showWindow() {
     DAQViz::buttonState=ButtonState::ON;
-    ui->rviz_layout->addWidget(DAQViz::title);
-    ui->rviz_layout->addWidget(panel_);
-    manager->startUpdate();
-    DAQViz::title->show();
-    panel_->show();
-    ui->rviz_layout->update();
+    ui->rviz_layout->addWidget(DAQViz::title,0,1);
 
-    
+    for (int i=0; i<3; i++) {
+        switch (i) {
+            case 0:            
+                ui->rviz_layout->addWidget( titleLabels[i]  ,1,1 );
+                ui->rviz_layout->addWidget( panels[i]       ,2,1 );
+                break;
+            case 1:
+                ui->rviz_layout->addWidget( titleLabels[i]  ,3,0 );
+                ui->rviz_layout->addWidget( panels[i]       ,4,0 );
+                break;
+            case 2:
+                ui->rviz_layout->addWidget( titleLabels[i]  ,3,2 );
+                ui->rviz_layout->addWidget( panels[i]       ,4,2 );
+                break;
+        }
+        titleLabels[i]->show();
+        managers[i]->startUpdate();
+        panels[i]->show();
+    }
+    DAQViz::title->show();
+    ui->rviz_layout->update();    
 }
+
+void CameraViewer::showWindow(int xpos, int ypos) {
+    DAQViz::buttonState=ButtonState::ON;
+    ui->rviz_layout->addWidget(DAQViz::title,0,1);
+
+    for (int i=0; i<3; i++) {
+        switch (i) {
+            case 0:            
+                ui->rviz_layout->addWidget( titleLabels[i]  , xpos,1 );
+                ui->rviz_layout->addWidget( panels[i]       ,xpos+1,1 );
+                break;
+            case 1:
+                ui->rviz_layout->addWidget( titleLabels[i]  ,xpos,0 );
+                ui->rviz_layout->addWidget( panels[i]       ,xpos+1,0 );
+                break;
+            case 2:
+                ui->rviz_layout->addWidget( titleLabels[i]  ,xpos,2 );
+                ui->rviz_layout->addWidget( panels[i]       ,xpos+1,2 );
+                break;
+        }
+        titleLabels[i]->show();
+        managers[i]->startUpdate();
+        panels[i]->show();
+    }
+    DAQViz::title->show();
+    ui->rviz_layout->update();    
+}
+
 void CameraViewer::closeWindow(){
     DAQViz::buttonState=ButtonState::OFF;
-    panel_->hide();
     DAQViz::title->hide();
-    manager->stopUpdate();
+    for (int i=0; i<3; i++) {
+        panels[i]->hide();
+        managers[i]->stopUpdate();
+        ui->rviz_layout->removeWidget( panels[i]        );
+        ui->rviz_layout->removeWidget( titleLabels[i]   );
+        titleLabels[i]->hide();   
+    }
+    DAQViz::title->hide();
     ui->rviz_layout->removeWidget(DAQViz::title);
-    ui->rviz_layout->removeWidget(panel_);
     ui->rviz_layout->update();
 }
 
@@ -193,3 +234,4 @@ void CameraViewer::printConfig(rviz::Config* config) {
         }
     }
 }
+

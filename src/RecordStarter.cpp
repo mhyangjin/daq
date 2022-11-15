@@ -30,34 +30,37 @@ RecordStarter::RecordStarter()
     ros::Duration duration(10,0); //ros::Duration(sec, nsec)
     options.max_duration=duration;
     options.topics=topics;
-    
+    recorder=new DaqRecorder( options);
     
 }
 RecordStarter::~RecordStarter(){
 
 }
 void RecordStarter::run() {
-    cout <<"RecordStarter::run1-" << ros::this_node::getName() << endl;
-    ros::start();
-    recorder=new rosbag::Recorder( options);
-    cout <<"RecordStarter::run2-" << ros::this_node::getName() << endl;
+    cout <<"RecordStarter::run()" <<endl;
     recorder->run();
+    cout <<"RecordStarter::stop()" <<endl;
+
 }
 void RecordStarter::setRecordDir( QString dirName_){
     dirName=dirName_;
 }
+/// @brief 
+/// @return 
 QString RecordStarter::start_record(){
     fileName=QDateTime::currentDateTime().toString("yyyy-mm-dd-hh-mm-ss") + ".bag";
     cout << "DIR:" << qPrintable(dirName) <<"RECORD FILENAME:" << qPrintable(fileName) <<endl;
     options.prefix=qPrintable(dirName + "/"+fileName);
     options.node="Recorder";
     options.append_date=false;
+    recorder->reSet(options);
     this->start(); 
     return fileName;
 }
 
 QString RecordStarter::stop_record(){
     cout <<"record shutdown"<<endl;
-    ros::shutdown();
+    recorder->stopRecorder(true);
+    //delete recorder;
     return dirName;
 }

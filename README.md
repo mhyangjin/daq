@@ -46,15 +46,15 @@ cp ~catkin_ws/src/daq/src/rvizs/* ./rvizs/
 8. sensor상태로부터 상태 아이콘 적용
 9. recored기능
 10. runtime시에 자동으로 run, 종료시 kill 기능 적용
+11. camera 기능 구현
+12. recorder start/stop 구현
+13. all view 기능 구현
 
 ### restriction
 1. run/kill은 /home/jiat/script/ 밑의 run.sh kill.sh을 호출합니다. 추후 환경설정으로 변경
-2. camera 기능이 아직 구현되지 않았습니다. imageview를 패널 안으로 넣는데 문제가 있어서 확인 중입니다.
-3. recored start만 구현됨, stop 되지 않음. 윈도우 종료시 종료됨. 중간 stop은 ros library에서 baglog로 동작하도록 되어 있어 
-   다른 node와 별개로 recorder만 종료하는 기능이 안됨. 종료 방법을 찾는 중.
-4. all view 기능이 아직 구현되지 않았습니다.
-5. daq 종료 시 core가 발생하는 문제가 있습니다. 보완 예정입니다.
-6. menu에서 exit 을 추가할 예정입니다.
+2. daq 종료 시 core가 발생하는 문제가 있습니다. 보완 예정입니다.
+3. menu에서 exit 을 추가할 예정입니다.
+4. replay 기능 추가
 
 
 

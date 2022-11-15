@@ -20,7 +20,7 @@ buttonState(ButtonState::OFF)
     title->setMaximumSize(10000,20);
     title->adjustSize();
     title->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);    //display_layout.addWidget(&title);
-    title->setAlignment(Qt::AlignCenter);
+    title->setAlignment(Qt::AlignCenter|Qt::AlignBottom);
     title->hide();
 }
 

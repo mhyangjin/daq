@@ -63,8 +63,12 @@ set( QT_SOURCES
   src/TopicSubscribers.cpp
   src/RvizViewer.h
   src/RvizViewer.cpp
+  src/DaqCameraDisplay.h
+  src/DaqCameraDisplay.cpp
   src/CameraViewer.h
   src/CameraViewer.cpp
+  src/DaqRecorder.h
+  src/DaqRecorder.cpp
   src/RecordStarter.h
   src/RecordStarter.cpp
   src/TopicsViewer.h

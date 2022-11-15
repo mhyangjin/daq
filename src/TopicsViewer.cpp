@@ -23,23 +23,25 @@ TopicsViewer::~TopicsViewer() {
 
 }
 
-void TopicsViewer::clicked(){
-    cout <<"TopicsViewer::clicked()" <<endl;
-    if ( buttonState == ButtonState::ON){
-        closeWindow();
-        DAQViz::buttonState=ButtonState::OFF;
-    }
-    else {
-        showWindow();
-        DAQViz::buttonState=ButtonState::ON;
-    }
-}
 
 void TopicsViewer::showWindow() {
     cout << "TopicsViewer::start() " <<endl;
-
+    DAQViz::buttonState=ButtonState::ON;
     ui->rviz_layout->addWidget(DAQViz::title,0,0);
     ui->rviz_layout->addWidget(&qlistView,1,0);
+    
+    DAQViz::title->show();
+    qlistView.show();
+    ui->rviz_layout->update();
+    
+}
+
+
+void TopicsViewer::showWindow(int xpos, int ypos) {
+    cout << "TopicsViewer::start() " <<endl;
+    DAQViz::buttonState=ButtonState::ON;
+    ui->rviz_layout->addWidget(DAQViz::title,xpos-1,ypos);
+    ui->rviz_layout->addWidget(&qlistView,xpos,ypos);
     
     DAQViz::title->show();
     qlistView.show();
@@ -49,9 +51,10 @@ void TopicsViewer::showWindow() {
 
 void TopicsViewer::closeWindow() {
     cout << "TopicsViewer::stop() " <<endl;
+    DAQViz::buttonState=ButtonState::OFF;
     DAQViz::title->hide();
     qlistView.hide();
-    DAQViz::buttonState=ButtonState::OFF;
+    
     ui->rviz_layout->removeWidget(DAQViz::title);
     ui->rviz_layout->removeWidget(&qlistView);
     ui->rviz_layout->update();

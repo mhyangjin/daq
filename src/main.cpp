@@ -14,10 +14,12 @@ int main(int argc, char *argv[])
   {
     ros::init( argc, argv, "daq", ros::init_options::AnonymousName );
   }
-    //system ("/home/mhjin/script/run.sh");
-    system ("/home/jiat/script/run.sh");
+    system ("/home/mhjin/script/run.sh");
+    //system ("/home/jiat/script/run.sh");
     QApplication a(argc, argv);
     Daqmain w;
     w.show();
-    return a.exec();
+    int res= a.exec();
+    //ros::waitForShutdown();
+    return res;
 }

@@ -27,8 +27,7 @@ Daqmain::Daqmain(QWidget *parent)
     connect(ui->btn_start, SIGNAL(clicked()), this, SLOT(startClicked()));
     connect(ui->btn_stop, SIGNAL(clicked()), this, SLOT(stopClicked()));
     
-    //sideBuuttonActions에서 ros::start, spiner를 생성
-    //acquisitionStatus에서도 ros spiner를 사용하므로 생성 순서를 바꾸지 말 것
+
     sideButtonActions=new SideButtonActions(ui);
     acquisitionStatus=new AcquisitionStatus(ui);
     
@@ -41,8 +40,8 @@ Daqmain::~Daqmain()
 }
 
 void Daqmain::acquisitionClicked(){
-    //QString dir = QFileDialog::getExistingDirectory(this, "Open Directory", "/home/ㅓㅑ/project", QFileDialog::ShowDirsOnly);
-    QString dir = QFileDialog::getExistingDirectory(this, "Open Directory", "/home/jiat/Data", QFileDialog::ShowDirsOnly);
+    QString dir = QFileDialog::getExistingDirectory(this, "Open Directory", "/home/mhjin/project", QFileDialog::ShowDirsOnly);
+    //QString dir = QFileDialog::getExistingDirectory(this, "Open Directory", "/home/jiat/Data", QFileDialog::ShowDirsOnly);
     if (dir != NULL) 
         sideButtonActions->acquisitionClicked(dir );
 
@@ -90,6 +89,7 @@ void Daqmain::stopClicked(){
 }
 
 void Daqmain::closeEvent(QCloseEvent *event) {
-    //system ("/home/mhjin/script/kill.sh");
-    system ("/home/jiat/script/kill.sh");
+    ros::shutdown();
+    system ("/home/mhjin/script/kill.sh");
+    //system ("/home/jiat/script/kill.sh");
 }

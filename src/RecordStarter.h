@@ -11,8 +11,8 @@
 #include <vector>
 #include <QThread>
 
-#include "rosbag/recorder.h"
-#include "ros/ros.h"
+#include "DaqRecorder.h"
+#include <ros/ros.h>
 
 class RecordStarter : public QThread{
 public:
@@ -29,6 +29,6 @@ private:
     ButtonState buttonState;
     
     rosbag::RecorderOptions options;
-    rosbag::Recorder* recorder=NULL;
+    DaqRecorder* recorder=NULL;
 };
 #endif
