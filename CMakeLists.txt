@@ -81,6 +81,11 @@ set( QT_SOURCES
   src/DAQViz.cpp
   src/daqmain.ui
   src/images.qrc
+  src/DialogConfig.ui
+  src/DialogConfig.h
+  src/DialogConfig.cpp
+  src/ConfigLoader.h
+  src/ConfigLoader.cpp
 )
 
 ## Specify additional locations of header files
@@ -89,8 +94,13 @@ include_directories(
  include
   ${catkin_INCLUDE_DIRS}
 )
-
-
+##############################################################################
+# DAQ run scrpit. config parameters
+##############################################################################
+#catkin_install_python( PROGRAMS
+#scrpits/runDAQ.py
+#)
+#DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 ##############################################################################
 # Binaries
 ##############################################################################

@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1024</width>
-    <height>768</height>
+    <width>1162</width>
+    <height>906</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>DaqMain</string>
+   <string>DAQ</string>
   </property>
   <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>
@@ -53,6 +53,9 @@
             <width>128</width>
             <height>487</height>
            </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color:rgb(255, 255, 255)</string>
           </property>
           <property name="frameShape">
            <enum>QFrame::Panel</enum>
@@ -103,7 +106,7 @@
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>165</width>
+                 <width>163</width>
                  <height>0</height>
                 </size>
                </property>
@@ -117,12 +120,183 @@
                 <set>Qt::AlignCenter</set>
                </property>
                <property name="margin">
-                <number>2</number>
+                <number>4</number>
+               </property>
+               <property name="indent">
+                <number>-1</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="Line" name="line_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_4">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Fixed</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>10</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="sensorOrReplay">
+               <property name="title">
+                <string/>
+               </property>
+               <widget class="QWidget" name="layoutWidget">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>10</y>
+                  <width>168</width>
+                  <height>25</height>
+                 </rect>
+                </property>
+                <layout class="QHBoxLayout" name="horizontalLayout_9">
+                 <item>
+                  <widget class="QRadioButton" name="radioButton_sensor">
+                   <property name="text">
+                    <string>Sensor</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QRadioButton" name="radioButton_replay">
+                   <property name="text">
+                    <string>replay</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_8">
+               <item>
+                <widget class="QPushButton" name="btn_recordFile">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>9</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>File</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_2">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeType">
+                  <enum>QSizePolicy::Fixed</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>80</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_replayFileName">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>168</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>9</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout">
+               <item>
+                <widget class="QPushButton" name="btn_start">
+                 <property name="text">
+                  <string>start</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btn_stop">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="text">
+                  <string>stop</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Fixed</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>10</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="Line" name="line_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QPushButton" name="btn_all">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -139,6 +313,9 @@
              </item>
              <item>
               <widget class="QPushButton" name="btn_camera">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -155,6 +332,9 @@
              </item>
              <item>
               <widget class="QPushButton" name="btn_lidarTop">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -171,6 +351,9 @@
              </item>
              <item>
               <widget class="QPushButton" name="btn_lidarSide">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -187,6 +370,9 @@
              </item>
              <item>
               <widget class="QPushButton" name="btn_radar">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -203,6 +389,9 @@
              </item>
              <item>
               <widget class="QPushButton" name="btn_carInfo">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -219,6 +408,9 @@
              </item>
              <item>
               <widget class="QPushButton" name="btn_gps">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -235,6 +427,9 @@
              </item>
              <item>
               <widget class="QPushButton" name="btn_imu">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -273,85 +468,169 @@
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="btn_acquisition">
+              <widget class="QGroupBox" name="recordGroup">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <property name="font">
-                <font>
-                 <pointsize>10</pointsize>
-                </font>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>100</height>
+                </size>
                </property>
-               <property name="styleSheet">
-                <string notr="true"/>
+               <property name="title">
+                <string/>
                </property>
-               <property name="text">
-                <string>Data Acquisition</string>
-               </property>
+               <widget class="QPushButton" name="btn_record">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>168</width>
+                  <height>24</height>
+                 </rect>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>10</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>record</string>
+                </property>
+               </widget>
+               <widget class="QLabel" name="label_fileName">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>50</y>
+                  <width>168</width>
+                  <height>15</height>
+                 </rect>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>168</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>9</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+                <property name="wordWrap">
+                 <bool>true</bool>
+                </property>
+               </widget>
+               <widget class="QLabel" name="label_Path">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>30</y>
+                  <width>168</width>
+                  <height>15</height>
+                 </rect>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>168</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>9</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>/home/to...</string>
+                </property>
+                <property name="wordWrap">
+                 <bool>true</bool>
+                </property>
+               </widget>
+               <widget class="QWidget" name="layoutWidget">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>70</y>
+                  <width>168</width>
+                  <height>27</height>
+                 </rect>
+                </property>
+                <layout class="QHBoxLayout" name="horizontalLayout_4">
+                 <item>
+                  <widget class="QPushButton" name="btn_recordStart">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>30</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string>start</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="btn_recordStop">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>30</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string>stop</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
               </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_Path">
-               <property name="font">
-                <font>
-                 <pointsize>9</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string>/home/to...</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_fileName">
-               <property name="font">
-                <font>
-                 <pointsize>9</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string>TextLabel</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_4">
-               <item>
-                <widget class="QPushButton" name="btn_start">
-                 <property name="minimumSize">
-                  <size>
-                   <width>30</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>start</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="btn_stop">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>30</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>stop</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
              </item>
              <item>
               <spacer name="verticalSpacer">
@@ -364,7 +643,7 @@
                <property name="sizeHint" stdset="0">
                 <size>
                  <width>20</width>
-                 <height>30</height>
+                 <height>50</height>
                 </size>
                </property>
               </spacer>
@@ -441,8 +720,46 @@
         <layout class="QVBoxLayout" name="verticalLayout_6">
          <item>
           <layout class="QGridLayout" name="gridLayout">
-           <item row="4" column="2">
-            <widget class="QLabel" name="img_cams2">
+           <item row="4" column="1">
+            <widget class="QLabel" name="label_cams2">
+             <property name="styleSheet">
+              <string notr="true">color:rgb(243, 243, 243)</string>
+             </property>
+             <property name="text">
+              <string>CAM right</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QLabel" name="img_camf1">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color:rgb(243, 243, 243)</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="pixmap">
+              <pixmap>images/state_gray.png</pixmap>
+             </property>
+             <property name="scaledContents">
+              <bool>false</bool>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2">
+            <widget class="QLabel" name="img_cams1">
              <property name="styleSheet">
               <string notr="true">color:rgb(243, 243, 243)</string>
              </property>
@@ -454,6 +771,67 @@
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="7">
+            <widget class="QLabel" name="img_car">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color:rgb(243, 243, 243)</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="images.qrc">:/img/images/state_gray.png</pixmap>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_2">
+             <property name="styleSheet">
+              <string notr="true">color:rgb(238, 238, 236);</string>
+             </property>
+             <property name="text">
+              <string>Sensor Status</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="8">
+            <widget class="QLabel" name="label_imu">
+             <property name="styleSheet">
+              <string notr="true">color:rgb(243, 243, 243)</string>
+             </property>
+             <property name="text">
+              <string>IMU </string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="label_camf1">
+             <property name="styleSheet">
+              <string notr="true">color:rgb(243, 243, 243)</string>
+             </property>
+             <property name="text">
+              <string>CAM front</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
              </property>
             </widget>
            </item>
@@ -473,13 +851,135 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="1">
-            <widget class="QLabel" name="label_camf1">
+           <item row="2" column="9">
+            <widget class="QLabel" name="img_imu">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="styleSheet">
               <string notr="true">color:rgb(243, 243, 243)</string>
              </property>
              <property name="text">
-              <string>Cam_F1</string>
+              <string/>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="images.qrc">:/img/images/state_gray.png</pixmap>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="3">
+            <widget class="QLabel" name="label_lidarside1">
+             <property name="styleSheet">
+              <string notr="true">color:rgb(243, 243, 243)</string>
+             </property>
+             <property name="text">
+              <string>LiDAR left</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="10">
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>50</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="4" column="7">
+            <widget class="QLabel" name="img_gps">
+             <property name="styleSheet">
+              <string notr="true">color:rgb(243, 243, 243)</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="images.qrc">:/img/images/state_gray.png</pixmap>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="6">
+            <widget class="QLabel" name="label_avm3">
+             <property name="styleSheet">
+              <string notr="true">color:rgb(243, 243, 243)</string>
+             </property>
+             <property name="text">
+              <string>GPS</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="2">
+            <widget class="QLabel" name="img_cams2">
+             <property name="styleSheet">
+              <string notr="true">color:rgb(243, 243, 243)</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="images.qrc">:/img/images/state_gray.png</pixmap>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLabel" name="label_cams1">
+             <property name="styleSheet">
+              <string notr="true">color:rgb(243, 243, 243)</string>
+             </property>
+             <property name="text">
+              <string>CAM left</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="3">
+            <widget class="QLabel" name="label_lidartop1">
+             <property name="styleSheet">
+              <string notr="true">color:rgb(243, 243, 243)</string>
+             </property>
+             <property name="text">
+              <string>LiDAR top</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="6">
+            <widget class="QLabel" name="label_avm2">
+             <property name="styleSheet">
+              <string notr="true">color:rgb(243, 243, 243)</string>
+             </property>
+             <property name="text">
+              <string>Radar</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -518,81 +1018,16 @@
              </property>
             </widget>
            </item>
-           <item row="3" column="1">
-            <widget class="QLabel" name="label_cams1">
+           <item row="4" column="3">
+            <widget class="QLabel" name="label_lidarside2">
              <property name="styleSheet">
               <string notr="true">color:rgb(243, 243, 243)</string>
              </property>
              <property name="text">
-              <string>Cam_S1</string>
+              <string>LiDAR right</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_4">
-             <property name="styleSheet">
-              <string notr="true">color:rgb(238, 238, 236);</string>
-             </property>
-             <property name="text">
-              <string>System</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1">
-            <widget class="QLabel" name="label_cams2">
-             <property name="styleSheet">
-              <string notr="true">color:rgb(243, 243, 243)</string>
-             </property>
-             <property name="text">
-              <string>Cam_S2</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="2">
-            <widget class="QLabel" name="img_cams1">
-             <property name="styleSheet">
-              <string notr="true">color:rgb(243, 243, 243)</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="pixmap">
-              <pixmap resource="images.qrc">:/img/images/state_gray.png</pixmap>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="7">
-            <widget class="QLabel" name="img_gps">
-             <property name="styleSheet">
-              <string notr="true">color:rgb(243, 243, 243)</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="pixmap">
-              <pixmap resource="images.qrc">:/img/images/state_gray.png</pixmap>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_3">
-             <property name="styleSheet">
-              <string notr="true">color:rgb(238, 238, 236);</string>
-             </property>
-             <property name="text">
-              <string>Data Acquisition</string>
              </property>
             </widget>
            </item>
@@ -618,138 +1053,6 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="2">
-            <widget class="QLabel" name="img_camf1">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color:rgb(243, 243, 243)</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="pixmap">
-              <pixmap>images/state_gray.png</pixmap>
-             </property>
-             <property name="scaledContents">
-              <bool>false</bool>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="3">
-            <widget class="QLabel" name="label_lidartop1">
-             <property name="styleSheet">
-              <string notr="true">color:rgb(243, 243, 243)</string>
-             </property>
-             <property name="text">
-              <string>LiDAR Top1</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="label_2">
-             <property name="styleSheet">
-              <string notr="true">color:rgb(238, 238, 236);</string>
-             </property>
-             <property name="text">
-              <string>Sensor Status</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="6">
-            <widget class="QLabel" name="label_avm2">
-             <property name="styleSheet">
-              <string notr="true">color:rgb(243, 243, 243)</string>
-             </property>
-             <property name="text">
-              <string>Radar</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="6">
-            <widget class="QLabel" name="label_avm3">
-             <property name="styleSheet">
-              <string notr="true">color:rgb(243, 243, 243)</string>
-             </property>
-             <property name="text">
-              <string>GPS</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="3">
-            <widget class="QLabel" name="label_lidarside1">
-             <property name="styleSheet">
-              <string notr="true">color:rgb(243, 243, 243)</string>
-             </property>
-             <property name="text">
-              <string>LiDAR Side1</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="3">
-            <widget class="QLabel" name="label_lidarside2">
-             <property name="styleSheet">
-              <string notr="true">color:rgb(243, 243, 243)</string>
-             </property>
-             <property name="text">
-              <string>LiDAR Side2</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>180</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="2" column="8">
-            <widget class="QLabel" name="label_imu">
-             <property name="styleSheet">
-              <string notr="true">color:rgb(243, 243, 243)</string>
-             </property>
-             <property name="text">
-              <string>IMU </string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
            <item row="2" column="6">
             <widget class="QLabel" name="label_radar">
              <property name="styleSheet">
@@ -763,49 +1066,25 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="7">
-            <widget class="QLabel" name="img_car">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color:rgb(243, 243, 243)</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="pixmap">
-              <pixmap resource="images.qrc">:/img/images/state_gray.png</pixmap>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="9">
-            <widget class="QLabel" name="img_imu">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color:rgb(243, 243, 243)</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="pixmap">
-              <pixmap resource="images.qrc">:/img/images/state_gray.png</pixmap>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
+           <item row="1" column="0" rowspan="4">
+            <layout class="QVBoxLayout" name="verticalLayout_5">
+             <item>
+              <widget class="QLabel" name="label_3">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="pixmap">
+                <pixmap resource="images.qrc">:/img/images/daq_logo_100.png</pixmap>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
           </layout>
          </item>
@@ -821,7 +1100,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1024</width>
+     <width>1162</width>
      <height>22</height>
     </rect>
    </property>
@@ -830,25 +1109,45 @@
      <string>DAQ</string>
     </property>
     <addaction name="separator"/>
-    <addaction name="actionhelp"/>
+    <addaction name="actionConfigrations"/>
     <addaction name="actionExit"/>
    </widget>
    <addaction name="menuDAQ"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionhelp">
+  <action name="actionConfigrations">
    <property name="text">
-    <string>help</string>
+    <string>configrations</string>
    </property>
   </action>
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
    </property>
+   <property name="menuRole">
+    <enum>QAction::QuitRole</enum>
+   </property>
   </action>
  </widget>
  <resources>
   <include location="images.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>DaqMain</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>666</x>
+     <y>402</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

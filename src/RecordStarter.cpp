@@ -37,11 +37,9 @@ RecordStarter::~RecordStarter(){
 
 }
 void RecordStarter::run() {
-    cout <<"RecordStarter::run()" <<endl;
     recorder->run();
-    cout <<"RecordStarter::stop()" <<endl;
-
 }
+
 void RecordStarter::setRecordDir( QString dirName_){
     dirName=dirName_;
 }

@@ -49,12 +49,17 @@ cp ~catkin_ws/src/daq/src/rvizs/* ./rvizs/
 11. camera 기능 구현
 12. recorder start/stop 구현
 13. all view 기능 구현
+14. sensor, replay radio button 추가
+15. seosor와 replay run/stop 동작 분리
+16. daq logo 추가
+17. buttons 별 동작 순서 설정
+18. menu에서 exit 추가
 
 ### restriction
-1. run/kill은 /home/jiat/script/ 밑의 run.sh kill.sh을 호출합니다. 추후 환경설정으로 변경
+1. sensor, reply의 run/stop기능 구현 안됨
 2. daq 종료 시 core가 발생하는 문제가 있습니다. 보완 예정입니다.
-3. menu에서 exit 을 추가할 예정입니다.
-4. replay 기능 추가
-
+3. topic log 화면 송출 후 종료안되는 문제
+4. 영상 송출 안되는 문제 
+5. 상태바 메시지 위치 조정
 
 

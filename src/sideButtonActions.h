@@ -17,9 +17,16 @@
 class SideButtonActions {
 public:
     SideButtonActions(Ui::DaqMain *);
+    ~SideButtonActions();
     void createRvizViewers();
     void createTopicSubViewers();
-    void acquisitionClicked(QString);
+
+    bool sensorStart();
+    void sensorStop();
+    bool replayStart(QString file);
+    void replayStop();
+
+
     void allViewClicked();
     void cameraClicked();
     void carInfoClicked();
@@ -28,8 +35,10 @@ public:
     void lidarSideClicked();
     void lidarTopClicked();
     void radarClicked();
-    void startClicked();
-    void stopClicked();    
+
+    QString recordStart(QString);
+    void recordStop();
+    
 private:
     void allStart(QString );
     void allStop(QString );
@@ -37,6 +46,6 @@ private:
     QMap <QString, QList<DAQViz*>* > *rvizMap;
     ros::MultiThreadedSpinner* spiner=NULL;
     RecordStarter recordStarter;
-    
+
 };
 #endif

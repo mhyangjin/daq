@@ -27,20 +27,23 @@
     //topic을 읽어서 창에 string으로 display
     createTopicSubViewers();
  }
+SideButtonActions::~SideButtonActions() {
 
- void SideButtonActions::createRvizViewers() {
+}
+
+void SideButtonActions::createRvizViewers() {
 
     //윈도우 생성시 미리 GUI창을 미리 만들어 둔다.
     rvizMap=new QMap<QString, QList<DAQViz*>*>();
     QList<DAQViz*> *lidar_tmp= new QList<DAQViz*>();
-    lidar_tmp->append( (DAQViz*) new RvizViewer(ui,"./rvizs/ouster.rviz","liDar Top"));
+    lidar_tmp->append( (DAQViz*) new RvizViewer(ui,"./rvizs/ouster.rviz","liDAR Top"));
 
     QList<DAQViz*> *camera_tmp= new QList<DAQViz*>();
     camera_tmp->append( (DAQViz*) new CameraViewer(ui,"./rvizs/cameras.rviz", "Camera" ));
 
     QList<DAQViz*> *l_side_tmp= new QList<DAQViz*>();
-    l_side_tmp->append( (DAQViz*) new RvizViewer(ui,"./rvizs/left_vel.rviz", "liDAR Side-Left" ));
-    l_side_tmp->append( (DAQViz*) new RvizViewer(ui,"./rvizs/right_vel.rviz", "LiDAR Side-right" ));
+    l_side_tmp->append( (DAQViz*) new RvizViewer(ui,"./rvizs/left_vel.rviz", "liDAR Left" ));
+    l_side_tmp->append( (DAQViz*) new RvizViewer(ui,"./rvizs/right_vel.rviz", "LiDAR Right" ));
 
     //click event를 받았을 때  display를 hide, show 처리를 위해 map에 넣어둔다.
     rvizMap->insert("lidarTop", lidar_tmp);
@@ -70,26 +73,41 @@ void SideButtonActions::createTopicSubViewers(){
     TopicSubscribers<daq::Car>* car_topic= new TopicSubscribers<daq::Car>("/can/car", spiner);
     QList<DAQViz*> *car_tmp= new QList<DAQViz*>();
     car_tmp->append( (DAQViz*) new TopicsViewer(ui,(SignalsSlot*)car_topic,"Car" ));
-    
+
     //click event를 받았을 때  display를 hide, show 처리를 위해 map에 넣어둔다.
     rvizMap->insert("gps", gps_tmp);
     rvizMap->insert("imu", imu_tmp);
     rvizMap->insert("radar", radar_tmp);
     rvizMap->insert("car", car_tmp);
 
- 
+
 }
+
+bool SideButtonActions::sensorStart() {
+
+    return true;
+}
+void SideButtonActions::sensorStop() {
+
+}
+bool SideButtonActions::replayStart(QString file) {
+    return true;
+}
+void SideButtonActions::replayStop() {
+
+}
+
 void SideButtonActions::allViewClicked(){
     cout << "SideButtonActions::allViewClicked()"<<endl;
     this->allStop("nothing");
-    this->allStart("nothing"); 
+    this->allStart("nothing");
 }
 
 void SideButtonActions::cameraClicked(){
     this->allStop("cameras");
     cout << "SideButtonActions::cameraClicked()"<<endl;
     CameraViewer* controller=(CameraViewer*)rvizMap->find("cameras").value()->at(0);
-    controller->showWindow();    
+    controller->showWindow();
 }
 
 void SideButtonActions::carInfoClicked(){
@@ -134,41 +152,26 @@ void SideButtonActions::lidarTopClicked(){
     controller->showWindow();
 }
 
-
-void SideButtonActions::acquisitionClicked(QString dir){
-
-    cout << "SideButtonActions::acquisitionClicked()"<<qPrintable(dir)<<endl;
+QString SideButtonActions::recordStart(QString dir){
     recordStarter.setRecordDir(dir);
-    ui->label_Path->setText(dir);
-    ui->btn_start->setEnabled(true);
-}
-
-void SideButtonActions::startClicked(){
     cout << "SideButtonActions::startClicked()"<<endl;
     QString save_to=recordStarter.start_record();
-    ui->label_fileName->setText(save_to);
-    ui->btn_start->setDisabled(true);
-    ui->btn_stop->setEnabled(true);
-    
-
+    return save_to;
 }
-void SideButtonActions::stopClicked(){
+void SideButtonActions::recordStop(){
     cout << "SideButtonActions::stopClicked()"<<endl;
     QString dir=recordStarter.stop_record();
-    ui->label_fileName->setText("");
-    ui->btn_start->setEnabled(true);
-    ui->btn_stop->setDisabled(true);
-}
 
+}
 void SideButtonActions::allStart(QString except_one) {
     DAQViz* controller=NULL;
     //각각의 열에는 title, window 두개. camera는 3개가 들어가므로 1,4,6 로 xpos 지정
 
-    //1열 - camera. ypos는 사용하지 않음 
+    //1열 - camera. ypos는 사용하지 않음
     controller=rvizMap->find("cameras").value()->at(0);
     controller->showWindow(1,0);
 
-    //2열 - LiDAR left, Top, right 
+    //2열 - LiDAR left, Top, right
     controller=rvizMap->find("lidarTop").value()->at(0);
     controller->showWindow(4,1);
     QList<DAQViz*> *dapArray=rvizMap->find("lidarSide").value();
@@ -197,6 +200,6 @@ void SideButtonActions::allStop(QString except_one) {
             if (controller->getButtonState() == ButtonState::ON)
                  controller->closeWindow();
         }
-           
+
     }
 }

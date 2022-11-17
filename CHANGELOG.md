@@ -1,3 +1,9 @@
+# Version 0.5.5 - 2022.11.17
+1. sensor, replay radio button 추가
+2. seosor와 replay run/stop 동작 분리
+3. daq logo 추가
+4. buttons 별 동작 순서 설정
+
 # Version 0.5.0 - 2022.11.15
 1. camera 기능 구현
 2. recorder start/stop 구현

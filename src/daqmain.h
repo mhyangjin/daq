@@ -11,6 +11,7 @@
 #include "AcquisitionStatus.h"
 #include "init.h"
 #include "sideButtonActions.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class DaqMain; }
 QT_END_NAMESPACE
@@ -20,7 +21,11 @@ class Daqmain : public QMainWindow
 {
 Q_OBJECT
     public slots:
-    void acquisitionClicked();
+    void radioSensorClicked();
+    void radioReplayClicked();
+    void replayFileClicked();
+    void runClicked();
+    void stopClicked();
     void allViewClicked();
     void cameraClicked();
     void carInfoClicked();
@@ -29,15 +34,17 @@ Q_OBJECT
     void lidarSideClicked();
     void lidarTopClicked();
     void radarClicked();
-    void startClicked();
-    void stopClicked();    
-
-
+    void recordClicked();
+    void recordStartClicked();
+    void recordStopClicked();
+    void actionConfigrations();
+    void allViewEnabled();
+    void allViewDisabled();
 public:
     void closeEvent(QCloseEvent *event);
     Daqmain(QWidget *parent = nullptr);
     ~Daqmain();
-    
+
 
 private:
     Ui::DaqMain *ui;

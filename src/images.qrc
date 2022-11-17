@@ -9,5 +9,7 @@
         <file>images/button_lightred.png</file>
         <file>images/button_red.png</file>
         <file>images/JiartLogo.png</file>
+        <file>images/daq_logo_100.png</file>
+        <file>images/DAQ_logo_120.png</file>
     </qresource>
 </RCC>

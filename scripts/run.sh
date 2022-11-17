@@ -1,5 +1,35 @@
 #!/bin/bash
 
+function set_args() { 
+    source /opt/ros/noetic/setup.bash  
+    LOGDIR=$JIAT_LOGDIR
+
+    if [ -z $LOGDIR ]; then
+        LOGDIR=./LOG
+    fi
+    LOG_DATE_HEADER=`date -I`
+    ROS_MASTER_LOGFILE=${LOG_DATE_HEADER}=roscore.log
+
+}
+
+
+source /opt/ros/noetic/setup.bash
+rosnode list 2> /dev/null
+
+if [ $? == 1 ]; then
+    echo "ros master is not running!"
+    echo "starting ros master"
+    roscore >> ./rosc&
+fi
+
+
+function main() {
+
+    set_args();
+}
+
+main $*;
+
 echo ""
 echo " ======================================================= "
 echo " ==================== Start Sensors ==================== "
@@ -98,4 +128,3 @@ echo " =================== Running Sensors =================== "
 echo " ======================================================= "
 echo ""
 
-wait
