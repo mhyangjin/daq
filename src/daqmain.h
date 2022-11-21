@@ -11,6 +11,7 @@
 #include "AcquisitionStatus.h"
 #include "init.h"
 #include "sideButtonActions.h"
+#include "ConfigLoader.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class DaqMain; }
@@ -50,6 +51,7 @@ private:
     Ui::DaqMain *ui;
     SideButtonActions *sideButtonActions;
     AcquisitionStatus *acquisitionStatus;
+    ConfigLoader config;
 
 };
 #endif // DAQMAIN_H

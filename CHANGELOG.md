@@ -1,3 +1,10 @@
+# Version 0.6.0 - 2022.11.18
+1. replay 기능 추가
+2. record 오류 수정
+3. config dialog 기능 추가
+4. title 변경
+5. sensor start/stop 기능 구현
+
 # Version 0.5.5 - 2022.11.17
 1. sensor, replay radio button 추가
 2. seosor와 replay run/stop 동작 분리

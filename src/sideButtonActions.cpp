@@ -9,6 +9,7 @@
 #include "TopicsViewer.h"
 #include "TopicSubscribers.h"
 
+
 #include <QFileDialog>
 
 #include <std_msgs/String.h>
@@ -22,6 +23,7 @@
 
  SideButtonActions::SideButtonActions(Ui::DaqMain *_ui)
  :ui(_ui){
+    
     //미리 선언된 rivs config file로부터  display
     createRvizViewers();
     //topic을 읽어서 창에 string으로 display
@@ -33,17 +35,19 @@ SideButtonActions::~SideButtonActions() {
 
 void SideButtonActions::createRvizViewers() {
 
+    QString Dir=config.getRvizConfig();
     //윈도우 생성시 미리 GUI창을 미리 만들어 둔다.
     rvizMap=new QMap<QString, QList<DAQViz*>*>();
     QList<DAQViz*> *lidar_tmp= new QList<DAQViz*>();
-    lidar_tmp->append( (DAQViz*) new RvizViewer(ui,"./rvizs/ouster.rviz","liDAR Top"));
+    //RvizViewer (windiow widget, rivze  file 위치, 윈도우 상에 보여줄 title)
+    lidar_tmp->append( (DAQViz*) new RvizViewer(ui, Dir + "/ouster.rviz","LiDAR top"));
 
     QList<DAQViz*> *camera_tmp= new QList<DAQViz*>();
-    camera_tmp->append( (DAQViz*) new CameraViewer(ui,"./rvizs/cameras.rviz", "Camera" ));
+    camera_tmp->append( (DAQViz*) new CameraViewer(ui, Dir + "/cameras.rviz", "Camera" ));
 
     QList<DAQViz*> *l_side_tmp= new QList<DAQViz*>();
-    l_side_tmp->append( (DAQViz*) new RvizViewer(ui,"./rvizs/left_vel.rviz", "liDAR Left" ));
-    l_side_tmp->append( (DAQViz*) new RvizViewer(ui,"./rvizs/right_vel.rviz", "LiDAR Right" ));
+    l_side_tmp->append( (DAQViz*) new RvizViewer(ui, Dir + "/left_vel.rviz", "LiDAR left" ));
+    l_side_tmp->append( (DAQViz*) new RvizViewer(ui, Dir + "/right_vel.rviz", "LiDAR right" ));
 
     //click event를 받았을 때  display를 hide, show 처리를 위해 map에 넣어둔다.
     rvizMap->insert("lidarTop", lidar_tmp);
@@ -60,6 +64,7 @@ void SideButtonActions::createTopicSubViewers(){
     //gps
     TopicSubscribers<sensor_msgs::NavSatFix>* gps_topic= new TopicSubscribers<sensor_msgs::NavSatFix>("/gps/fix", spiner);
     QList<DAQViz*> *gps_tmp= new QList<DAQViz*>();
+    //TopicsViewer (windiow widget, topic subscriber, 윈도우 상에 보여줄 title)
     gps_tmp->append( (DAQViz*) new TopicsViewer(ui, (SignalsSlot*)gps_topic, "GPS"));
     //imu
     TopicSubscribers<sensor_msgs::Imu>* imu_topic= new TopicSubscribers<sensor_msgs::Imu>("/gps/imu", spiner);
@@ -68,33 +73,33 @@ void SideButtonActions::createTopicSubViewers(){
     //radar
     TopicSubscribers<daq::Radar>* radar_topic= new TopicSubscribers<daq::Radar>("/can/radar", spiner);
     QList<DAQViz*> *radar_tmp= new QList<DAQViz*>();
-    radar_tmp->append( (DAQViz*) new TopicsViewer(ui,(SignalsSlot*)radar_topic,"radar"));
+    radar_tmp->append( (DAQViz*) new TopicsViewer(ui,(SignalsSlot*)radar_topic,"Radar"));
     //car
     TopicSubscribers<daq::Car>* car_topic= new TopicSubscribers<daq::Car>("/can/car", spiner);
     QList<DAQViz*> *car_tmp= new QList<DAQViz*>();
-    car_tmp->append( (DAQViz*) new TopicsViewer(ui,(SignalsSlot*)car_topic,"Car" ));
+    car_tmp->append( (DAQViz*) new TopicsViewer(ui,(SignalsSlot*)car_topic,"Car Info" ));
 
     //click event를 받았을 때  display를 hide, show 처리를 위해 map에 넣어둔다.
     rvizMap->insert("gps", gps_tmp);
     rvizMap->insert("imu", imu_tmp);
     rvizMap->insert("radar", radar_tmp);
     rvizMap->insert("car", car_tmp);
-
-
 }
 
 bool SideButtonActions::sensorStart() {
-
+    cout <<"SideButtonActions::sensorStart()" <<endl;
+    rosRunManager.start();
     return true;
 }
 void SideButtonActions::sensorStop() {
-
+    rosRunManager.stop();
 }
 bool SideButtonActions::replayStart(QString file) {
+    recordPlayer.startReplay(file);
     return true;
 }
 void SideButtonActions::replayStop() {
-
+    recordPlayer.stopReplay();
 }
 
 void SideButtonActions::allViewClicked(){
@@ -153,14 +158,14 @@ void SideButtonActions::lidarTopClicked(){
 }
 
 QString SideButtonActions::recordStart(QString dir){
-    recordStarter.setRecordDir(dir);
+    //recordStarter.setRecordDir(dir);
     cout << "SideButtonActions::startClicked()"<<endl;
-    QString save_to=recordStarter.start_record();
+    QString save_to=recordStarter.startRecord(dir);
     return save_to;
 }
 void SideButtonActions::recordStop(){
     cout << "SideButtonActions::stopClicked()"<<endl;
-    QString dir=recordStarter.stop_record();
+    recordStarter.stopRecord();
 
 }
 void SideButtonActions::allStart(QString except_one) {

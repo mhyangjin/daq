@@ -6,9 +6,11 @@
 //======================================================================*/
 #ifndef CONFIGLOADER_H
 #define CONFIGLOADER_H
+#include "init.h"
+#include <yaml-cpp/yaml.h>
 #include <QMap>
 #include <QString>
-#include "init.h"
+#include <QMap>
 
 class ConfigLoader {
 public:
@@ -17,14 +19,23 @@ public:
     void saveConfig();
 
     QString getRvizConfig();
-    QString getScriptConfig();
     QString getRecordConfig();
+    QString getScriptConfig();
+    QMap<QString, QString> getlaunchers();
+    QMap<QString, QString> getnodes();
+    void setRvizConfig(QString);
+    void setRecordConfig(QString);
+    void setScriptConfig(QString);
 private:
     void loadConfig();
 
 private:
-    const QString configFileName="daq.ini";
-    QMap<QString, QString> configMap;
+    const string configFileName="./config.yml";
+    QString rvizDir;
+    QString RecordDir;
+    QString ScriptDir;
+    QMap<QString, QString> launchers;
+    QMap<QString, QString> nodes;
 };
 
 #endif

@@ -18,17 +18,14 @@ class RecordStarter : public QThread{
 public:
     RecordStarter();
     ~RecordStarter();
-    void run();
-    void setRecordDir(QString);
-    QString start_record();
-    QString stop_record();
+    QString startRecord(QString);
+    void stopRecord();
+private:
+    void run();   
 
 private:
-    QString dirName;
-    QString fileName;
-    ButtonState buttonState;
-    
-    rosbag::RecorderOptions options;
-    DaqRecorder* recorder=NULL;
+    string  bagFile;
+    string  dirName;
+    pid_t   my_pid;
 };
 #endif

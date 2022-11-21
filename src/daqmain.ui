@@ -99,7 +99,7 @@
              <item>
               <widget class="QLabel" name="label">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
@@ -178,7 +178,7 @@
                  <item>
                   <widget class="QRadioButton" name="radioButton_replay">
                    <property name="text">
-                    <string>replay</string>
+                    <string>Replay</string>
                    </property>
                   </widget>
                  </item>
@@ -345,7 +345,7 @@
                 <string notr="true"/>
                </property>
                <property name="text">
-                <string>LiDAR(Top)</string>
+                <string>LiDAR(top)</string>
                </property>
               </widget>
              </item>
@@ -364,7 +364,7 @@
                 <string notr="true"/>
                </property>
                <property name="text">
-                <string>LiDAR(Side)</string>
+                <string>LiDAR(side)</string>
                </property>
               </widget>
              </item>
@@ -511,7 +511,7 @@
                  <string notr="true"/>
                 </property>
                 <property name="text">
-                 <string>record</string>
+                 <string>Record</string>
                 </property>
                </widget>
                <widget class="QLabel" name="label_fileName">
@@ -896,7 +896,7 @@
              </property>
              <property name="sizeHint" stdset="0">
               <size>
-               <width>50</width>
+               <width>120</width>
                <height>20</height>
               </size>
              </property>
@@ -1068,6 +1068,9 @@
            </item>
            <item row="1" column="0" rowspan="4">
             <layout class="QVBoxLayout" name="verticalLayout_5">
+             <property name="spacing">
+              <number>10</number>
+             </property>
              <item>
               <widget class="QLabel" name="label_3">
                <property name="sizePolicy">
@@ -1076,11 +1079,20 @@
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
+               <property name="layoutDirection">
+                <enum>Qt::LeftToRight</enum>
+               </property>
                <property name="text">
                 <string/>
                </property>
                <property name="pixmap">
                 <pixmap resource="images.qrc">:/img/images/daq_logo_100.png</pixmap>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+               <property name="margin">
+                <number>18</number>
                </property>
               </widget>
              </item>

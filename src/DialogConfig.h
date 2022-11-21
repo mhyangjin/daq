@@ -8,6 +8,7 @@
 #define DIALOGCONFIG_H
 
 #include <QDialog>
+#include "ConfigLoader.h"
 
 namespace Ui {
 class DialogConfig;
@@ -17,9 +18,9 @@ class DialogConfig : public QDialog
 {
     Q_OBJECT
     public slots:
-    void setScriptDir();
     void setRvizDir();
     void setRecordDir();
+    void setScriptDir();
     void accept();
 public:
     explicit DialogConfig(QWidget *parent = nullptr);
@@ -27,6 +28,7 @@ public:
 
 private:
     Ui::DialogConfig *ui;
+    ConfigLoader config;
 };
 
 #endif // DIALOGCONFIG_H

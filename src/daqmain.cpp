@@ -39,10 +39,14 @@ Daqmain::Daqmain(QWidget *parent)
 
     sideButtonActions=new SideButtonActions(ui);
     acquisitionStatus=new AcquisitionStatus(ui);
+    ui->label_Path->setText(config.getRecordConfig());
+    ui->label_fileName->setText("");
 }
 
 Daqmain::~Daqmain()
 {
+    delete sideButtonActions;
+    delete acquisitionStatus;
     delete ui;
 }
 
@@ -71,7 +75,8 @@ void Daqmain::radioReplayClicked() {
 }
 
 void Daqmain::replayFileClicked() {
-    QString file = QFileDialog::getOpenFileName(this, "Open File", "/home/mhjin/project", tr("*.bag"));
+    QString dir= config.getRecordConfig();
+    QString file = QFileDialog::getOpenFileName(this, "Open File", dir, tr("*.bag"));
     if (file != NULL) {
         ui->label_replayFileName->setText(file);
     }
@@ -79,29 +84,33 @@ void Daqmain::replayFileClicked() {
 
 void Daqmain::runClicked() {
     if (ui->radioButton_replay->isChecked()) {
+
         QString file=ui->label_replayFileName->text();
         if (file!="") {
             if (!sideButtonActions->replayStart(file))
                 return;
         }
+        ui->radioButton_sensor->setDisabled(true);
     }
     else {
-        if (!sideButtonActions->sensorStart()) 
-            return;
         sideButtonActions->sensorStart();
         ui->btn_record->setEnabled(true);
         ui->btn_recordStart->setEnabled(true);
         ui->btn_recordStop->setDisabled(true);
+        ui->radioButton_replay->setDisabled(true);
     }
 
     ui->btn_recordFile->setDisabled(true);
     ui->btn_start->setDisabled(true);
     ui->btn_stop->setEnabled(true);
-
+    
     allViewEnabled();
     
 }
 void Daqmain::stopClicked() {
+    ui->radioButton_sensor->setEnabled(true);
+    ui->radioButton_replay->setEnabled(true);
+    
     if (ui->radioButton_replay->isChecked()) {
         sideButtonActions->replayStop();
         ui->btn_recordFile->setEnabled(true);
@@ -151,7 +160,8 @@ void Daqmain::radarClicked(){
 
 }
 void Daqmain::recordClicked() {
-    QString dir = QFileDialog::getExistingDirectory(this, "Open Directory", "/home/mhjin/project", QFileDialog::ShowDirsOnly);
+    QString confDir= config.getRecordConfig();
+    QString dir = QFileDialog::getExistingDirectory(this, "Open Directory", confDir, QFileDialog::ShowDirsOnly);
     //QString dir = QFileDialog::getExistingDirectory(this, "Open Directory", "/home/jiat/Data", QFileDialog::ShowDirsOnly);
     if (dir != NULL) {
         ui->label_Path->setText(dir);
@@ -187,7 +197,7 @@ void Daqmain::actionConfigrations() {
 }
 void Daqmain::closeEvent(QCloseEvent *event) {
     ros::shutdown();
-    system ("/home/mhjin/script/kill.sh");
+//    system ("/home/mhjin/script/kill.sh");
     QApplication::quit();
     //system ("/home/jiat/script/kill.sh");
 }

@@ -8,14 +8,18 @@
 #include <ros/ros.h>
 #include <QApplication>
 #include "init.h"
+
 int main(int argc, char *argv[])
 {
-    if( !ros::isInitialized() )
+  if (!ros::master::check()) {
+    cout <<"ros::master::check fail" <<endl;
+    //system("roscore &");
+  }
+  if( !ros::isInitialized() )
   {
+    cout <<"ros::unisInitialized" <<endl;
     ros::init( argc, argv, "daq", ros::init_options::AnonymousName );
   }
-    system ("/home/mhjin/script/run.sh");
-    //system ("/home/jiat/script/run.sh");
     QApplication a(argc, argv);
     Daqmain w;
     w.show();

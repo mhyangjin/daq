@@ -54,12 +54,16 @@ cp ~catkin_ws/src/daq/src/rvizs/* ./rvizs/
 16. daq logo 추가
 17. buttons 별 동작 순서 설정
 18. menu에서 exit 추가
+19. replay 기능 추가
+20. record 오류 수정
+21. config dialog 기능 추가
+22. title 변경
+23. sensor start/stop 기능 구현
 
 ### restriction
-1. sensor, reply의 run/stop기능 구현 안됨
-2. daq 종료 시 core가 발생하는 문제가 있습니다. 보완 예정입니다.
-3. topic log 화면 송출 후 종료안되는 문제
-4. 영상 송출 안되는 문제 
-5. 상태바 메시지 위치 조정
+1. daq 종료 시 core가 발생하는 문제가 있습니다. 보완 예정입니다.
+2. topic log 화면 송출 후 종료안되는 문제 - bag file play가 되지 않아 확인 불가
+3. 영상 송출 안되는 문제  - bag file play가 되지 않아 확인 불가
+4. 상태바 메시지 위치 조정 - 위치가 정확한 위치에 오지 않아 다시 수정 예정
 
 

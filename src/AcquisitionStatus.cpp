@@ -68,7 +68,7 @@ AcquisitionStatus::AcquisitionStatus(Ui::DaqMain* daqMain)
 }
 
 AcquisitionStatus::~AcquisitionStatus(){
-
+    this->quit();
 }
 
 void AcquisitionStatus::run() {
@@ -77,7 +77,10 @@ void AcquisitionStatus::run() {
     while (true) {
         if ( befores == lastTime)
         {
-            ui->statusbar->showMessage("sensor 상태 메시지가 없습니다" );
+            ui->statusbar->showMessage("                                         sensor 상태 메시지가 없습니다" );
+            for (auto iter=statusMap->constBegin(); iter != statusMap->constEnd(); ++iter) {
+                iter.value()->changeState(AcquisitonStateEnum::DEFAULT);
+            }
         } 
         else {
             ui->statusbar->clearMessage( );
@@ -102,7 +105,10 @@ void AcquisitionStatus::subscribeCallBack(const daq::Sensor_status& msg) {
     
     auto iter=statusMap->find(stsEnum);
     iter.value()->changeState(status);
-
+    if ( stsEnum == StsName::CAR) {  //CAR와 RADAR는 같이 연동한다.
+        iter=statusMap->find(StsName::RADAR);
+        iter.value()->changeState(status);
+    }
     lastTime = QTime::currentTime();
 }
 

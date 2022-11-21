@@ -16,9 +16,13 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   rosbag
 )
-add_message_files(FILES Sensor_status.msg Car.msg Radar.msg Track.msg Sim.msg )
 
+add_message_files(FILES Sensor_status.msg Car.msg Radar.msg Track.msg Sim.msg )
 generate_messages(DEPENDENCIES std_msgs)
+
+catkin_install_python(PROGRAMS
+  scripts/diagnostic_talker.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 ####################################################
 # QT Environment
@@ -52,17 +56,24 @@ add_definitions( -std=c++11 -fPIC)
 ##############################################################################
 # Sources
 ##############################################################################
-
 set( QT_SOURCES
   src/main.cpp
   src/defines.h
   src/init.h
   src/daqmain.h
   src/daqmain.cpp
+  src/RosNode.h
+  src/RosNode.cpp
+  src/RecordPlayer.h
+  src/RecordPlayer.cpp
+  src/RosRunManager.h
+  src/RosRunManager.cpp
   src/TopicSubscribers.h
   src/TopicSubscribers.cpp
   src/RvizViewer.h
   src/RvizViewer.cpp
+  src/YmlLoader.h
+  src/YmlLoader.cpp
   src/DaqCameraDisplay.h
   src/DaqCameraDisplay.cpp
   src/CameraViewer.h
@@ -88,6 +99,7 @@ set( QT_SOURCES
   src/ConfigLoader.cpp
 )
 
+#set (CONFIG scripts/config.yml)
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
@@ -105,14 +117,15 @@ include_directories(
 # Binaries
 ##############################################################################
 
-add_executable(${PROJECT_NAME} ${QT_SOURCES} ${QT_RESOURCES_CPP} ${QT_FORMS_HPP} ${QT_MOC_HPP} ${FILES})
+add_executable(${PROJECT_NAME} ${QT_SOURCES} ${QT_RESOURCES_CPP} ${QT_FORMS_HPP} ${QT_MOC_HPP} ${FILES} )
 
 target_link_libraries(${PROJECT_NAME}
   ${catkin_LIBRARIES}
   Qt5::Core
-  Qt5::Gui
+  Qt5::Gui 
   Qt5::Widgets
   libyaml-cpp.so
 )
 
+install(FILES scripts/config.yml DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

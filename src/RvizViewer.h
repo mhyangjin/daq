@@ -23,15 +23,6 @@ public:
     virtual void closeWindow();
 
 private:
-    private:
-    void loadConfig( QString,rviz::Config*);
-    //verify loading config from .rviz
-    void printConfig(rviz::Config*);
-    //test reading from .rviz
-    void printNodes(YAML::Node*);
-    //load config from .rviz file
-    void loadNodes(YAML::Node*, rviz::Config*);
-
     rviz::VisualizationManager* manager=NULL;
     rviz::RenderPanel* panel_=NULL;
     rviz::Config config;
