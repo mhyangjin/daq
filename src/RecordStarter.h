@@ -11,7 +11,6 @@
 #include <vector>
 #include <QThread>
 
-#include "DaqRecorder.h"
 #include <ros/ros.h>
 
 class RecordStarter : public QThread{

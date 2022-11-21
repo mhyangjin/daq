@@ -78,8 +78,6 @@ set( QT_SOURCES
   src/DaqCameraDisplay.cpp
   src/CameraViewer.h
   src/CameraViewer.cpp
-  src/DaqRecorder.h
-  src/DaqRecorder.cpp
   src/RecordStarter.h
   src/RecordStarter.cpp
   src/TopicsViewer.h
@@ -127,5 +125,14 @@ target_link_libraries(${PROJECT_NAME}
   libyaml-cpp.so
 )
 
-install(FILES scripts/config.yml DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+install(FILES 
+  scripts/config.yml 
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+  DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION} 
+)
+install(FILES 
+  scripts/record.sh script/replay.sh
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}/scripts
+  DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}/scripts 
+)
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
