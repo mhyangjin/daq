@@ -1,0 +1,17 @@
+launchs:
+  - Name: novatel_oem7_driver
+    File: oem7_net.launch
+  - Name: ouster_ros
+    File: 64ch.launch
+  - Name: usb_cam
+    File: cameras.launch.launch
+  - Name: velodyne_pointcloud
+    File: 16ch.launch
+nodes:
+  - Name: diagnostic
+    File: diagnostic_talker.py
+  - Name: solati
+    File: solati_decode
+rviz: ./rvizs
+record: /home/mhjin/project
+script: ./scripts
