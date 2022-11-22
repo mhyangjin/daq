@@ -52,6 +52,7 @@ private:
     SideButtonActions *sideButtonActions;
     AcquisitionStatus *acquisitionStatus;
     ConfigLoader config;
+    QLabel *statusMsg;
 
 };
 #endif // DAQMAIN_H

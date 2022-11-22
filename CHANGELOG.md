@@ -1,3 +1,7 @@
+# version 0.6.5 - 2022.11.22
+1. sensor 상태 메시지 위치 변경
+2. config.yml 추가
+
 # Version 0.6.0 - 2022.11.18
 1. replay 기능 추가
 2. record 오류 수정

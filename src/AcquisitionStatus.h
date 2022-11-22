@@ -24,7 +24,7 @@ class AcquisitionStatus : public QThread
 private:
     class SensorStatus {
     public:
-        SensorStatus(QString,QLabel*);
+        SensorStatus(QString, QLabel*);
         void changeState(AcquisitonStateEnum);
         inline AcquisitonStateEnum getState(){return label_state;}
         

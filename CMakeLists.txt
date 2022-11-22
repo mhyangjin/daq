@@ -110,11 +110,14 @@ include_directories(
 #catkin_install_python( PROGRAMS
 #scrpits/runDAQ.py
 #)
+FILE(COPY src/config.yml
+DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+FILE(COPY scripts/record.sh scripts/replay.sh 
+DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}/scripts )
 #DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 ##############################################################################
 # Binaries
 ##############################################################################
-
 add_executable(${PROJECT_NAME} ${QT_SOURCES} ${QT_RESOURCES_CPP} ${QT_FORMS_HPP} ${QT_MOC_HPP} ${FILES} )
 
 target_link_libraries(${PROJECT_NAME}
@@ -124,15 +127,21 @@ target_link_libraries(${PROJECT_NAME}
   Qt5::Widgets
   libyaml-cpp.so
 )
+install(TARGETS ${PROJECT_NAME} 
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
+  )
 
-install(FILES 
-  scripts/config.yml 
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-  DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION} 
+install(FILES scripts/record.sh scripts/replay.sh 
+  DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}/scripts/
 )
-install(FILES 
-  scripts/record.sh script/replay.sh
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}/scripts
-  DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}/scripts 
+
+install(FILES src/config.yml
+  DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
 )
-install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+#install(FILES config.yml
+#DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION})
+
+#install(DIRECTORY script 
+#DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION})

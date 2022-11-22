@@ -38,9 +38,13 @@ Daqmain::Daqmain(QWidget *parent)
     connect(ui->btn_recordStop, SIGNAL(clicked()), this, SLOT(recordStopClicked()));
 
     sideButtonActions=new SideButtonActions(ui);
+    //statusMsg=new QLabel("");
     acquisitionStatus=new AcquisitionStatus(ui);
     ui->label_Path->setText(config.getRecordConfig());
     ui->label_fileName->setText("");
+    ui->statusMsg->setText("<table width=\"100%\"><tr><td width=\"180\"></td><td>sensor 상태 메시지가 없습니다</td></tr></table>");
+    ui->statusMsg->hide();
+    statusBar()->addWidget(ui->statusMsg,1);
 }
 
 Daqmain::~Daqmain()

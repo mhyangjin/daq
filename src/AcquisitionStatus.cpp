@@ -77,14 +77,14 @@ void AcquisitionStatus::run() {
     while (true) {
         if ( befores == lastTime)
         {
-            ui->statusbar->showMessage("                                         sensor 상태 메시지가 없습니다" );
+            //ui->statusMsg->setText("<table width=\"100%\"><tr><td width=\"180\"></td><td>sensor 상태 메시지가 없습니다</td></tr></table>");
+            ui->statusMsg->show();
             for (auto iter=statusMap->constBegin(); iter != statusMap->constEnd(); ++iter) {
                 iter.value()->changeState(AcquisitonStateEnum::DEFAULT);
             }
         } 
         else {
-            ui->statusbar->clearMessage( );
-            
+            ui->statusMsg->hide();
             befores=lastTime;
         } 
         QThread::sleep(2);
