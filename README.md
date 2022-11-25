@@ -60,11 +60,12 @@ cp ~catkin_ws/src/daq/src/rvizs/* ./rvizs/
 22. title 변경
 23. sensor start/stop 기능 구현
 24. topic log 화면 송출 후 종료안되는 bug fix
+25. logo icon 표시
 
 ### restriction
 1. daq 종료 시 core가 발생하는 문제가 있습니다. 보완 예정입니다.
-2. topic log 화면 송출 후 종료안되는 문제 - bag file play가 되지 않아 확인 불가
-3. 영상 송출 안되는 문제  - bag file play가 되지 않아 확인 불가
-4. 상태바 메시지 위치 조정 - 위치가 정확한 위치에 오지 않아 다시 수정 예정
+2. 현재 카메라 영상 송출 확인 안됨
+3. 상태 메시지 위치 조정 - > 윈도우 사이즈 확인 후 fix
+4. 
 
 
