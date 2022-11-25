@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>DAQ</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="images.qrc">
+    <normaloff>:/img/images/daq_logo_100.png</normaloff>:/img/images/daq_logo_100.png</iconset>
+  </property>
   <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>
   </property>
