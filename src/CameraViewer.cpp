@@ -19,7 +19,7 @@ rvizName(_rvizName)
      
     rviz::Config childConfig=config.mapGetChild("Visualization Manager");
     if ( childConfig.isValid()) {
-        cout <<"showRviz:Visualization Manager is Valid! : "<< qPrintable(rvizName) <<endl;
+        ROS_INFO("showRviz:Visualization Manager is Valid! : %s",qPrintable(rvizName));
     }
 
     buildDisplay( &childConfig  );
@@ -144,12 +144,9 @@ void CameraViewer::loadNodes(YAML::Node* node, rviz::Config* config) {
         switch ( _value.Type()) {
             case YAML::NodeType::Scalar: 
                 valueStr=_value.as<string>();
-                //cout <<"NODE:"<< nodeStr << endl;
-                //cout <<"VALUE:"<< valueStr << endl;
                 config->mapSetValue(QString::fromStdString(nodeStr),QString::fromStdString(valueStr));
                 break;
             case YAML::NodeType::Sequence:
-                //cout <<"NODE:"<< nodeStr <<"-SEQ-"<<_value.size()<< endl;
                 childConfig=config->mapMakeChild(QString::fromStdString(nodeStr));
                 
                 for (size_t i=0; i< _value.size(); i++) {
@@ -157,7 +154,6 @@ void CameraViewer::loadNodes(YAML::Node* node, rviz::Config* config) {
                     rviz::Config seqConfig=childConfig.listAppendNew();
                     if (arrayValue.Type() == YAML::NodeType::Scalar) {
                         valueStr=arrayValue.as<string>();
-                    //    cout<<"-" << valueStr<< endl;
                         seqConfig.setValue(QString::fromStdString(valueStr));
                     }
                     else 
@@ -165,7 +161,7 @@ void CameraViewer::loadNodes(YAML::Node* node, rviz::Config* config) {
                 }
                 break;
             case YAML::NodeType::Map:
-                //cout <<"NODE:"<< nodeStr <<"-map"<< endl;
+
                 childConfig=config->mapMakeChild(QString::fromStdString(nodeStr));
                 loadNodes(&_value, &childConfig);
                 break;

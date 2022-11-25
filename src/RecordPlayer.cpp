@@ -15,14 +15,12 @@ RecordPlayer::~RecordPlayer()  {
     stopReplay();
 }
 void RecordPlayer::startReplay(QString _bagFile){
-    cout <<"RecordPlayer::start()" <<endl;
     bagFile=_bagFile.toStdString();
     this->start();
 }
 void RecordPlayer::stopReplay(){
     string args="pkill play";
     system(args.data());
-    cout <<"RecordPlayer: Stoped!" <<endl;
 }  
 void RecordPlayer::run(){
     string args="./scripts/replay.sh " + bagFile;

@@ -22,12 +22,9 @@ void YmlLoader::loadNodes(YAML::Node* node, rviz::Config* config) {
         switch ( _value.Type()) {
             case YAML::NodeType::Scalar: 
                 valueStr=_value.as<string>();
-                //cout <<"NODE:"<< nodeStr << endl;
-                //cout <<"VALUE:"<< valueStr << endl;
                 config->mapSetValue(QString::fromStdString(nodeStr),QString::fromStdString(valueStr));
                 break;
             case YAML::NodeType::Sequence:
-                //cout <<"NODE:"<< nodeStr <<"-SEQ-"<<_value.size()<< endl;
                 childConfig=config->mapMakeChild(QString::fromStdString(nodeStr));
                 
                 for (size_t i=0; i< _value.size(); i++) {
@@ -35,7 +32,6 @@ void YmlLoader::loadNodes(YAML::Node* node, rviz::Config* config) {
                     rviz::Config seqConfig=childConfig.listAppendNew();
                     if (arrayValue.Type() == YAML::NodeType::Scalar) {
                         valueStr=arrayValue.as<string>();
-                    //    cout<<"-" << valueStr<< endl;
                         seqConfig.setValue(QString::fromStdString(valueStr));
                     }
                     else 
@@ -43,12 +39,11 @@ void YmlLoader::loadNodes(YAML::Node* node, rviz::Config* config) {
                 }
                 break;
             case YAML::NodeType::Map:
-                //cout <<"NODE:"<< nodeStr <<"-map"<< endl;
                 childConfig=config->mapMakeChild(QString::fromStdString(nodeStr));
                 loadNodes(&_value, &childConfig);
                 break;
             default :
-                cout <<"NONE:"<< _node.as<string>() << endl;
+                ROS_WARN("YmlLoader::loadNodes:NONE:Type is not valid!");
         }
     }
 }

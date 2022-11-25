@@ -11,6 +11,8 @@
 #include "DAQViz.h"
 #include <QFileDialog>
 #include "DialogConfig.h"
+#include <QThread>
+
 
 Daqmain::Daqmain(QWidget *parent)
     : QMainWindow(parent),
@@ -38,7 +40,6 @@ Daqmain::Daqmain(QWidget *parent)
     connect(ui->btn_recordStop, SIGNAL(clicked()), this, SLOT(recordStopClicked()));
 
     sideButtonActions=new SideButtonActions(ui);
-    //statusMsg=new QLabel("");
     acquisitionStatus=new AcquisitionStatus(ui);
     ui->label_Path->setText(config.getRecordConfig());
     ui->label_fileName->setText("");
@@ -49,8 +50,10 @@ Daqmain::Daqmain(QWidget *parent)
 
 Daqmain::~Daqmain()
 {
-    delete sideButtonActions;
+    acquisitionStatus->stop();
+    QThread::currentThread()->wait(2000);
     delete acquisitionStatus;
+    delete sideButtonActions;
     delete ui;
 }
 
@@ -201,9 +204,7 @@ void Daqmain::actionConfigrations() {
 }
 void Daqmain::closeEvent(QCloseEvent *event) {
     ros::shutdown();
-//    system ("/home/mhjin/script/kill.sh");
     QApplication::quit();
-    //system ("/home/jiat/script/kill.sh");
 }
 
 void Daqmain::allViewEnabled() {

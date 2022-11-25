@@ -46,7 +46,7 @@ private:
     void allStart(QString );
     void allStop(QString );
     Ui::DaqMain *ui;
-    QMap <QString, QList<DAQViz*>* > *rvizMap;
+    QMap <QString, QList<DAQViz*>* > rvizMap;
     ros::MultiThreadedSpinner* spiner=NULL;
     RecordStarter recordStarter;
     ConfigLoader config;

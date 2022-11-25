@@ -10,6 +10,8 @@
 #include <QString>
 #include <iostream>
 #include "defines.h"
+#include "ros/console.h"
+#include <log4cxx/logger.h>
 
 using namespace std; 
 

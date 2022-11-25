@@ -2,7 +2,7 @@
 //   Create Date: 2022/11/08
 //   ClassName  : TopicsViewer
 //   Author     : mhjin julu1@naver.com
-//   Class Def  : LiDAR_Top을 송출하기 위한 class
+//   Class Def  : 토픽들의 window controll class
 //======================================================================*/
 #ifndef TopicsViewer_H
 #define TopicsViewer_H
@@ -31,7 +31,7 @@ public slots:
     void on_data_update_triggered();
 
 private:
-    SignalsSlot*   topicSubscribers;    
-    QListView           qlistView; 
+    SignalsSlot*   topicSubscribers;
+    QListView           qlistView;
 };
 #endif

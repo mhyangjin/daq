@@ -31,12 +31,10 @@ void RecordStarter::stopRecord(){
 
     string args="pkill record";
     system(args.data());
-    cout <<"RecordPlayer: Stoped!" <<endl;
     
 }
 
 void RecordStarter::run() {
-    cout << "DDRecordStarter:RUN-"<<bagFile <<endl;
     string args="./scripts/record.sh " + dirName + " " + bagFile;
     system(args.data());
 }

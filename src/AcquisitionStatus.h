@@ -39,12 +39,15 @@ public:
     AcquisitionStatus(Ui::DaqMain* daqMain);
     ~AcquisitionStatus();
     void run();
+    void stop();
     void setRunStatus(QString);
     void setStopStatus(QString);
     void subscribeCallBack(const daq::Sensor_status&);
 private:
+    bool    running;
+    
     Ui::DaqMain* ui;   
-    QMap<StsName, AcquisitionStatus::SensorStatus*>* statusMap;
+    QMap<StsName, AcquisitionStatus::SensorStatus*> statusMap;
     ros::Subscriber subscriber;
     ros::NodeHandle nodeHandle;
     QStringList  sensorTopicList;

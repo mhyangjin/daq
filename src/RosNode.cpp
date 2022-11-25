@@ -21,7 +21,7 @@ RosNode::~RosNode() {
 }
 
 void RosNode::startNode() {
-    cout <<"RosNode::start()" <<endl;
+    ROS_DEBUG("RosNode::start()");
     if (my_pid > 0 ) {
         return;
     }
@@ -34,15 +34,16 @@ void RosNode::stopNode() {
     int32_t status;
     ::kill(my_pid, SIGTERM);
     ::waitpid(my_pid, &status, 0 );
-    cout <<nodeName << ": Stoped!" <<endl;
+    ROS_DEBUG("RosNode: %s is Stoped!", nodeName.data());
     my_pid=0;
 }
 
 void RosNode::run() {
     pid_t pid = ::fork();
-    cout <<"RosNode::fork()" <<pid<<endl;
+    ROS_INFO("RosNode::fork() %d",pid);
     if ( pid == 0 ) {
-        cout << "START:" <<nodeName<<":" << fileName <<endl;
+        ROS_DEBUG("RosNode: %s is Start -file[%s]", nodeName.data(), fileName.data());
+        
         ::setsid();
         ::signal(SIGINT, SIG_IGN);
         ::fclose(stdout);

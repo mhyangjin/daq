@@ -11,14 +11,25 @@
 
 int main(int argc, char *argv[])
 {
-  
+  ROSCONSOLE_AUTOINIT;
+
+  log4cxx::LoggerPtr my_logger;
+  my_logger=log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);
+  my_logger->setLevel(ros::console::g_level_lookup[ros::console::levels::Info]);
+
+  ROS_DEBUG("LOG Level >> over Debug");
+  ROS_INFO("LOG Level >> over Info");
+  ROS_WARN("LOG Level >> over Warn");
+  ROS_ERROR("LOG Level >> over Error");
+  ROS_FATAL("LOG Level >> over Fatal");
+
   if( !ros::isInitialized() )
   {
-    cout <<"ros::unisInitialized" <<endl;
+    ROS_INFO("ros::Initializing....");
     ros::init( argc, argv, "daq", ros::init_options::AnonymousName );
     
     if (!ros::master::check()) {
-      cout <<"ros::master::check fail" <<endl;
+      ROS_INFO("ros::core startind.....");
       system("roscore &");
     }
   }
@@ -26,6 +37,5 @@ int main(int argc, char *argv[])
     Daqmain w;
     w.show();
     int res= a.exec();
-    //ros::waitForShutdown();
     return res;
 }

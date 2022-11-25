@@ -2,7 +2,7 @@
 //   Create Date: 2022/11/04
 //   ClassName  : RvizViewer
 //   Author     : mhjin julu1@naver.com
-//   Class Def  : LiDAR_Top을 송출하기 위한 class
+//   Class Def  : Rviz file로부터 영상이미지를 위한 윈도우 콘트롤 클래스
 //======================================================================*/
 #ifndef RVIZVIEWER_H
 #define RVIZVIEWER_H

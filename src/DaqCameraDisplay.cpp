@@ -135,8 +135,6 @@ DaqCameraDisplay::~DaqCameraDisplay()
 
 void DaqCameraDisplay::onInitialize()
 {
-  cout << "DaqCameraDisplay::onInitialize()" <<endl;
-
   ImageDisplayBase::onInitialize();
 
   bg_scene_node_ = scene_node_->createChildSceneNode();

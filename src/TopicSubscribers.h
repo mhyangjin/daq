@@ -45,6 +45,7 @@ public:
 //signals:
  //  void dataUpdated();
 private:
+    bool running;
     ros::Subscriber subscriber;
     ros::NodeHandle nodeHandle;   
     ros::MultiThreadedSpinner* spiner;

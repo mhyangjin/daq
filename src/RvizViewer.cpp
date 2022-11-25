@@ -2,9 +2,7 @@
 //   Create Date: 2022/11/04
 //   ClassName  : RvizViewer
 //   Author     : mhjin julu1@naver.com
-//   Class Def  : .rviz file을 읽어서 rviz::Config로 만든 후 VisualizationManager
-//                를 통해 GUI로 보내기 위한  class.
-//                sensor 별로 이 클래스를 상속받아 하위로 구현한다.
+//   Class Def  :Rviz file로부터 영상이미지를 위한 윈도우 콘트롤 클래스ㄴ
 //======================================================================*/
 #include "RvizViewer.h"
 #include "YmlLoader.h"
@@ -16,22 +14,24 @@ rvizName(_rvizName)
     YmlLoader::loadConfig(rvizName, &config);
     if ( !config.isValid()) {
         exit(-1);
-    } 
-    panel_= new rviz::RenderPanel();  
+    }
+    panel_= new rviz::RenderPanel();
     manager= new rviz::VisualizationManager(panel_);
-    
+
     rviz::Config childConfig=config.mapGetChild("Visualization Manager");
     if ( childConfig.isValid()) {
-        cout <<"showRviz:Visualization Manager is Valid! : "<< qPrintable(rvizName) <<endl;
+        ROS_DEBUG("showRviz:Visualization Manager is Valid! : %s ",qPrintable(rvizName));
     }
     panel_->initialize(manager->getSceneManager(), manager);
-    manager->initialize();  
+    manager->initialize();
     manager->load(childConfig);
     //DAQViz::display_layout.addWidget(panel_);
     //panel_->hide();
 }
 
 RvizViewer::~RvizViewer() {
+    delete panel_;
+    delete manager;
 }
 
 void RvizViewer::showWindow() {
@@ -42,7 +42,7 @@ void RvizViewer::showWindow() {
     DAQViz::title->show();
     panel_->show();
     ui->rviz_layout->update();
-    
+
 }
 
 void RvizViewer::showWindow(int xpos, int ypos) {
@@ -63,5 +63,5 @@ void RvizViewer::closeWindow(){
     ui->rviz_layout->removeWidget(DAQViz::title);
     ui->rviz_layout->removeWidget(panel_);
     ui->rviz_layout->update();
-    
+
 }

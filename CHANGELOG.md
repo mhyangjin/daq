@@ -1,3 +1,8 @@
+# version 0.8.0 - 2022.11.25
+1. daq 종료 시 core가 발생하는 문제 fix
+2. Log level 기능,  logger 기능 추가
+3. 코드 정리
+
 # version 0.7.0 - 2022.11.25
 1. topic msg 송출 문제 
 2. LiDar 영상 송출 확인

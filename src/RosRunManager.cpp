@@ -7,7 +7,6 @@
 #include "RosRunManager.h"
 
  RosRunManager::RosRunManager() {
-    cout << " RosRunManager::RosRunManager() " <<endl;
     QMap<QString, QString> nodeMap=config.getnodes();
     QMap<QString, QString> launcherMap=config.getlaunchers();
     for (auto iter=nodeMap.constBegin(); iter != nodeMap.constEnd(); ++iter) {
@@ -18,16 +17,15 @@
     }
  }
 bool RosRunManager::start() {
-    cout << " nodeList::start() "<< nodeList.size() <<endl;
+    ROS_INFO(" RosRunManager::start() : %d ",nodeList.size() );
     for (int i=0; i< nodeList.size(); i++) {
-        cout << " nodeList::"<<i <<endl;
         RosNode* node=nodeList.at(i);
         node->startNode();
     }
     return true;
 }
 bool RosRunManager::stop() {
-    cout << " RosRunManager::stop()::"<<endl;
+    ROS_INFO(" RosRunManager::stop():" );
     for (int i=0; i< nodeList.size(); i++) {
         RosNode* node=nodeList.at(i);
         node->stopNode();
@@ -36,8 +34,7 @@ bool RosRunManager::stop() {
 }
 
 RosRunManager::~RosRunManager() {
-    for (int i=0; i< nodeList.size(); i++) {
-        RosNode* node=nodeList.at(i);
-        delete node;
+    for (auto iter=nodeList.begin(); iter!=nodeList.end(); iter++) {
+        delete *iter;
     }  
 }
