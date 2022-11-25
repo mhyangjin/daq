@@ -59,6 +59,7 @@ cp ~catkin_ws/src/daq/src/rvizs/* ./rvizs/
 21. config dialog 기능 추가
 22. title 변경
 23. sensor start/stop 기능 구현
+24. topic log 화면 송출 후 종료안되는 bug fix
 
 ### restriction
 1. daq 종료 시 core가 발생하는 문제가 있습니다. 보완 예정입니다.

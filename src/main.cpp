@@ -11,14 +11,16 @@
 
 int main(int argc, char *argv[])
 {
-  if (!ros::master::check()) {
-    cout <<"ros::master::check fail" <<endl;
-    //system("roscore &");
-  }
+  
   if( !ros::isInitialized() )
   {
     cout <<"ros::unisInitialized" <<endl;
     ros::init( argc, argv, "daq", ros::init_options::AnonymousName );
+    
+    if (!ros::master::check()) {
+      cout <<"ros::master::check fail" <<endl;
+      system("roscore &");
+    }
   }
     QApplication a(argc, argv);
     Daqmain w;

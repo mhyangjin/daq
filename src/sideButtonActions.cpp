@@ -68,6 +68,7 @@ void SideButtonActions::createTopicSubViewers(){
     gps_tmp->append( (DAQViz*) new TopicsViewer(ui, (SignalsSlot*)gps_topic, "GPS"));
     //imu
     TopicSubscribers<sensor_msgs::Imu>* imu_topic= new TopicSubscribers<sensor_msgs::Imu>("/gps/imu", spiner);
+    //TopicSubscribers<sensor_msgs::Imu>* imu_topic= new TopicSubscribers<sensor_msgs::Imu>("/diagnostic", spiner);
     QList<DAQViz*> *imu_tmp= new QList<DAQViz*>();
     imu_tmp->append( (DAQViz*) new TopicsViewer(ui, (SignalsSlot*)imu_topic, "IMU"));
     //radar

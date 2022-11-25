@@ -1,3 +1,7 @@
+# version 0.7.0 - 2022.11.25
+1. topic msg 송출 문제 
+2. LiDar 영상 송출 확인
+
 # version 0.6.5 - 2022.11.22
 1. sensor 상태 메시지 위치 변경
 2. config.yml 추가

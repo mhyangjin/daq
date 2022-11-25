@@ -15,7 +15,8 @@ TopicSubscribers<T>::TopicSubscribers(QString _topicName,ros::MultiThreadedSpinn
 :spiner(_spiner),
 topicName(_topicName)
 { 
-    //ros::start(); 
+    //ros::start();
+    SignalsSlot::qstringList.insertRows(0, 1);
     subscriber = nodeHandle.subscribe(qPrintable(topicName), 100, &TopicSubscribers<T>::subscribeCallBack,this );
     this->start();
         
@@ -32,12 +33,13 @@ void TopicSubscribers<T>::subscribeCallBack(const typename T::ConstPtr& messages
     ss<<*messages;
     QString _data=QString::fromStdString(ss.str());
     QVariant new_data(_data);
-    
+    /*
     if (SignalsSlot::qstringList.rowCount() >= 100) {
         SignalsSlot::qstringList.removeRows(0,SignalsSlot::qstringList.rowCount()-50);
     }
     
-    SignalsSlot::qstringList.insertRows(SignalsSlot::qstringList.rowCount(), 1);
+    SignalsSlot::qstringList.insertRows(SignalsSlot::qstringList.rowCount(), 1);*/
+    //SignalsSlot::qstringList.setData(SignalsSlot::qstringList.index(SignalsSlot::qstringList.rowCount()-1), new_data);
     SignalsSlot::qstringList.setData(SignalsSlot::qstringList.index(SignalsSlot::qstringList.rowCount()-1), new_data);
     Q_EMIT SignalsSlot::dataUpdated();
 }

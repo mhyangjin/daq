@@ -43,5 +43,5 @@ const QString img_source[3]={
 
 const QString pubName="/diagnostic";
 
-
+//const QString pubName="/diagnosticss";
 #endif
