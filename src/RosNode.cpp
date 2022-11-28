@@ -9,9 +9,10 @@
 RosNode::RosNode(RosType _rosType, QString _nodeName, QString _fileName)
 :my_pid(0),
 rosType(_rosType) {
+    ROS_DEBUG("DAQ::RosNode::RosNode-%s-%s", qPrintable(_nodeName), qPrintable(_fileName));
     nodeName=_nodeName.toStdString();
     fileName=_fileName.toStdString();
-    string pkill_name="pkill " + nodeName;
+    string pkill_name="pkill " + fileName;
     system(pkill_name.data());
 
 }

@@ -9,7 +9,6 @@
 #include "TopicsViewer.h"
 #include "TopicSubscribers.h"
 
-
 #include <QFileDialog>
 
 #include <std_msgs/String.h>
@@ -23,11 +22,13 @@
 
  SideButtonActions::SideButtonActions(Ui::DaqMain *_ui)
  :ui(_ui){
-    
+    ROS_DEBUG("SideButtonActions::SideButtonActions");
     //미리 선언된 rivs config file로부터  display
     createRvizViewers();
+    ROS_DEBUG("SideButtonActions::SideButtonActions-createRvizViewers");
     //topic을 읽어서 창에 string으로 display
     createTopicSubViewers();
+    ROS_DEBUG("SideButtonActions::SideButtonActions-createTopicSubViewers");
  }
 SideButtonActions::~SideButtonActions() {
     for (auto iter=rvizMap.begin(); iter != rvizMap.end(); ++iter) {

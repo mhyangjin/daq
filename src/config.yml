@@ -8,8 +8,8 @@ launchs:
   - Name: velodyne_pointcloud
     File: 16ch.launch
 nodes:
-  - Name: diagnostic
-    File: diagnostic_talker.py
+  - Name: daq
+    File: jiat_diagnostic.py
   - Name: solati
     File: solati_decode
 rviz: ./rvizs

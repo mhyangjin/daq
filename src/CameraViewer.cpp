@@ -23,7 +23,7 @@ rvizName(_rvizName)
     }
 
     buildDisplay( &childConfig  );
-    
+    ROS_INFO("DAQ: Camera viewer is ready: %s",qPrintable(rvizName) );
 }
 
 CameraViewer::~CameraViewer() {

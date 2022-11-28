@@ -21,7 +21,7 @@ add_message_files(FILES Sensor_status.msg Car.msg Radar.msg Track.msg Sim.msg )
 generate_messages(DEPENDENCIES std_msgs)
 
 catkin_install_python(PROGRAMS
-  scripts/diagnostic_talker.py
+  scripts/jiat_diagnostic.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 ####################################################
@@ -110,10 +110,7 @@ include_directories(
 #catkin_install_python( PROGRAMS
 #scrpits/runDAQ.py
 #)
-FILE(COPY src/config.yml
-DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
-FILE(COPY scripts/record.sh scripts/replay.sh 
-DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}/scripts )
+
 #DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 ##############################################################################
 # Binaries
@@ -132,16 +129,3 @@ install(TARGETS ${PROJECT_NAME}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
   )
-
-install(FILES scripts/record.sh scripts/replay.sh 
-  DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}/scripts/
-)
-
-install(FILES src/config.yml
-  DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
-)
-#install(FILES config.yml
-#DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION})
-
-#install(DIRECTORY script 
-#DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION})

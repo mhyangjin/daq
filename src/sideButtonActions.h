@@ -46,10 +46,10 @@ private:
     void allStart(QString );
     void allStop(QString );
     Ui::DaqMain *ui;
+    ConfigLoader config;
     QMap <QString, QList<DAQViz*>* > rvizMap;
     ros::MultiThreadedSpinner* spiner=NULL;
     RecordStarter recordStarter;
-    ConfigLoader config;
     RosRunManager rosRunManager;
     RecordPlayer recordPlayer;
 

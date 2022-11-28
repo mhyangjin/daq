@@ -1,6 +1,6 @@
 # DAQ Application
 
-## prerequired
+## prerequir
 1. Ubuntu 20.04 (Focal Fossa)
 2. C ++ 11
 3. ros
@@ -23,6 +23,7 @@ cd ~/catkin_ws
 3. 실행파일은 ~catkin_ws/build/daq밑에 있습니다. 또는 ~catkin_ws/devel/lib/daq 밑에 있음.
    실행하기에 앞서 .rviz 파일들이 실행 파일이 있는 dir/rvizs 폴더에 있어야 합니다.
    가지고 있는 .rviz file을 복사하거나 소스에 포함된 파일을 복사해 둡니다.
+   script/record.sh ,replay.sh가 script 밑에 있어야 합니다.
 
 ```bash
 cd ~/catkin_ws/build/daq

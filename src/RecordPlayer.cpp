@@ -9,7 +9,7 @@
 
 RecordPlayer::RecordPlayer() 
 :my_pid(0){
-
+    ROS_DEBUG("DAQ::RecordPlayer::RecordPlayer");
 }
 RecordPlayer::~RecordPlayer()  {
     stopReplay();

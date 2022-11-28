@@ -10,37 +10,58 @@
 #include <fstream>
 
 ConfigLoader::ConfigLoader(){
+    try {
+        YAML::Node _rootNode=YAML::LoadFile(configFileName);
+        YAML::Node rvizNode=_rootNode["rviz"];
+        rvizDir=QString::fromStdString(rvizNode.as<string>());
 
-    YAML::Node _rootNode=YAML::LoadFile(configFileName);
+        YAML::Node recordNode=_rootNode["record"];
+        RecordDir=QString::fromStdString(recordNode.as<string>());
 
-    YAML::Node rvizNode=_rootNode["rviz"];
-    rvizDir=QString::fromStdString(rvizNode.as<string>());
-
-    YAML::Node recordNode=_rootNode["record"];
-    RecordDir=QString::fromStdString(recordNode.as<string>());
-
-    YAML::Node scriptNode=_rootNode["script"];
-    ScriptDir=QString::fromStdString(scriptNode.as<string>());
+        YAML::Node scriptNode=_rootNode["script"];
+        ScriptDir=QString::fromStdString(scriptNode.as<string>());
 
 
-    YAML::Node launchNode=_rootNode["launchs"];
-    for (size_t i=0; i< launchNode.size(); i++) {
-        QString name=QString::fromStdString(launchNode[i]["Name"].as<string>());
-        QString file=QString::fromStdString(launchNode[i]["File"].as<string>());
-        launchers.insert(name, file);
+        YAML::Node launchNode=_rootNode["launchs"];
+        for (size_t i=0; i< launchNode.size(); i++) {
+            QString name=QString::fromStdString(launchNode[i]["Name"].as<string>());
+            QString file=QString::fromStdString(launchNode[i]["File"].as<string>());
+            launchers.insert(name, file);
+        }
+
+        YAML::Node nodesNode=_rootNode["nodes"];
+        for (size_t i=0; i< nodesNode.size(); i++) {
+            QString name=QString::fromStdString(nodesNode[i]["Name"].as<string>());
+            QString file=QString::fromStdString(nodesNode[i]["File"].as<string>());
+            nodes.insert(name, file);
+        }
     }
-
-    YAML::Node nodesNode=_rootNode["nodes"];
-    for (size_t i=0; i< nodesNode.size(); i++) {
-        QString name=QString::fromStdString(nodesNode[i]["Name"].as<string>());
-        QString file=QString::fromStdString(nodesNode[i]["File"].as<string>());
-        nodes.insert(name, file);
+    catch (const YAML::BadFile& e) {
+        ROS_INFO("Configfille is not exist. generate default configfile ");
+        generateConfig();
     }
-
+    catch ( ...) {
+        ROS_INFO("Unkown Exception. generate default configfile ");
+        generateConfig();
+    }
 }
 
 ConfigLoader::~ConfigLoader() {
 
+}
+
+void ConfigLoader::generateConfig() {
+    rvizDir="./rvizs";
+    RecordDir="/home/jiat/Data";
+    ScriptDir="./scripts";
+
+    launchers.insert("novatel_oem7_driver", "oem7_net.launch");
+    launchers.insert("ouster_ros","64ch.launch");
+    launchers.insert("usb_cam","cameras.launch.launch");
+    launchers.insert("velodyne_pointcloud","16ch.launch");
+    nodes.insert("daq", "jiat_diagnostic.py");
+    nodes.insert("solati", "solati_decode");
+    saveConfig();
 }
 void ConfigLoader::saveConfig() {
     YAML::Emitter emitter;
@@ -78,7 +99,8 @@ void ConfigLoader::saveConfig() {
 
     ofstream fout(configFileName);
 
-    fout<<emitter.c_str();
+    fout<<emitter.c_str()<<endl;
+    fout.close();
 }
 void ConfigLoader::setRvizConfig(QString _rvizDir) {
     rvizDir=_rvizDir;

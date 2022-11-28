@@ -12,7 +12,7 @@
 #include <vector>
 RecordStarter::RecordStarter()
 :my_pid(0){
-
+    ROS_DEBUG("DAQ::RecordStarter::RecordStarter");
 }
 
 RecordStarter::~RecordStarter(){

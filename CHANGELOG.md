@@ -1,3 +1,9 @@
+# version 0.9.0 - 2022.11.28
+1. LOG 상세 정보 추가
+2. config.yml 없이 default로 로딩. 추후 config가 변경되면 변경 정보로 로딩하도록 수정
+3. rviz dir, script dir은 pkg install 에서 제외
+4. jiat_diagnostic.py pkg install에 추가
+
 # version 0.8.0 - 2022.11.25
 1. daq 종료 시 core가 발생하는 문제 fix
 2. Log level 기능,  logger 기능 추가

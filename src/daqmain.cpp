@@ -18,8 +18,9 @@ Daqmain::Daqmain(QWidget *parent)
     : QMainWindow(parent),
     ui(new Ui::DaqMain)
 {
+    ROS_INFO("DAQ::ready ui..");
     ui->setupUi(this);
-
+    ROS_INFO("DAQ::register actions..");
    //button을 클릭할 떄 수행할 Actions를 등록해 준다.
     connect(ui->actionConfigrations, SIGNAL(triggered()), this, SLOT(actionConfigrations()));
     connect(ui->radioButton_sensor, SIGNAL(clicked()), this, SLOT(radioSensorClicked()));
@@ -39,13 +40,16 @@ Daqmain::Daqmain(QWidget *parent)
     connect(ui->btn_recordStart, SIGNAL(clicked()), this, SLOT(recordStartClicked()));
     connect(ui->btn_recordStop, SIGNAL(clicked()), this, SLOT(recordStopClicked()));
 
+    ROS_INFO("DAQ::setting rviz, topics ..");
     sideButtonActions=new SideButtonActions(ui);
+    ROS_INFO("DAQ::setting satus..");
     acquisitionStatus=new AcquisitionStatus(ui);
     ui->label_Path->setText(config.getRecordConfig());
     ui->label_fileName->setText("");
     ui->statusMsg->setText("<table width=\"100%\"><tr><td width=\"180\"></td><td>sensor 상태 메시지가 없습니다</td></tr></table>");
     ui->statusMsg->hide();
     statusBar()->addWidget(ui->statusMsg,1);
+    ROS_INFO("DAQ::Ready!");
 }
 
 Daqmain::~Daqmain()

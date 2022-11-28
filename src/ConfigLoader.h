@@ -28,7 +28,7 @@ public:
     void setScriptConfig(QString);
 private:
     void loadConfig();
-
+    void generateConfig();
 private:
     const string configFileName="./config.yml";
     QString rvizDir;

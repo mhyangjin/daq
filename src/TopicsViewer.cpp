@@ -15,6 +15,7 @@ topicSubscribers(_topicSubscribers )
     qlistView.setModel(qstringList);
     //DAQViz::display_layout.addWidget(&qlistView);
     qlistView.hide();
+    ROS_INFO("DAQ: Topic viewer is ready: %s",qPrintable(_title) );
 }
 
 TopicsViewer::~TopicsViewer() {

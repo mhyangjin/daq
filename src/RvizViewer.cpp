@@ -27,6 +27,7 @@ rvizName(_rvizName)
     manager->load(childConfig);
     //DAQViz::display_layout.addWidget(panel_);
     //panel_->hide();
+    ROS_INFO("DAQ: Rviz viewer is ready: %s",qPrintable(_rvizName) );
 }
 
 RvizViewer::~RvizViewer() {
