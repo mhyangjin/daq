@@ -15,8 +15,8 @@ int main(int argc, char *argv[])
 
   log4cxx::LoggerPtr my_logger;
   my_logger=log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);
-  my_logger->setLevel(ros::console::g_level_lookup[ros::console::levels::Debug]);
-  //my_logger->setLevel(ros::console::g_level_lookup[ros::console::levels::Info]);
+  //my_logger->setLevel(ros::console::g_level_lookup[ros::console::levels::Debug]);
+  my_logger->setLevel(ros::console::g_level_lookup[ros::console::levels::Info]);
   ROS_DEBUG("LOG Level >> over Debug");
   ROS_INFO("LOG Level >> over Info");
   ROS_WARN("LOG Level >> over Warn");
