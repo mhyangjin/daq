@@ -9,13 +9,14 @@
 #define CameraViewer_H
 #include "init.h"
 #include "DAQViz.h"
+//#include "DaqCameraDisplay.h"
 #include <rviz/visualization_manager.h>
 #include <rviz/render_panel.h>
 #include <rviz/config.h>
 #include <yaml-cpp/yaml.h>
 #include <QLabel>
 #include <QStringList>
-
+#include <rviz/default_plugin/image_display.h>
 
 class CameraViewer : public DAQViz{
 public:
@@ -39,8 +40,10 @@ private:
     void buildDisplay(rviz::Config* );
 
     rviz::VisualizationManager* managers[3];
+    rviz::VisualizationManager* manager;
     rviz::RenderPanel* panels[3];
-    rviz::Display* displays[3];
+    rviz::RenderPanel* panel;
+    rviz::ImageDisplay* displays[3];
     QLabel* titleLabels[3];
     QString rvizName;
     rviz::Config config;

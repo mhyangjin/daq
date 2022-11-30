@@ -11,5 +11,6 @@
         <file>images/JiartLogo.png</file>
         <file>images/daq_logo_100.png</file>
         <file>images/DAQ_logo_120.png</file>
+        <file>images/daq_icon.png</file>
     </qresource>
 </RCC>

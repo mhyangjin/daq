@@ -6,6 +6,9 @@
 //======================================================================*/
 #include "RvizViewer.h"
 #include "YmlLoader.h"
+#include "DaqVisualizationManager.h"
+#include "DaqCameraDisplay.h"
+#include <rviz/default_plugin/camera_display.h>
 
 RvizViewer::RvizViewer(Ui::DaqMain* ui, QString _rvizName,QString _title)
 :DAQViz(ui, _title),
@@ -15,13 +18,13 @@ rvizName(_rvizName)
     if ( !config.isValid()) {
         exit(-1);
     }
-    panel_= new rviz::RenderPanel();
-    manager= new rviz::VisualizationManager(panel_);
-
+    
     rviz::Config childConfig=config.mapGetChild("Visualization Manager");
     if ( childConfig.isValid()) {
         ROS_DEBUG("showRviz:Visualization Manager is Valid! : %s ",qPrintable(rvizName));
     }
+    panel_= new rviz::RenderPanel();
+    manager= new rviz::VisualizationManager(panel_);
     panel_->initialize(manager->getSceneManager(), manager);
     manager->initialize();
     manager->load(childConfig);

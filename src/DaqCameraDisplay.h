@@ -38,102 +38,26 @@
 #ifndef DAQ_CAMERA_DISPLAY_H
 #define DAQ_CAMERA_DISPLAY_H
 #include "init.h"
-#include <memory>
-
-#include <QObject>
-
-#ifndef Q_MOC_RUN
-#include <OgreMaterial.h>
-#include <OgreRenderTargetListener.h>
-#include <OgreSharedPtr.h>
-
-#include <sensor_msgs/CameraInfo.h>
-
-#include "rviz/image/image_display_base.h"
-#include "rviz/image/ros_image_texture.h"
-#include "rviz/render_panel.h"
-#include "rviz/properties/float_property.h"
-#include "rviz/properties/int_property.h"
-#include "rviz/properties/ros_topic_property.h"
-#include "rviz/properties/display_group_visibility_property.h"
-#endif
-
-using namespace Ogre;
-using namespace rviz;
-
-/**
- * \class CameraDisplay
- *
- */
-class DaqCameraDisplay : public ImageDisplayBase, public Ogre::RenderTargetListener
+#include <rviz/default_plugin/image_display.h>
+#include <rviz/image/image_display_base.h>
+#include <rviz/render_panel.h>
+class DaqCameraDisplay : public rviz::ImageDisplay
 {
-  Q_OBJECT
 public:
-  DaqCameraDisplay( );
-  DaqCameraDisplay(RenderPanel* );
-  ~DaqCameraDisplay() override;
-
-  // Overrides from Display
+  DaqCameraDisplay(rviz::RenderPanel* );
+  ~DaqCameraDisplay();
+  rviz::RenderPanel* getRenderPanel() ;
+/*
   void onInitialize() override;
-  void fixedFrameChanged() override;
   void update(float wall_dt, float ros_dt) override;
   void reset() override;
 
-  // Overrides from Ogre::RenderTargetListener
-  void preRenderTargetUpdate(const Ogre::RenderTargetEvent& evt) override;
-  void postRenderTargetUpdate(const Ogre::RenderTargetEvent& evt) override;
-
-  static const QString BACKGROUND;
-  static const QString OVERLAY;
-  static const QString BOTH;
-
 protected:
-  // overrides from Display
   void onEnable() override;
   void onDisable() override;
-
-  ROSImageTexture texture_;
-  RenderPanel* render_panel_;
-
-private Q_SLOTS:
-  void forceRender();
-  void updateAlpha();
-
-  void updateQueueSize() override;
-
-private:
-  void subscribe() override;
-  void unsubscribe() override;
-
   void processMessage(const sensor_msgs::Image::ConstPtr& msg) override;
-  void processCamInfoMessage(const sensor_msgs::CameraInfo::ConstPtr& msg);
+  */
 
-  bool updateCamera();
-
-  Ogre::SceneNode* bg_scene_node_;
-  Ogre::SceneNode* fg_scene_node_;
-
-  Ogre::Rectangle2D* bg_screen_rect_;
-  Ogre::MaterialPtr bg_material_;
-
-  Ogre::Rectangle2D* fg_screen_rect_;
-  Ogre::MaterialPtr fg_material_;
-
-  ros::Subscriber caminfo_sub_;
-
-  FloatProperty* alpha_property_;
-  EnumProperty* image_position_property_;
-  FloatProperty* zoom_property_;
-  DisplayGroupVisibilityProperty* visibility_property_;
-
-  sensor_msgs::CameraInfo::ConstPtr current_caminfo_;
-  boost::mutex caminfo_mutex_;
-
-  bool caminfo_ok_;
-
-  bool force_render_;
-
-  uint32_t vis_bit_;
 };
 
 #endif

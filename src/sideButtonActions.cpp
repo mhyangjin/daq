@@ -51,6 +51,7 @@ void SideButtonActions::createRvizViewers() {
 
     QList<DAQViz*> *camera_tmp= new QList<DAQViz*>();
     camera_tmp->append( (DAQViz*) new CameraViewer(ui, Dir + "/cameras.rviz", "Camera" ));
+    //camera_tmp->append( (DAQViz*) new RvizViewer(ui, Dir + "/cameras.rviz", "Camera" ));
 
     QList<DAQViz*> *l_side_tmp= new QList<DAQViz*>();
     l_side_tmp->append( (DAQViz*) new RvizViewer(ui, Dir + "/left_vel.rviz", "LiDAR left" ));

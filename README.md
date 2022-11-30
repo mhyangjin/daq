@@ -63,10 +63,13 @@ cp ~catkin_ws/src/daq/src/rvizs/* ./rvizs/
 24. topic log 화면 송출 후 종료안되는 bug fix
 25. logo icon 표시
 26. daq 종료 시 core가 발생하는 문제 fix.
+27. 상태 메시지 위치 조정 -> 우측 정렬
+28. daq icon 변경
+29. roscore 종료 추가
 
 ### restriction
 1. 현재 카메라 영상 송출 확인 안됨
-2. 상태 메시지 위치 조정 - > 윈도우 사이즈 확인 후 fix
+2. 
  
 
 

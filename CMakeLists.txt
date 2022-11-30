@@ -8,7 +8,10 @@ project(daq)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 set(CMAKE_PREFIX_PATH "/opt/ros/noetic/lib;/opt/ros/noetic;${CMAKE_MODULE_PATH};/usr/lib/aarch64-linux-gnu/qt5;/usr/lib/aarch64-linux-gnu;/usr/include")
-find_package(catkin REQUIRED COMPONENTS
+
+find_package(
+  catkin 
+  REQUIRED COMPONENTS
   roscpp
   rviz
   message_generation
@@ -17,10 +20,19 @@ find_package(catkin REQUIRED COMPONENTS
   rosbag
 )
 
-add_message_files(FILES Sensor_status.msg Car.msg Radar.msg Track.msg Sim.msg )
-generate_messages(DEPENDENCIES std_msgs)
+add_message_files(
+  FILES 
+  Sensor_status.msg 
+  Car.msg Radar.msg 
+  Track.msg 
+  Sim.msg )
 
-catkin_install_python(PROGRAMS
+generate_messages(
+  DEPENDENCIES 
+  std_msgs)
+
+catkin_install_python(
+  PROGRAMS
   scripts/jiat_diagnostic.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
@@ -74,8 +86,10 @@ set( QT_SOURCES
   src/RvizViewer.cpp
   src/YmlLoader.h
   src/YmlLoader.cpp
-  src/DaqCameraDisplay.h
-  src/DaqCameraDisplay.cpp
+#  src/DaqCameraDisplay.h
+#  src/DaqCameraDisplay.cpp
+  src/DaqVisualizationManager.h
+  src/DaqVisualizationManager.cpp
   src/CameraViewer.h
   src/CameraViewer.cpp
   src/RecordStarter.h

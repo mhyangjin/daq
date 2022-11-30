@@ -7,6 +7,9 @@
 #include "CameraViewer.h"
 #include <rviz/display.h>
 #include "DaqCameraDisplay.h"
+#include "YmlLoader.h"
+#include <rviz/display_group.h>
+
 
 CameraViewer::CameraViewer(Ui::DaqMain* ui, QString _rvizName, QString _title)
 :DAQViz(ui, _title),
@@ -21,6 +24,12 @@ rvizName(_rvizName)
     if ( childConfig.isValid()) {
         ROS_INFO("showRviz:Visualization Manager is Valid! : %s",qPrintable(rvizName));
     }
+    panel= new rviz::RenderPanel();  
+    ROS_DEBUG("rviz::RenderPanel %p", panel);
+    manager= new rviz::VisualizationManager(panel);
+    panel->initialize(manager->getSceneManager(), manager);
+    manager->initialize();
+    manager->load(childConfig);
 
     buildDisplay( &childConfig  );
     ROS_INFO("DAQ: Camera viewer is ready: %s",qPrintable(rvizName) );
@@ -30,16 +39,15 @@ CameraViewer::~CameraViewer() {
 }
 
 void CameraViewer::buildDisplay(rviz::Config* config) {
+    rviz::DisplayGroup* dg=manager->getRootDisplayGroup();
+    
+    ROS_DEBUG("----DiplayGroup Count %d", dg->numDisplays());
+
     for (int i=0; i<3; i++) {
-        panels[i]= new rviz::RenderPanel();  
-        managers[i]= new rviz::VisualizationManager(panels[i]);  
+        ROS_DEBUG("showRviz:buildDisplay");
 
-        rviz::Config camera_config   = config->listChildAt(i);
-        displays[i]=new DaqCameraDisplay(panels[i]);
-        displays[i]->load(camera_config);
-        managers[i]-> addDisplay(displays[i], true);
-        managers[i] ->initialize();
-
+        displays[i]=(rviz::ImageDisplay*)dg->getDisplayAt(i);
+        //panels[i]= displays[i]->getRenderPanel();
         titleLabels[i] = new QLabel();
         titleLabels[i]->setText(cameraTitles[i]);
         titleLabels[i]->setMaximumSize(10000,20);
@@ -47,8 +55,9 @@ void CameraViewer::buildDisplay(rviz::Config* config) {
         titleLabels[i]->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);    //display_layout.addWidget(&title);
         titleLabels[i]->setAlignment(Qt::AlignCenter);
         titleLabels[i]->hide();
-        panels[i]->hide();
+        //panels[i]->hide();
     }
+
 }
 
 void CameraViewer::showWindow() {
@@ -71,9 +80,10 @@ void CameraViewer::showWindow() {
                 break;
         }
         titleLabels[i]->show();
-        managers[i]->startUpdate();
-        panels[i]->show();
+     //   managers[i]->startUpdate();
+    //    panels[i]->show();
     }
+    manager->startUpdate();
     DAQViz::title->show();
     ui->rviz_layout->update();    
 }
@@ -98,9 +108,10 @@ void CameraViewer::showWindow(int xpos, int ypos) {
                 break;
         }
         titleLabels[i]->show();
-        managers[i]->startUpdate();
-        panels[i]->show();
+ //       managers[i]->startUpdate();
+ //       panels[i]->show();
     }
+    manager->startUpdate();
     DAQViz::title->show();
     ui->rviz_layout->update();    
 }
@@ -109,13 +120,14 @@ void CameraViewer::closeWindow(){
     DAQViz::buttonState=ButtonState::OFF;
     DAQViz::title->hide();
     for (int i=0; i<3; i++) {
-        panels[i]->hide();
-        managers[i]->stopUpdate();
+ //      panels[i]->hide();
+ //       managers[i]->stopUpdate();
         ui->rviz_layout->removeWidget( panels[i]        );
         ui->rviz_layout->removeWidget( titleLabels[i]   );
         titleLabels[i]->hide();   
     }
     DAQViz::title->hide();
+    manager->stopUpdate();
     ui->rviz_layout->removeWidget(DAQViz::title);
     ui->rviz_layout->update();
 }
@@ -129,9 +141,10 @@ void CameraViewer::loadConfig( QString rvizFileName,rviz::Config *config) {
     rviz::Config config_;
     config_reader.readFile(config_, rvizFileName);
     */
-    YAML::Node _rootNode=YAML::LoadFile(qPrintable(rvizFileName));
+    //YAML::Node _rootNode=YAML::LoadFile(qPrintable(rvizFileName));
+    YmlLoader::loadConfig(rvizFileName, config);
     //printNodes(&_rootNode);
-    loadNodes(&_rootNode, config);
+    //loadNodes(&_rootNode, config);
 }
 
 void CameraViewer::loadNodes(YAML::Node* node, rviz::Config* config) {

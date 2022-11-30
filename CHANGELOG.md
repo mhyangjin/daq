@@ -1,3 +1,8 @@
+# version 0.9.5 - 2022.11.30
+1. sensor message 우측 정렬
+2. daq icon 변경
+3. roscore 종료 추가
+
 # version 0.9.0 - 2022.11.28
 1. LOG 상세 정보 추가
 2. config.yml 없이 default로 로딩. 추후 config가 변경되면 변경 정보로 로딩하도록 수정
