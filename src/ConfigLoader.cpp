@@ -57,7 +57,7 @@ void ConfigLoader::generateConfig() {
 
     launchers.insert("novatel_oem7_driver", "oem7_net.launch");
     launchers.insert("ouster_ros","64ch.launch");
-    launchers.insert("usb_cam","cameras.launch.launch");
+    launchers.insert("usb_cam","cameras.launch");
     launchers.insert("velodyne_pointcloud","16ch.launch");
     nodes.insert("daq", "jiat_diagnostic.py");
     nodes.insert("solati", "solati_decode");

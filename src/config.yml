@@ -4,7 +4,7 @@ launchs:
   - Name: ouster_ros
     File: 64ch.launch
   - Name: usb_cam
-    File: cameras.launch.launch
+    File: cameras.launch
   - Name: velodyne_pointcloud
     File: 16ch.launch
 nodes:
