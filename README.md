@@ -66,10 +66,11 @@ cp ~catkin_ws/src/daq/src/rvizs/* ./rvizs/
 27. 상태 메시지 위치 조정 -> 우측 정렬
 28. daq icon 변경
 29. roscore 종료 추가
+30. 카메라 영상 송출 확인
+31. 화면 전환 시 이전 화면 clear
+32. run, kill script 추가
 
 ### restriction
-1. 현재 카메라 영상 송출 확인 안됨
-2. 
- 
+
 
 

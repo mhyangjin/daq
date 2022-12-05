@@ -50,8 +50,8 @@ void SideButtonActions::createRvizViewers() {
     lidar_tmp->append( (DAQViz*) new RvizViewer(ui, Dir + "/ouster.rviz","LiDAR top"));
 
     QList<DAQViz*> *camera_tmp= new QList<DAQViz*>();
-    //camera_tmp->append( (DAQViz*) new CameraViewer(ui, Dir + "/cameras.rviz", "Camera" ));
-    camera_tmp->append( (DAQViz*) new RvizViewer(ui, Dir + "/cameras.rviz", "Camera" ));
+    camera_tmp->append( (DAQViz*) new CameraViewer(ui, Dir + "/cameras.rviz", "Camera" ));
+    //camera_tmp->append( (DAQViz*) new RvizViewer(ui, Dir + "/cameras.rviz", "Camera" ));
 
     QList<DAQViz*> *l_side_tmp= new QList<DAQViz*>();
     l_side_tmp->append( (DAQViz*) new RvizViewer(ui, Dir + "/left_vel.rviz", "LiDAR left" ));
@@ -59,8 +59,8 @@ void SideButtonActions::createRvizViewers() {
 
     //click event를 받았을 때  display를 hide, show 처리를 위해 map에 넣어둔다.
     rvizMap.insert("lidarTop", lidar_tmp);
-    rvizMap.insert("cameras", camera_tmp);
     rvizMap.insert("lidarSide", l_side_tmp);
+    rvizMap.insert("cameras", camera_tmp);
 
  }
 
@@ -96,18 +96,21 @@ void SideButtonActions::createTopicSubViewers(){
 }
 
 bool SideButtonActions::sensorStart() {
-    rosRunManager.start();
+    rosRunner.startRosNode();
     return true;
 }
 void SideButtonActions::sensorStop() {
-    rosRunManager.stop();
+    rosRunner.stopRosNode();
+    this->allStop("nothing");
 }
+
 bool SideButtonActions::replayStart(QString file) {
     recordPlayer.startReplay(file);
     return true;
 }
 void SideButtonActions::replayStop() {
     recordPlayer.stopReplay();
+    this->allStop("nothing");
 }
 
 void SideButtonActions::allViewClicked(){

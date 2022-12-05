@@ -16,6 +16,7 @@
 #include "ConfigLoader.h"
 #include "RosRunManager.h"
 #include "RecordPlayer.h"
+#include "RosRunner.h"
 
 class SideButtonActions {
 public:
@@ -50,7 +51,7 @@ private:
     QMap <QString, QList<DAQViz*>* > rvizMap;
     ros::MultiThreadedSpinner* spiner=NULL;
     RecordStarter recordStarter;
-    RosRunManager rosRunManager;
+    RosRunner rosRunner;
     RecordPlayer recordPlayer;
 
 };

@@ -1116,6 +1116,9 @@
       </item>
      </layout>
     </item>
+    <item>
+     <layout class="QFormLayout" name="camera_hidden"/>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">

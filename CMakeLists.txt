@@ -23,7 +23,8 @@ find_package(
 add_message_files(
   FILES 
   Sensor_status.msg 
-  Car.msg Radar.msg 
+  Car.msg 
+  Radar.msg 
   Track.msg 
   Sim.msg )
 
@@ -78,8 +79,8 @@ set( QT_SOURCES
   src/RosNode.cpp
   src/RecordPlayer.h
   src/RecordPlayer.cpp
-  src/RosRunManager.h
-  src/RosRunManager.cpp
+  src/RosRunner.h
+  src/RosRunner.cpp
   src/TopicSubscribers.h
   src/TopicSubscribers.cpp
   src/RvizViewer.h

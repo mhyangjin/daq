@@ -27,8 +27,11 @@
 class SignalsSlot : public QObject {
 Q_OBJECT    
 public:
-    explicit SignalsSlot(QObject *parent=0):QObject(parent){}
+    explicit SignalsSlot(QObject *parent=0):QObject(parent){};
     QStringListModel* getListModel(){return &qstringList;};
+    void reset() {
+        qstringList.setData(qstringList.index(qstringList.rowCount()-1), "");
+    };
 signals:
     void dataUpdated();
 protected:

@@ -7,8 +7,9 @@
 #include "RvizViewer.h"
 #include "YmlLoader.h"
 #include "DaqVisualizationManager.h"
-#include "DaqCameraDisplay.h"
-#include <rviz/default_plugin/camera_display.h>
+
+#include <rviz/display.h>
+#include <rviz/display_group.h>
 
 RvizViewer::RvizViewer(Ui::DaqMain* ui, QString _rvizName,QString _title)
 :DAQViz(ui, _title),
@@ -26,6 +27,7 @@ rvizName(_rvizName)
     panel_= new rviz::RenderPanel();
     manager= new rviz::VisualizationManager(panel_);
     panel_->initialize(manager->getSceneManager(), manager);
+    //panel_->setFocusOnMouseMove(false);
     manager->initialize();
     manager->load(childConfig);
     //DAQViz::display_layout.addWidget(panel_);
@@ -53,7 +55,7 @@ void RvizViewer::showWindow(int xpos, int ypos) {
     DAQViz::buttonState=ButtonState::ON;
     ui->rviz_layout->addWidget(DAQViz::title, xpos-1, ypos);
     ui->rviz_layout->addWidget(panel_, xpos, ypos);
-    manager->startUpdate();
+     manager->startUpdate();
     DAQViz::title->show();
     panel_->show();
     ui->rviz_layout->update();
@@ -64,6 +66,10 @@ void RvizViewer::closeWindow(){
     DAQViz::title->hide();
     panel_->hide();
     manager->stopUpdate();
+    rviz::DisplayGroup* dg=manager->getRootDisplayGroup();
+    for (int i=0; i<dg->numDisplays(); i++) {
+        dg->getDisplayAt(i)->reset();
+    }
     ui->rviz_layout->removeWidget(DAQViz::title);
     ui->rviz_layout->removeWidget(panel_);
     ui->rviz_layout->update();

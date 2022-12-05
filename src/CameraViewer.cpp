@@ -5,11 +5,12 @@
 //   Class Def  : Camera Display를  rendering하여 GUI로 보내기 위한 class
 //======================================================================*/
 #include "CameraViewer.h"
-#include <rviz/display.h>
 #include "DaqCameraDisplay.h"
 #include "YmlLoader.h"
+#include <rviz/display.h>
 #include <rviz/display_group.h>
-
+#include <OgreRenderWindow.h>
+#include <QDockWidget>
 
 CameraViewer::CameraViewer(Ui::DaqMain* ui, QString _rvizName, QString _title)
 :DAQViz(ui, _title),
@@ -20,111 +21,149 @@ rvizName(_rvizName)
         exit(-1);
     } 
      
-    rviz::Config childConfig=config.mapGetChild("Visualization Manager");
-    if ( childConfig.isValid()) {
-        ROS_INFO("showRviz:Visualization Manager is Valid! : %s",qPrintable(rvizName));
-    }
-    panel= new rviz::RenderPanel();  
-    ROS_DEBUG("rviz::RenderPanel %p", panel);
-    manager= new rviz::VisualizationManager(panel);
-    panel->initialize(manager->getSceneManager(), manager);
+    panel_= new rviz::RenderPanel();  
+    ROS_DEBUG("rviz::RenderPanel %p", panel_);
+    manager= new rviz::VisualizationManager(panel_);
+    panel_->initialize(manager->getSceneManager(), manager);
     manager->initialize();
-    manager->load(childConfig);
-
-    buildDisplay( &childConfig  );
+ //   manager->lockRender();
+    manager->load(config.mapGetChild("Visualization Manager"));
+    ROS_DEBUG("----buildDisplay %s" ,qPrintable(manager->getFixedFrame()));
+    buildDisplay();
+ //   manager->unlockRender();
+ //   loadPanels(config.mapGetChild("Panels"));
     ROS_INFO("DAQ: Camera viewer is ready: %s",qPrintable(rvizName) );
+
 }
 
 CameraViewer::~CameraViewer() {
 }
 
-void CameraViewer::buildDisplay(rviz::Config* config) {
+void CameraViewer::buildDisplay() {
     rviz::DisplayGroup* dg=manager->getRootDisplayGroup();
-    
-    ROS_DEBUG("----DiplayGroup Count %d", dg->numDisplays());
-
-    for (int i=0; i<3; i++) {
-        ROS_DEBUG("showRviz:buildDisplay");
-
+    dg->setEnabled(false);
+     for (int i=0; i<dg->numDisplays(); i++) {
         displays[i]=(rviz::ImageDisplay*)dg->getDisplayAt(i);
-        //panels[i]= displays[i]->getRenderPanel();
+        panels[i]=(rviz::RenderPanel*)displays[i]->getAssociatedWidget();
+        panels[i]->setWindowFlags(Qt::FramelessWindowHint);
+        panels[i]->setDisabled(true);
+        panels[i]->resize(QSize(0,0));
+        ui->camera_hidden->addWidget( panels[i]);
+        panels[i]->hide();
+        ROS_DEBUG("showRviz:getAssociatedWidget-%p",panels[i] );
+        if ( panels[i]->isActiveWindow())
+            ROS_DEBUG("%p is ACTIVE WINDOW",panels[i] );
+        if ( panels[i]->isModal())
+            ROS_DEBUG("%p is MODAL",panels[i] );
+        if ( panels[i]->isVisible())
+            ROS_DEBUG("%p is VISIBLE",panels[i] );
+        if ( panels[i]->isWindow())
+            ROS_DEBUG("%p is WINDOW",panels[i] );
+            
         titleLabels[i] = new QLabel();
         titleLabels[i]->setText(cameraTitles[i]);
         titleLabels[i]->setMaximumSize(10000,20);
         titleLabels[i]->adjustSize();
-        titleLabels[i]->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);    //display_layout.addWidget(&title);
+        titleLabels[i]->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);    
+       //display_layout.addWidget(&title);
         titleLabels[i]->setAlignment(Qt::AlignCenter);
         titleLabels[i]->hide();
-        //panels[i]->hide();
+        
     }
-
 }
 
 void CameraViewer::showWindow() {
     DAQViz::buttonState=ButtonState::ON;
     ui->rviz_layout->addWidget(DAQViz::title,0,1);
-
+    rviz::DisplayGroup* dg=manager->getRootDisplayGroup();
+    dg->setEnabled(true);
+    
+    manager->lockRender();
     for (int i=0; i<3; i++) {
-        switch (i) {
-            case 0:            
+        ui->camera_hidden->removeWidget( panels[i]  );  
+            panels[i]->setEnabled(true);
+            switch (i) {
+            case 0:      
                 ui->rviz_layout->addWidget( titleLabels[i]  ,1,1 );
+                //ui->rviz_layout->addWidget( widget      ,2,1 );
                 ui->rviz_layout->addWidget( panels[i]       ,2,1 );
                 break;
             case 1:
                 ui->rviz_layout->addWidget( titleLabels[i]  ,3,0 );
+                //ui->rviz_layout->addWidget( widget      ,4,0 );
                 ui->rviz_layout->addWidget( panels[i]       ,4,0 );
                 break;
             case 2:
                 ui->rviz_layout->addWidget( titleLabels[i]  ,3,2 );
+                //ui->rviz_layout->addWidget( widget      ,4,2 );
                 ui->rviz_layout->addWidget( panels[i]       ,4,2 );
                 break;
+            
         }
+        panels[i]->show();
+        panels[i]->adjustSize();
+        panels[i]->raise();
         titleLabels[i]->show();
-     //   managers[i]->startUpdate();
-    //    panels[i]->show();
+        
     }
+    manager->unlockRender();
     manager->startUpdate();
     DAQViz::title->show();
-    ui->rviz_layout->update();    
+    ui->rviz_layout->update();   
+    ui->camera_hidden->update(); 
 }
 
 void CameraViewer::showWindow(int xpos, int ypos) {
     DAQViz::buttonState=ButtonState::ON;
     ui->rviz_layout->addWidget(DAQViz::title,0,1);
-
+    manager->lockRender();
     for (int i=0; i<3; i++) {
+        ui->camera_hidden->removeWidget( panels[i]  );  
+        panels[i]->setEnabled(true);
         switch (i) {
             case 0:            
                 ui->rviz_layout->addWidget( titleLabels[i]  , xpos,1 );
+                //ui->rviz_layout->addWidget( docks[i]       ,xpos+1,1 );
                 ui->rviz_layout->addWidget( panels[i]       ,xpos+1,1 );
                 break;
             case 1:
                 ui->rviz_layout->addWidget( titleLabels[i]  ,xpos,0 );
+                //ui->rviz_layout->addWidget( docks[i]       ,xpos+1,0 );
                 ui->rviz_layout->addWidget( panels[i]       ,xpos+1,0 );
                 break;
             case 2:
                 ui->rviz_layout->addWidget( titleLabels[i]  ,xpos,2 );
+                //ui->rviz_layout->addWidget( docks[i]       ,xpos+1,2 );
                 ui->rviz_layout->addWidget( panels[i]       ,xpos+1,2 );
                 break;
         }
         titleLabels[i]->show();
- //       managers[i]->startUpdate();
- //       panels[i]->show();
+        panels[i]->show();
+        panels[i]->adjustSize();
+        panels[i]->raise();
     }
+    manager->unlockRender();
     manager->startUpdate();
     DAQViz::title->show();
-    ui->rviz_layout->update();    
+    ui->rviz_layout->update();  
+    ui->camera_hidden->update();  
 }
 
 void CameraViewer::closeWindow(){
     DAQViz::buttonState=ButtonState::OFF;
     DAQViz::title->hide();
+    
     for (int i=0; i<3; i++) {
- //      panels[i]->hide();
- //       managers[i]->stopUpdate();
+        panels[i]->hide();
         ui->rviz_layout->removeWidget( panels[i]        );
         ui->rviz_layout->removeWidget( titleLabels[i]   );
         titleLabels[i]->hide();   
+        ui->camera_hidden->addWidget( panels[i]  );  
+    }
+
+    rviz::DisplayGroup* dg=manager->getRootDisplayGroup();
+    for (int i=0; i<dg->numDisplays(); i++) {
+        dg->getDisplayAt(i)->reset();
     }
     DAQViz::title->hide();
     manager->stopUpdate();

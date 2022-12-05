@@ -12,6 +12,7 @@
 #include "init.h"
 #include "sideButtonActions.h"
 #include "ConfigLoader.h"
+#include "CameraViewer.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class DaqMain; }
@@ -53,6 +54,7 @@ private:
     AcquisitionStatus *acquisitionStatus;
     ConfigLoader config;
     QLabel *statusMsg;
+    CameraViewer* cameraViewer;
 
 };
 #endif // DAQMAIN_H

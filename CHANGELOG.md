@@ -1,3 +1,8 @@
+# version 1.0.0 - 2022.12..5
+1. 카메라 영상 송출 확인
+2. 화면 전환 시 이전 화면 clear
+3. run, kill script 추가
+
 # version 0.9.5 - 2022.11.30
 1. sensor message 우측 정렬
 2. daq icon 변경

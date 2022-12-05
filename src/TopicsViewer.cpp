@@ -50,7 +50,7 @@ void TopicsViewer::closeWindow() {
     DAQViz::buttonState=ButtonState::OFF;
     DAQViz::title->hide();
     qlistView.hide();
-
+    topicSubscribers->reset();
     ui->rviz_layout->removeWidget(DAQViz::title);
     ui->rviz_layout->removeWidget(&qlistView);
     ui->rviz_layout->update();

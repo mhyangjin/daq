@@ -12,11 +12,17 @@
 //#include "DaqCameraDisplay.h"
 #include <rviz/visualization_manager.h>
 #include <rviz/render_panel.h>
+#include <rviz/panel_factory.h>
+#include <rviz/render_panel.h>
+#include <rviz/default_plugin/image_display.h>
+#include <rviz/panel.h>
+#include <rviz/panel_dock_widget.h>
 #include <rviz/config.h>
 #include <yaml-cpp/yaml.h>
 #include <QLabel>
 #include <QStringList>
-#include <rviz/default_plugin/image_display.h>
+#include <QList>
+#include <QMainWindow>
 
 class CameraViewer : public DAQViz{
 public:
@@ -26,7 +32,8 @@ public:
     virtual void showWindow();
     virtual void showWindow(int , int);
     virtual void closeWindow();
-
+    void buildDisplay();
+    
 private:
     private:
     void loadConfig( QString,rviz::Config*);
@@ -37,13 +44,11 @@ private:
     //load config from .rviz file
     void loadNodes(YAML::Node*, rviz::Config*);
 
-    void buildDisplay(rviz::Config* );
-
-    rviz::VisualizationManager* managers[3];
     rviz::VisualizationManager* manager;
     rviz::RenderPanel* panels[3];
-    rviz::RenderPanel* panel;
+    rviz::RenderPanel* panel_;
     rviz::ImageDisplay* displays[3];
+    rviz::PanelDockWidget* docks[3];
     QLabel* titleLabels[3];
     QString rvizName;
     rviz::Config config;

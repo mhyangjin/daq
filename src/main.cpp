@@ -7,6 +7,7 @@
 #include "daqmain.h"
 #include <ros/ros.h>
 #include <QApplication>
+#include <QThread>
 #include "init.h"
 
 int main(int argc, char *argv[])
@@ -31,6 +32,7 @@ int main(int argc, char *argv[])
     if (!ros::master::check()) {
       ROS_INFO("ros::core startind.....");
       system("roscore &");
+      QThread::sleep(3);
     }
   }
     ROS_INFO("DAQ: start service...");
