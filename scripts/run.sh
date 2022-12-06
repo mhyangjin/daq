@@ -1,5 +1,5 @@
 #!/bin/bash
-source /home/mhjin/project/catkin_ws/devel/setup.bash
+source /home/jiat/daq_ws/devel/setup.bash
 LOGDIR=./LOG
 OUSTER_LOG=$LOGDIR/ouster.log 
 VELODYNE_LOG=$LOGDIR/velodyne_pointcloud.log 

@@ -1,4 +1,8 @@
-# version 1.0.0 - 2022.12..5
+# version 1.1.0 - 2022.12.06
+1. 바로가기 아이콘, script, rvizs dir 복사를 위한 install.sh 추가
+2. 비정상 종료시 roscore, ros node를 종료기능 추가
+
+# version 1.0.0 - 2022.12.5
 1. 카메라 영상 송출 확인
 2. 화면 전환 시 이전 화면 clear
 3. run, kill script 추가

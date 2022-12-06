@@ -9,10 +9,17 @@
 #include <QApplication>
 #include <QThread>
 #include "init.h"
+#include <stdio.h>
+#include <signal.h>
+
+static void sig_core(int);
 
 int main(int argc, char *argv[])
 {
   ROSCONSOLE_AUTOINIT;
+
+  signal(SIGSEGV, sig_core);
+  signal(SIGBUS, sig_core);
 
   log4cxx::LoggerPtr my_logger;
   my_logger=log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);
@@ -42,3 +49,14 @@ int main(int argc, char *argv[])
     int res= a.exec();
     return res;
 }
+
+void sig_core(int signal_no) {
+  ROS_FATAL("DAQ: abnormal exit by signal-%d", signal_no);
+
+  ConfigLoader config;
+  string args=config.getScriptConfig().toStdString() + "/run.sh kill";
+  system(args.data());
+  system("pkill roscore");
+  exit(1);
+}
+

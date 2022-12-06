@@ -32,10 +32,10 @@ generate_messages(
   DEPENDENCIES 
   std_msgs)
 
-catkin_install_python(
-  PROGRAMS
-  scripts/jiat_diagnostic.py
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+#catkin_install_python(
+ # PROGRAMS
+ # scripts/jiat_diagnostic.py
+ # DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 ####################################################
 # QT Environment
@@ -87,8 +87,6 @@ set( QT_SOURCES
   src/RvizViewer.cpp
   src/YmlLoader.h
   src/YmlLoader.cpp
-#  src/DaqCameraDisplay.h
-#  src/DaqCameraDisplay.cpp
   src/DaqVisualizationManager.h
   src/DaqVisualizationManager.cpp
   src/CameraViewer.h
