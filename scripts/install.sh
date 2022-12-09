@@ -1,6 +1,10 @@
 #!/bin/bash
-CATKIN_HOME=/home/jiat/daq_ws
-#CATKIN_HOME=/home/mhjin/project/catkin_ws
+if [ $ROS_ENV == "TEST" ]; then
+    CATKIN_HOME=/home/mhjin/project/catkin_ws
+else
+    CATKIN_HOME=/home/jiat/daq_ws
+fi
+
 ROS_HOME=/opt/ros/noetic
 EXEC_PATH=
 ######catkin_home/install 을 사용한다면 

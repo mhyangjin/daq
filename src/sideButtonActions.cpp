@@ -100,8 +100,8 @@ bool SideButtonActions::sensorStart() {
     return true;
 }
 void SideButtonActions::sensorStop() {
-    rosRunner.stopRosNode();
     this->allStop("nothing");
+    rosRunner.stopRosNode();
 }
 
 bool SideButtonActions::replayStart(QString file) {
@@ -109,8 +109,9 @@ bool SideButtonActions::replayStart(QString file) {
     return true;
 }
 void SideButtonActions::replayStop() {
-    recordPlayer.stopReplay();
     this->allStop("nothing");
+    recordPlayer.stopReplay();
+
 }
 
 void SideButtonActions::allViewClicked(){
@@ -119,35 +120,35 @@ void SideButtonActions::allViewClicked(){
 }
 
 void SideButtonActions::cameraClicked(){
-    this->allStop("cameras");
+    this->allStop("nothing");
     CameraViewer* controller=(CameraViewer*)rvizMap.find("cameras").value()->at(0);
     controller->showWindow();
 }
 
 void SideButtonActions::carInfoClicked(){
-    this->allStop("car");
+    this->allStop("nothing");
     TopicsViewer* controller=(TopicsViewer*)rvizMap.find("car").value()->at(0);
     controller->showWindow();
 
 }
 void SideButtonActions::gpsClicked(){
-    this->allStop("gps");
+    this->allStop("nothing");
     TopicsViewer* controller=(TopicsViewer*)rvizMap.find("gps").value()->at(0);
     controller->showWindow();
 }
 void SideButtonActions::imuClicked(){
-    this->allStop("imu");
+    this->allStop("nothing");
     TopicsViewer* controller=(TopicsViewer*)rvizMap.find("imu").value()->at(0);
     controller->showWindow();
 }
 void SideButtonActions::radarClicked(){
-    this->allStop("radar");
+    this->allStop("nothing");
     TopicsViewer* controller=(TopicsViewer*)rvizMap.find("radar").value()->at(0);
     controller->showWindow();
 }
 
 void SideButtonActions::lidarSideClicked(){
-    this->allStop("lidarSide");
+    this->allStop("nothing");
     QList<DAQViz*> *dapArray=rvizMap.find("lidarSide").value();
     for (int i=0; i < dapArray->size(); i++) {
         RvizViewer* controller=(RvizViewer*)dapArray->at(i);
@@ -155,7 +156,7 @@ void SideButtonActions::lidarSideClicked(){
     }
 }
 void SideButtonActions::lidarTopClicked(){
-    this->allStop("lidarTop");
+    this->allStop("nothing");
     RvizViewer* controller=(RvizViewer*)rvizMap.find("lidarTop").value()->at(0);
     controller->showWindow();
 }

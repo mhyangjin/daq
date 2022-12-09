@@ -32,10 +32,15 @@ generate_messages(
   DEPENDENCIES 
   std_msgs)
 
+# test를 위한 topic sender임
 #catkin_install_python(
- # PROGRAMS
- # scripts/jiat_diagnostic.py
- # DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+#  PROGRAMS
+#  scripts/diagnostic_talker.py
+#  scripts/car_sender.py
+#  scripts/gps_sender.py
+#  scripts/imu_sender.py
+#  scripts/radar_sender.py
+#  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 ####################################################
 # QT Environment

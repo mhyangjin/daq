@@ -11,6 +11,7 @@
 #include "init.h"
 #include <stdio.h>
 #include <signal.h>
+#include "ConfigLoader.h"
 
 static void sig_core(int);
 
@@ -20,6 +21,10 @@ int main(int argc, char *argv[])
 
   signal(SIGSEGV, sig_core);
   signal(SIGBUS, sig_core);
+  
+  ConfigLoader config;
+  string args=config.getScriptConfig().toStdString() + "/run.sh init";
+  system(args.data());
 
   log4cxx::LoggerPtr my_logger;
   my_logger=log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);

@@ -10,6 +10,7 @@ TopicsViewer::TopicsViewer(Ui::DaqMain* ui, SignalsSlot* _topicSubscribers, QStr
 :DAQViz(ui, _title),
 topicSubscribers(_topicSubscribers )
 {
+    DAQViz::buttonState=ButtonState::OFF;
     QObject::connect(topicSubscribers, &SignalsSlot::dataUpdated, this, &TopicsViewer::on_data_update_triggered);
     QStringListModel* qstringList=topicSubscribers->getListModel();
     qlistView.setModel(qstringList);
@@ -21,7 +22,6 @@ topicSubscribers(_topicSubscribers )
 TopicsViewer::~TopicsViewer() {
 
 }
-
 
 void TopicsViewer::showWindow() {
     DAQViz::buttonState=ButtonState::ON;
@@ -43,7 +43,6 @@ void TopicsViewer::showWindow(int xpos, int ypos) {
     DAQViz::title->show();
     qlistView.show();
     ui->rviz_layout->update();
-    DAQViz::buttonState=ButtonState::ON;
 }
 
 void TopicsViewer::closeWindow() {

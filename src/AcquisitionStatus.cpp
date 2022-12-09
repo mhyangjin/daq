@@ -101,7 +101,6 @@ void AcquisitionStatus::run() {
 
 void AcquisitionStatus::subscribeCallBack(const daq::Sensor_status& msg) {
     QString sensorName=msg.sensor_name.data();
-    ROS_DEBUG("AcquisitionStatus::subscribeCallBack: receive msg ");
     AcquisitonStateEnum status=AcquisitonStateEnum::DEFAULT;
     //sensorTopicList 배열의 위치는  StsName 과 같다.
     StsName stsEnum =(StsName)sensorTopicList.indexOf(sensorName);

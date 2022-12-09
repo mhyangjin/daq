@@ -15,6 +15,7 @@ RvizViewer::RvizViewer(Ui::DaqMain* ui, QString _rvizName,QString _title)
 :DAQViz(ui, _title),
 rvizName(_rvizName)
 {
+    DAQViz::buttonState=ButtonState::OFF;
     YmlLoader::loadConfig(rvizName, &config);
     if ( !config.isValid()) {
         exit(-1);
@@ -27,11 +28,8 @@ rvizName(_rvizName)
     panel_= new rviz::RenderPanel();
     manager= new rviz::VisualizationManager(panel_);
     panel_->initialize(manager->getSceneManager(), manager);
-    //panel_->setFocusOnMouseMove(false);
     manager->initialize();
     manager->load(childConfig);
-    //DAQViz::display_layout.addWidget(panel_);
-    //panel_->hide();
     ROS_INFO("DAQ: Rviz viewer is ready: %s",qPrintable(_rvizName) );
 }
 

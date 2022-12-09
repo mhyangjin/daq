@@ -30,10 +30,10 @@ then
     # rosbag record -b 0 -O /home/jiat/Data/$1/${date}.bag /rosout /rosout_agg
     # rosbag record -b 0 -O /home/jiat/Data/$1/${date}.bag /front_camera/image_raw /right_camera/image_raw /left_camera/image_raw /os_cloud_node/points /right_velodyne/velodyne_points /left_velodyne/velodyne_points /gps/fix /gps/imu /can /rosout /rosout_agg
     #rosbag record -b 0 --duration=10 -O /home/jiat/Data/$1/${date}.bag /front_camera/image_raw /right_camera/image_raw /left_camera/image_raw /os_cloud_node/points /right_velodyne/velodyne_points /left_velodyne/velodyne_points /gps/fix /gps/imu /can /rosout /rosout_agg
-    rosbag record -q -b 0 --duration=10 -O $1/${date}.bag /front_camera/image_raw /right_camera/image_raw /left_camera/image_raw /os_cloud_node/points /right_velodyne/velodyne_points /left_velodyne/velodyne_points /gps/fix /gps/imu /can /rosout /rosout_agg
+    rosbag record -q -b 0 -O $1/${date}.bag /front_camera/image_raw /right_camera/image_raw /left_camera/image_raw /os_cloud_node/points /right_velodyne/velodyne_points /left_velodyne/velodyne_points /gps/fix /gps/imu /can /rosout /rosout_agg
 else
     # rosbag record -b 0 -O /home/jiat/Data/$1/$2.bag /rosout /rosout_agg
     # rosbag record -b 0 -O /home/jiat/Data/$1/$2.bag /front_camera/image_raw /right_camera/image_raw /left_camera/image_raw /os_cloud_node/points /right_velodyne/velodyne_points /left_velodyne/velodyne_points /gps/fix /gps/imu /can /rosout /rosout_agg
     #rosbag record -b 0 --duration=10 -O /home/jiat/Data/$1/$2.bag /front_camera/image_raw /right_camera/image_raw /left_camera/image_raw /os_cloud_node/points /right_velodyne/velodyne_points /left_velodyne/velodyne_points /gps/fix /gps/imu /can /rosout /rosout_agg
-    rosbag record -q -b 0 --duration=10 -O $1/$2.bag /front_camera/image_raw /right_camera/image_raw /left_camera/image_raw /os_cloud_node/points /right_velodyne/velodyne_points /left_velodyne/velodyne_points /gps/fix /gps/imu /can /rosout /rosout_agg
+    rosbag record -q -b 0 -O $1/$2.bag /front_camera/image_raw /right_camera/image_raw /left_camera/image_raw /os_cloud_node/points /right_velodyne/velodyne_points /left_velodyne/velodyne_points /gps/fix /gps/imu /can /rosout /rosout_agg
 fi  

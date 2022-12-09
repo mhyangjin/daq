@@ -1,3 +1,9 @@
+# version 1.1.1 - 2022.12.09
+1. 버튼 동작 내부 기능 개선
+2. kill시 종료 되지 않는 부분 개선
+3. 카메라 뷰 전환 개선
+4. LOG size 체크
+
 # version 1.1.0 - 2022.12.06
 1. 바로가기 아이콘, script, rvizs dir 복사를 위한 install.sh 추가
 2. 비정상 종료시 roscore, ros node를 종료기능 추가
