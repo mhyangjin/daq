@@ -1,4 +1,8 @@
 #!/bin/bash
+if [ -z $ROS_ENV ]; then
+    $ROS_ENV="JIAT"
+fi
+
 if [ $ROS_ENV == "TEST" ]; then
     source /home/mhjin/project/catkin_ws/devel/setup.bash
 else
