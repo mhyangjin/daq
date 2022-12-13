@@ -34,7 +34,7 @@ void TopicSubscribers<T>::subscribeCallBack(const typename T::ConstPtr& messages
     QString _data=QString::fromStdString(ss.str());
     QVariant new_data(_data);
     SignalsSlot::qstringList.setData(SignalsSlot::qstringList.index(SignalsSlot::qstringList.rowCount()-1), new_data);
-    Q_EMIT SignalsSlot::dataUpdated();
+ //   Q_EMIT SignalsSlot::dataUpdated();
 }
 
 //template class를 사용할때 명시적으로 타입을 선언하지 않으면 binary link 시점에 에러가 발생한다.

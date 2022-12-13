@@ -7,7 +7,7 @@ import random
 def talker():
     pub = rospy.Publisher('/gps/fix', NavSatFix, queue_size=10)
     rospy.init_node('gps', anonymous=True)
-    rate = rospy.Rate(1) # 10hz
+    rate = rospy.Rate(10) # 10hz
     #rand_status =random.randrange(0,2)
     rand_status=1
     count=1

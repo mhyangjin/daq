@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 
   signal(SIGSEGV, sig_core);
   signal(SIGBUS, sig_core);
-  
+  signal(SIGABRT, sig_core);
   ConfigLoader config;
   string args=config.getScriptConfig().toStdString() + "/run.sh init";
   system(args.data());

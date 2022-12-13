@@ -1,3 +1,3 @@
 #!/bin/bash
 
-rosbag play -l $1 >> /dev/null
+rosbag play -l  $1 >> /dev/null

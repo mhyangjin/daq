@@ -40,8 +40,15 @@ RvizViewer::~RvizViewer() {
 
 void RvizViewer::showWindow() {
     DAQViz::buttonState=ButtonState::ON;
+    rviz::DisplayGroup* dg=manager->getRootDisplayGroup();
+    ROS_DEBUG(" RvizViewer DisplayGroup-%d", dg->numDisplays());
+    
+    for (int i=0; i<dg->numDisplays(); i++) {
+        dg->getDisplayAt(i)->reset();
+    }
     ui->rviz_layout->addWidget(DAQViz::title,0,0);
     ui->rviz_layout->addWidget(panel_,1,0);
+    
     manager->startUpdate();
     DAQViz::title->show();
     panel_->show();
@@ -51,9 +58,16 @@ void RvizViewer::showWindow() {
 
 void RvizViewer::showWindow(int xpos, int ypos) {
     DAQViz::buttonState=ButtonState::ON;
+    rviz::DisplayGroup* dg=manager->getRootDisplayGroup();
+    ROS_DEBUG(" RvizViewer DisplayGroup-%d", dg->numDisplays());
+    
+    for (int i=0; i<dg->numDisplays(); i++) {
+        dg->getDisplayAt(i)->reset();
+    }
     ui->rviz_layout->addWidget(DAQViz::title, xpos-1, ypos);
     ui->rviz_layout->addWidget(panel_, xpos, ypos);
-     manager->startUpdate();
+    
+    manager->startUpdate();
     DAQViz::title->show();
     panel_->show();
     ui->rviz_layout->update();
@@ -64,10 +78,7 @@ void RvizViewer::closeWindow(){
     DAQViz::title->hide();
     panel_->hide();
     manager->stopUpdate();
-    rviz::DisplayGroup* dg=manager->getRootDisplayGroup();
-    for (int i=0; i<dg->numDisplays(); i++) {
-        dg->getDisplayAt(i)->reset();
-    }
+    
     ui->rviz_layout->removeWidget(DAQViz::title);
     ui->rviz_layout->removeWidget(panel_);
     ui->rviz_layout->update();

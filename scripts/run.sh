@@ -1,6 +1,6 @@
 #!/bin/bash
 if [ -z $ROS_ENV ]; then
-    $ROS_ENV="JIAT"
+    ROS_ENV="JIAT"
 fi
 
 if [ $ROS_ENV == "TEST" ]; then
@@ -28,7 +28,7 @@ function logCheck() {
         touch $OUSTER_LOG
     else
         file_size=`wc -c < $OUSTER_LOG`
-        if [ $file_size -qe $LOG_MAX_SIZE ]; then
+        if [ $file_size -ge $LOG_MAX_SIZE ]; then
             rm $OUSTER_LOG
             touch $OUSTER_LOG
         fi
@@ -38,7 +38,7 @@ function logCheck() {
         touch $VELODYNE_LOG
     else
         file_size=`wc -c < $VELODYNE_LOG`
-        if [ $file_size -qe $LOG_MAX_SIZE ]; then
+        if [ $file_size -ge $LOG_MAX_SIZE ]; then
             rm $VELODYNE_LOG
             touch $VELODYNE_LOG
         fi
@@ -48,7 +48,7 @@ function logCheck() {
         touch $SOLATI_LOG
     else
         file_size=`wc -c < $SOLATI_LOG`
-        if [ $file_size -qe $LOG_MAX_SIZE ]; then
+        if [ $file_size -ge $LOG_MAX_SIZE ]; then
             rm $SOLATI_LOG
             touch $SOLATI_LOG
         fi
@@ -58,7 +58,7 @@ function logCheck() {
         touch $NOVATEL_LOG
     else
         file_size=`wc -c < $NOVATEL_LOG`
-        if [ $file_size -qe $LOG_MAX_SIZE ]; then
+        if [ $file_size -ge $LOG_MAX_SIZE ]; then
             rm $NOVATEL_LOG
             touch $NOVATEL_LOG
         fi
@@ -68,7 +68,7 @@ function logCheck() {
         touch $JIAT_LOG
     else
         file_size=`wc -c < $JIAT_LOG`
-        if [ $file_size -qe $LOG_MAX_SIZE ]; then
+        if [ $file_size -ge $LOG_MAX_SIZE ]; then
             rm $JIAT_LOG
             touch $JIAT_LOG
         fi
@@ -78,7 +78,7 @@ function logCheck() {
         touch $USB_CAM_LOG
     else
         file_size=`wc -c < $USB_CAM_LOG`
-        if [ $file_size -qe $LOG_MAX_SIZE ]; then
+        if [ $file_size -ge $LOG_MAX_SIZE ]; then
             rm $USB_CAM_LOG
             touch $USB_CAM_LOG
         fi
@@ -88,7 +88,7 @@ function logCheck() {
         touch $JIAT_LOG
     else
         file_size=`wc -c < $JIAT_LOG`
-        if [ $file_size -qe $LOG_MAX_SIZE ]; then
+        if [ $file_size -ge $LOG_MAX_SIZE ]; then
             rm $JIAT_LOG
             touch $JIAT_LOG
         fi
@@ -203,6 +203,17 @@ function killnodes_test() {
     if [ ! -z $pid ]; then 
         kill -9 $pid
     fi
+
+    echo "[`date`]rosbag stop...." ;
+    pids=`ps -ef | grep rosbag | grep -v 'grep' | awk '{print $2}'`
+    for pid in $pids
+    do
+        if [ ! -z $pid ]; then 
+            kill -9 $pid
+        fi
+    done
+    
+
 }
 
 function main() {
