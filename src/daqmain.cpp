@@ -54,8 +54,6 @@ Daqmain::Daqmain(QWidget *parent)
 
 Daqmain::~Daqmain()
 {
-    acquisitionStatus->stop();
-
     QThread::currentThread()->wait(2000);
     system("pkill roscore");
     delete acquisitionStatus;
@@ -209,6 +207,9 @@ void Daqmain::actionConfigrations() {
     dialogConfig.exec();
 }
 void Daqmain::closeEvent(QCloseEvent *event) {
+    acquisitionStatus->stop();
+    stopClicked();
+    
     ros::shutdown();
     QApplication::quit();
 }

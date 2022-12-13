@@ -29,10 +29,12 @@ public:
     virtual void closeWindow();
 
 public slots:
-    void on_data_update_triggered();
+    void on_data_update_triggered( const QString&);
 
 private:
     SignalsSlot*   topicSubscribers;
     QListView           qlistView;
+    QStringListModel* qstringList;
+    QLabel*             dataLabel;
 };
 #endif

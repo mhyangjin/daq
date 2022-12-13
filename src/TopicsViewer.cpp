@@ -12,7 +12,8 @@ topicSubscribers(_topicSubscribers )
 {
     DAQViz::buttonState=ButtonState::OFF;
     QObject::connect(topicSubscribers, &SignalsSlot::dataUpdated, this, &TopicsViewer::on_data_update_triggered);
-    QStringListModel* qstringList=topicSubscribers->getListModel();
+    //QStringListModel* qstringList=topicSubscribers->getListModel();
+    qstringList=new QStringListModel();
     qlistView.setModel(qstringList);
     //DAQViz::display_layout.addWidget(&qlistView);
     qlistView.hide();
@@ -27,7 +28,6 @@ void TopicsViewer::showWindow() {
     DAQViz::buttonState=ButtonState::ON;
     ui->rviz_layout->addWidget(DAQViz::title,0,0);
     ui->rviz_layout->addWidget(&qlistView,1,0);
-
     DAQViz::title->show();
     qlistView.show();
     ui->rviz_layout->update();
@@ -39,7 +39,6 @@ void TopicsViewer::showWindow(int xpos, int ypos) {
     DAQViz::buttonState=ButtonState::ON;
     ui->rviz_layout->addWidget(DAQViz::title,xpos-1,ypos);
     ui->rviz_layout->addWidget(&qlistView,xpos,ypos);
-
     DAQViz::title->show();
     qlistView.show();
     ui->rviz_layout->update();
@@ -55,8 +54,10 @@ void TopicsViewer::closeWindow() {
     ui->rviz_layout->update();
 }
 
-void TopicsViewer::on_data_update_triggered() {
+void TopicsViewer::on_data_update_triggered(const QString& data) {
+    //ROS_INFO("DAQ: Topic viewer is data: %s",qPrintable(data) );
     if (DAQViz::buttonState) {
-        qlistView.scrollToBottom();
+        QStringList list(data);
+        qstringList->setStringList(list);
     }
 }

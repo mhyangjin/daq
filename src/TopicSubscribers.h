@@ -33,9 +33,10 @@ public:
         qstringList.setData(qstringList.index(qstringList.rowCount()-1), "");
     };
 signals:
-    void dataUpdated();
+    void dataUpdated(const QString&);
 protected:
     QStringListModel qstringList;
+    QVariant new_data;
 
 };
 
