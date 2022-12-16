@@ -26,10 +26,13 @@ rvizName(_rvizName)
         ROS_DEBUG("showRviz:Visualization Manager is Valid! : %s ",qPrintable(rvizName));
     }
     panel_= new rviz::RenderPanel();
+
     manager= new rviz::VisualizationManager(panel_);
     panel_->initialize(manager->getSceneManager(), manager);
     manager->initialize();
     manager->load(childConfig);
+
+    panel_->setFocusOnMouseMove(false);
     ROS_INFO("DAQ: Rviz viewer is ready: %s",qPrintable(_rvizName) );
 }
 

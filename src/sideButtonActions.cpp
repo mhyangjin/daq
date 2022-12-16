@@ -100,8 +100,9 @@ bool SideButtonActions::sensorStart() {
     return true;
 }
 void SideButtonActions::sensorStop() {
-    this->allStop("nothing");
     rosRunner.stopRosNode();
+    this->allStop("nothing");
+    
 }
 
 bool SideButtonActions::replayStart(QString file) {
@@ -109,8 +110,9 @@ bool SideButtonActions::replayStart(QString file) {
     return true;
 }
 void SideButtonActions::replayStop() {
-    this->allStop("nothing");
     recordPlayer.stopReplay();
+    this->allStop("nothing");
+    
 
 }
 

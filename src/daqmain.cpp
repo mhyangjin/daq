@@ -55,10 +55,10 @@ Daqmain::Daqmain(QWidget *parent)
 Daqmain::~Daqmain()
 {
     QThread::currentThread()->wait(2000);
-    system("pkill roscore");
     delete acquisitionStatus;
     delete sideButtonActions;
     delete ui;
+    system("pkill roscore");
 }
 
 void Daqmain::radioSensorClicked() {

@@ -34,7 +34,6 @@ public slots:
 private:
     SignalsSlot*   topicSubscribers;
     QListView           qlistView;
-    QStringListModel* qstringList;
-    QLabel*             dataLabel;
+    QStringListModel qstringList;
 };
 #endif

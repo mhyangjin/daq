@@ -95,7 +95,7 @@ function logCheck() {
     fi
 }
 
-function runnodes_() {
+function runnodes() {
     echo "[`date`]ouster_ros start...." >> $OUSTER_LOG;
     roslaunch ouster_ros 64ch.launch >> $OUSTER_LOG &
 
@@ -116,41 +116,13 @@ function runnodes_() {
 }
 
 function killnodes() {
-    echo "[`date`]ouster_ros stop...." >> $OUSTER_LOG;
-    pid=`ps -ef | grep ouster_ros | grep -v 'grep' | awk '{print $2}'`
-    if [ ! -z $pid ]; then 
-        kill -9 $pid
-    fi
-
-    echo "[`date`]velodyne_pointcloud stop...." >> $VELODYNE_LOG;
-    pid=`ps -ef | grep velodyne_pointcloud | grep -v 'grep' | awk '{print $2}'`
-    if [ ! -z $pid ]; then 
-        kill -9 $pid
-    fi
+    pkill roslaunch
+    pkill rosrun
+    pkill rosbag
     
-    echo "[`date`]solati solati...." >> $SOLATI_LOG;
-    pid=`ps -ef | grep solati | grep -v 'grep' | awk '{print $2}'`
-    if [ ! -z $pid ]; then 
-        kill -9 $pid
-    fi
-    
-    echo "[`date`]novatel_oem7_driver stop...." >> $NOVATEL_LOG;
-    pid=`ps -ef | grep novatel_oem7_driver | grep -v 'grep' | awk '{print $2}'`
-    if [ ! -z $pid ]; then 
-        kill -9 $pid
-    fi
-    
-    echo "[`date`]usb_cam stop...." >> $USB_CAM_LOG;
-    pid=`ps -ef | grep usb_cam | grep -v 'grep' | awk '{print $2}'`
-    if [ ! -z $pid ]; then 
-        kill -9 $pid
-    fi
-    
-    echo "[`date`]diagnostic_talker stop...." >> $JIAT_LOG;
-    pid=`ps -ef | grep diagnostic_talker | grep -v 'grep' | awk '{print $2}'`
-    if [ ! -z $pid ]; then 
-        kill -9 $pid
-    fi
+    echo "[`date`]jiat_diagnostic stop...." >> $JIAT_LOG;
+    pid=`ps -ef | grep jiat_diagnostic | grep -v 'grep' | awk '{print $2}'`
+    kill -9 $pid
 }
 
 
@@ -223,7 +195,7 @@ function main() {
             if [ $ROS_ENV == "TEST" ]; then
                 runnodes_test;
             else
-                unnodes;
+                runnodes;
             fi
             ;;
         "kill")
