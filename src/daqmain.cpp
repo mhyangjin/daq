@@ -76,7 +76,7 @@ void Daqmain::radioSensorClicked() {
 
 void Daqmain::radioReplayClicked() {
     ui->btn_recordFile->setEnabled(true);
-    ui->btn_start->setEnabled(true);
+    ui->btn_start->setDisabled(true);
     ui->btn_stop->setDisabled(true);
 
     ui->btn_record->setDisabled(true);
@@ -90,6 +90,7 @@ void Daqmain::replayFileClicked() {
     QString file = QFileDialog::getOpenFileName(this, "Open File", dir, tr("*.bag"));
     if (file != NULL) {
         ui->label_replayFileName->setText(file);
+        ui->btn_start->setEnabled(true);
     }
 }
 
