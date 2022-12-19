@@ -24,6 +24,7 @@ add_message_files(
   FILES 
   Sensor_status.msg 
   Car.msg 
+  Can.msg
   Radar.msg 
   Track.msg 
   Sim.msg )
@@ -88,6 +89,8 @@ set( QT_SOURCES
   src/RosRunner.cpp
   src/TopicSubscribers.h
   src/TopicSubscribers.cpp
+  src/CanSubscribers.h
+  src/CanSubscribers.cpp
   src/RvizViewer.h
   src/RvizViewer.cpp
   src/YmlLoader.h

@@ -2,17 +2,18 @@
 import rospy
 import sys
 from std_msgs.msg import String
-from daq.msg import Radar,Sim,Track
+from daq.msg import Can, Radar,Sim,Track
 import random
 
 def talker():
-    pub = rospy.Publisher('/can/radar', Radar, queue_size=10)
+    pub = rospy.Publisher('/can', Radar, queue_size=10)
     rospy.init_node('car', anonymous=True)
     rate = rospy.Rate(10) # 10hz
     #rand_status =random.randrange(0,2)
     rand_status=1
     
     while not rospy.is_shutdown():
+        can_msg=Can()
         radar_msg=Radar()
         int=0
         for i in range(0,64):
@@ -41,7 +42,8 @@ def talker():
         sim_msg.sim_range_accel=random.randrange(0,10000)
         sim_msg.sim_range_rate=random.randrange(0,10000)
         radar_msg.sim=sim_msg
-        pub.publish(radar_msg)
+        can_msg.radar=radar_msg
+        pub.publish(can_msg)
 
         rate.sleep()
 

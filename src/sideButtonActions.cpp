@@ -8,7 +8,7 @@
 #include "CameraViewer.h"
 #include "TopicsViewer.h"
 #include "TopicSubscribers.h"
-
+#include "CanSubscribers.h"
 #include <QFileDialog>
 
 #include <std_msgs/String.h>
@@ -18,7 +18,7 @@
 #include <sensor_msgs/Imu.h>
 #include <daq/Radar.h>
 #include <daq/Car.h>
-
+#include <daq/Can.h>
 
  SideButtonActions::SideButtonActions(Ui::DaqMain *_ui)
  :ui(_ui){
@@ -80,11 +80,11 @@ void SideButtonActions::createTopicSubViewers(){
     QList<DAQViz*> *imu_tmp= new QList<DAQViz*>();
     imu_tmp->append( (DAQViz*) new TopicsViewer(ui, (SignalsSlot*)imu_topic, "IMU"));
     //radar
-    TopicSubscribers<daq::Radar>* radar_topic= new TopicSubscribers<daq::Radar>("/can/radar", spiner);
+    CanSubscribers* radar_topic= new CanSubscribers("/can/radar", spiner);
     QList<DAQViz*> *radar_tmp= new QList<DAQViz*>();
     radar_tmp->append( (DAQViz*) new TopicsViewer(ui,(SignalsSlot*)radar_topic,"Radar"));
     //car
-    TopicSubscribers<daq::Car>* car_topic= new TopicSubscribers<daq::Car>("/can/car", spiner);
+    CanSubscribers* car_topic= new CanSubscribers("/can/car", spiner);
     QList<DAQViz*> *car_tmp= new QList<DAQViz*>();
     car_tmp->append( (DAQViz*) new TopicsViewer(ui,(SignalsSlot*)car_topic,"Car Info" ));
 

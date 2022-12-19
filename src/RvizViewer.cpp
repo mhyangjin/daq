@@ -45,7 +45,8 @@ void RvizViewer::showWindow() {
     DAQViz::buttonState=ButtonState::ON;
     rviz::DisplayGroup* dg=manager->getRootDisplayGroup();
     ROS_DEBUG(" RvizViewer DisplayGroup-%d", dg->numDisplays());
-    
+     ROS_DEBUG("WindowSie:min-w:%d,max-w:%d,min-h:%d,max-h:%d", panel_->minimumWidth(),
+                        panel_->maximumWidth(), panel_->minimumHeight(), panel_->maximumHeight());
     for (int i=0; i<dg->numDisplays(); i++) {
         dg->getDisplayAt(i)->reset();
     }
@@ -63,7 +64,8 @@ void RvizViewer::showWindow(int xpos, int ypos) {
     DAQViz::buttonState=ButtonState::ON;
     rviz::DisplayGroup* dg=manager->getRootDisplayGroup();
     ROS_DEBUG(" RvizViewer DisplayGroup-%d", dg->numDisplays());
-    
+    ROS_DEBUG("WindowSie:min-w:%d,max-w:%d,min-h:%d,max-h%d", panel_->minimumWidth(),
+                        panel_->maximumWidth(), panel_->minimumHeight(), panel_->maximumHeight());
     for (int i=0; i<dg->numDisplays(); i++) {
         dg->getDisplayAt(i)->reset();
     }
