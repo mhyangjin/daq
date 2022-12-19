@@ -187,8 +187,8 @@ void Daqmain::recordStartClicked(){
     ui->btn_recordStart->setDisabled(true);
     ui->btn_recordStop->setEnabled(true);
 
-    ui->radioButton_sensor->setDisabled(true);
-    ui->radioButton_replay->setDisabled(true);
+//    ui->radioButton_sensor->setDisabled(true);
+//    ui->radioButton_replay->setDisabled(true);
     ui->btn_start->setDisabled(true);
 }
 
@@ -198,8 +198,8 @@ void Daqmain::recordStopClicked(){
     ui->btn_recordStart->setEnabled(true);
     ui->btn_recordStop->setDisabled(true);
 
-    ui->radioButton_sensor->setEnabled(true);
-    ui->radioButton_replay->setEnabled(true);
+//    ui->radioButton_sensor->setEnabled(true);
+//    ui->radioButton_replay->setEnabled(true);
 }
 void Daqmain::actionConfigrations() {
     DialogConfig dialogConfig;

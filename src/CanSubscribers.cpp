@@ -23,15 +23,17 @@ void CanSubscribers::run() {
 }
 
 void CanSubscribers::subscribeCallBack(const daq::Can& messages) {
+    //ROS_DEBUG("CAR  SIZE : %d, RADAR SIZE: %d", sizeof(messages.car), sizeof(messages.radar));
     stringstream  ss;
-    if ( sizeof(messages.car ) > 0 ) {
+    if ( topicName.contains("car") ) {
         daq::Car car_msg=messages.car;
         ss<<car_msg;
     }
-    if ( sizeof(messages.radar) > 0 ) {
+    else if ( topicName.contains("radar") ) {
         daq::Radar radar_msg=messages.radar;
         ss<<radar_msg;
     }
+    
     QString _data=QString::fromStdString(ss.str());
-    Q_EMIT CanSignalsSlot::dataUpdated(_data);
+    Q_EMIT SignalsSlot::dataUpdated(_data);
 }

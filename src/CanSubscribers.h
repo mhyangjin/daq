@@ -11,6 +11,7 @@
 #ifndef CANSUBSCRIBER_H
 #define CANSUBSCRIBER_H
 #include "init.h"
+#include "TopicSubscribers.h"
 #include <QStringListModel>
 #include <QListView>
 #include <QThread>
@@ -22,15 +23,7 @@
 #include <daq/Car.h>
 #include <daq/Can.h>
 
-class CanSignalsSlot : public QObject {
-Q_OBJECT    
-public:
-    explicit CanSignalsSlot(QObject *parent=0):QObject(parent){};
-signals:
-    void dataUpdated(const QString&);
-};
-
-class CanSubscribers : public QThread, CanSignalsSlot {
+class CanSubscribers : public QThread, SignalsSlot {
 public:
     CanSubscribers(QString, ros::MultiThreadedSpinner*);
     void subscribeCallBack(const daq::Can& msg);
