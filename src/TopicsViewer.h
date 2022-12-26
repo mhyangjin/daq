@@ -22,7 +22,7 @@ private:
 
 public:
 
-    TopicsViewer(Ui::DaqMain*,SignalsSlot*, QString);
+    TopicsViewer(Ui::DaqMain*,SignalsSlot*, QString, int, int);
     ~TopicsViewer();
     virtual void showWindow();
     virtual void showWindow(int , int);

@@ -30,22 +30,10 @@ public:
     bool replayStart(QString file);
     void replayStop();
 
-
-    void allViewClicked();
-    void cameraClicked();
-    void carInfoClicked();
-    void gpsClicked();
-    void imuClicked();
-    void lidarSideClicked();
-    void lidarTopClicked();
-    void radarClicked();
-
     QString recordStart(QString);
     void recordStop();
     
 private:
-    void allStart(QString );
-    void allStop(QString );
     Ui::DaqMain *ui;
     ConfigLoader config;
     QMap <QString, QList<DAQViz*>* > rvizMap;

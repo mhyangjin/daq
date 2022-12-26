@@ -47,15 +47,13 @@ void SideButtonActions::createRvizViewers() {
     //윈도우 생성시 미리 GUI창을 미리 만들어 둔다.
     QList<DAQViz*> *lidar_tmp= new QList<DAQViz*>();
     //RvizViewer (windiow widget, rivze  file 위치, 윈도우 상에 보여줄 title)
-    lidar_tmp->append( (DAQViz*) new RvizViewer(ui, Dir + "/ouster.rviz","LiDAR top"));
-
+    lidar_tmp->append( (DAQViz*) new RvizViewer(ui, Dir + "/ouster.rviz","LiDAR top",4,1));
     QList<DAQViz*> *camera_tmp= new QList<DAQViz*>();
-    camera_tmp->append( (DAQViz*) new CameraViewer(ui, Dir + "/cameras.rviz", "Camera" ));
-    //camera_tmp->append( (DAQViz*) new RvizViewer(ui, Dir + "/cameras.rviz", "Camera" ));
+    camera_tmp->append( (DAQViz*) new CameraViewer(ui, Dir + "/cameras.rviz", "Camera", 1,0 ));
 
     QList<DAQViz*> *l_side_tmp= new QList<DAQViz*>();
-    l_side_tmp->append( (DAQViz*) new RvizViewer(ui, Dir + "/left_vel.rviz", "LiDAR left" ));
-    l_side_tmp->append( (DAQViz*) new RvizViewer(ui, Dir + "/right_vel.rviz", "LiDAR right" ));
+    l_side_tmp->append( (DAQViz*) new RvizViewer(ui, Dir + "/left_vel.rviz", "LiDAR left" , 4,0));
+    l_side_tmp->append( (DAQViz*) new RvizViewer(ui, Dir + "/right_vel.rviz", "LiDAR right" ,4,2));
 
     //click event를 받았을 때  display를 hide, show 처리를 위해 map에 넣어둔다.
     rvizMap.insert("lidarTop", lidar_tmp);
@@ -73,20 +71,20 @@ void SideButtonActions::createTopicSubViewers(){
     TopicSubscribers<sensor_msgs::NavSatFix>* gps_topic= new TopicSubscribers<sensor_msgs::NavSatFix>("/gps/fix", spiner);
     QList<DAQViz*> *gps_tmp= new QList<DAQViz*>();
     //TopicsViewer (windiow widget, topic subscriber, 윈도우 상에 보여줄 title)
-    gps_tmp->append( (DAQViz*) new TopicsViewer(ui, (SignalsSlot*)gps_topic, "GPS"));
+    gps_tmp->append( (DAQViz*) new TopicsViewer(ui, (SignalsSlot*)gps_topic, "GPS",6,1));
     //imu
     TopicSubscribers<sensor_msgs::Imu>* imu_topic= new TopicSubscribers<sensor_msgs::Imu>("/gps/imu", spiner);
     //TopicSubscribers<sensor_msgs::Imu>* imu_topic= new TopicSubscribers<sensor_msgs::Imu>("/diagnostic", spiner);
     QList<DAQViz*> *imu_tmp= new QList<DAQViz*>();
-    imu_tmp->append( (DAQViz*) new TopicsViewer(ui, (SignalsSlot*)imu_topic, "IMU"));
+    imu_tmp->append( (DAQViz*) new TopicsViewer(ui, (SignalsSlot*)imu_topic, "IMU",6,2));
     //radar
     CanSubscribers* radar_topic= new CanSubscribers("/can/radar", spiner);
     QList<DAQViz*> *radar_tmp= new QList<DAQViz*>();
-    radar_tmp->append( (DAQViz*) new TopicsViewer(ui,(SignalsSlot*)radar_topic,"Radar"));
+    radar_tmp->append( (DAQViz*) new TopicsViewer(ui,(SignalsSlot*)radar_topic,"Radar",6,3));
     //car
     CanSubscribers* car_topic= new CanSubscribers("/can/car", spiner);
     QList<DAQViz*> *car_tmp= new QList<DAQViz*>();
-    car_tmp->append( (DAQViz*) new TopicsViewer(ui,(SignalsSlot*)car_topic,"Car Info" ));
+    car_tmp->append( (DAQViz*) new TopicsViewer(ui,(SignalsSlot*)car_topic,"Car Info",6,0 ));
 
     //click event를 받았을 때  display를 hide, show 처리를 위해 map에 넣어둔다.
     rvizMap.insert("gps", gps_tmp);
@@ -101,7 +99,6 @@ bool SideButtonActions::sensorStart() {
 }
 void SideButtonActions::sensorStop() {
     rosRunner.stopRosNode();
-    this->allStop("nothing");
     
 }
 
@@ -111,57 +108,8 @@ bool SideButtonActions::replayStart(QString file) {
 }
 void SideButtonActions::replayStop() {
     recordPlayer.stopReplay();
-    this->allStop("nothing");
-    
-
 }
 
-void SideButtonActions::allViewClicked(){
-    this->allStop("nothing");
-    this->allStart("nothing");
-}
-
-void SideButtonActions::cameraClicked(){
-    this->allStop("nothing");
-    CameraViewer* controller=(CameraViewer*)rvizMap.find("cameras").value()->at(0);
-    controller->showWindow();
-}
-
-void SideButtonActions::carInfoClicked(){
-    this->allStop("nothing");
-    TopicsViewer* controller=(TopicsViewer*)rvizMap.find("car").value()->at(0);
-    controller->showWindow();
-
-}
-void SideButtonActions::gpsClicked(){
-    this->allStop("nothing");
-    TopicsViewer* controller=(TopicsViewer*)rvizMap.find("gps").value()->at(0);
-    controller->showWindow();
-}
-void SideButtonActions::imuClicked(){
-    this->allStop("nothing");
-    TopicsViewer* controller=(TopicsViewer*)rvizMap.find("imu").value()->at(0);
-    controller->showWindow();
-}
-void SideButtonActions::radarClicked(){
-    this->allStop("nothing");
-    TopicsViewer* controller=(TopicsViewer*)rvizMap.find("radar").value()->at(0);
-    controller->showWindow();
-}
-
-void SideButtonActions::lidarSideClicked(){
-    this->allStop("nothing");
-    QList<DAQViz*> *dapArray=rvizMap.find("lidarSide").value();
-    for (int i=0; i < dapArray->size(); i++) {
-        RvizViewer* controller=(RvizViewer*)dapArray->at(i);
-        controller->showWindow(1, i);
-    }
-}
-void SideButtonActions::lidarTopClicked(){
-    this->allStop("nothing");
-    RvizViewer* controller=(RvizViewer*)rvizMap.find("lidarTop").value()->at(0);
-    controller->showWindow();
-}
 
 QString SideButtonActions::recordStart(QString dir){
     QString save_to=recordStarter.startRecord(dir);
@@ -170,44 +118,4 @@ QString SideButtonActions::recordStart(QString dir){
 void SideButtonActions::recordStop(){
    recordStarter.stopRecord();
 
-}
-void SideButtonActions::allStart(QString except_one) {
-    DAQViz* controller=NULL;
-    //각각의 열에는 title, window 두개. camera는 3개가 들어가므로 1,4,6 로 xpos 지정
-
-    //1열 - camera. ypos는 사용하지 않음
-    controller=rvizMap.find("cameras").value()->at(0);
-    controller->showWindow(1,0);
-
-    //2열 - LiDAR left, Top, right
-    controller=rvizMap.find("lidarTop").value()->at(0);
-    controller->showWindow(4,1);
-    QList<DAQViz*> *dapArray=rvizMap.find("lidarSide").value();
-    controller=dapArray->at(0);
-    controller->showWindow(4, 0);
-    controller=dapArray->at(1);
-    controller->showWindow(4, 2);
-
-    //3열 car, gps, imu,radar
-    controller=rvizMap.find("car").value()->at(0);
-    controller->showWindow(6,0);
-    controller=rvizMap.find("gps").value()->at(0);
-    controller->showWindow(6,1);
-    controller=rvizMap.find("imu").value()->at(0);
-    controller->showWindow(6,2);
-    controller=rvizMap.find("radar").value()->at(0);
-    controller->showWindow(6,3);
-}
-
-void SideButtonActions::allStop(QString except_one) {
-    for (auto iter=rvizMap.constBegin(); iter != rvizMap.constEnd(); ++iter) {
-        if ( iter.key() == except_one) continue;
-        QList<DAQViz*> *dapArray=iter.value();
-        for (int i=0; i < dapArray->size(); i++) {
-            DAQViz* controller=dapArray->at(i);
-            if (controller->getButtonState() == ButtonState::ON)
-                 controller->closeWindow();
-        }
-
-    }
 }

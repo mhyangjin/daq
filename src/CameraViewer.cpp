@@ -12,8 +12,8 @@
 #include <OgreRenderWindow.h>
 #include <QDockWidget>
 
-CameraViewer::CameraViewer(Ui::DaqMain* ui, QString _rvizName, QString _title)
-:DAQViz(ui, _title),
+CameraViewer::CameraViewer(Ui::DaqMain* ui, QString _rvizName, QString _title, int x , int y)
+:DAQViz(ui, _title, x, y),
 rvizName(_rvizName)
 {
     DAQViz::buttonState=ButtonState::OFF;

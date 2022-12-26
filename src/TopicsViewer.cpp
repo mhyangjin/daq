@@ -6,8 +6,8 @@
 //======================================================================*/
 #include "TopicsViewer.h"
 
-TopicsViewer::TopicsViewer(Ui::DaqMain* ui, SignalsSlot* _topicSubscribers, QString _title)
-:DAQViz(ui, _title),
+TopicsViewer::TopicsViewer(Ui::DaqMain* ui, SignalsSlot* _topicSubscribers, QString _title, int x, int y)
+:DAQViz(ui, _title,x, y),
 topicSubscribers(_topicSubscribers )
 {
     DAQViz::buttonState=ButtonState::OFF;

@@ -16,9 +16,21 @@
 class DAQViz: public QObject
 {
 Q_OBJECT
+public slots:
+    void stopClicked();
+    void allViewClicked();
+    void cameraClicked();
+    void carInfoClicked();
+    void gpsClicked();
+    void imuClicked();
+    void lidarSideClicked();
+    void lidarTopClicked();
+    void radarClicked();
+    
 public:
-    DAQViz(Ui::DaqMain*, QString);
+    DAQViz(Ui::DaqMain*, QString, int,int);
     ~DAQViz();
+    void setPosition(int,int);
     virtual void showWindow()=0;
     virtual void showWindow(int, int)=0;
     virtual void closeWindow()=0;
@@ -29,6 +41,8 @@ protected:
     Ui::DaqMain* ui=NULL;
     ButtonState buttonState;
     QGridLayout display_layout;
+    int posx;
+    int posy;
 
 };
 #endif // DAQVIZ_H

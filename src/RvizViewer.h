@@ -15,7 +15,7 @@
 
 class RvizViewer :public DAQViz{
 public:
-    RvizViewer(Ui::DaqMain*,QString,QString);
+    RvizViewer(Ui::DaqMain*,QString,QString, int, int);
     ~RvizViewer();
 
     virtual void showWindow();

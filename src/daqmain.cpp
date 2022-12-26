@@ -76,7 +76,11 @@ void Daqmain::radioSensorClicked() {
 
 void Daqmain::radioReplayClicked() {
     ui->btn_recordFile->setEnabled(true);
-    ui->btn_start->setDisabled(true);
+    QString file=ui->label_replayFileName->text();
+    if (file =="")
+        ui->btn_start->setDisabled(true);
+    else 
+        ui->btn_start->setEnabled(true);
     ui->btn_stop->setDisabled(true);
 
     ui->btn_record->setDisabled(true);
@@ -140,35 +144,41 @@ void Daqmain::stopClicked() {
 }
 
 void Daqmain::allViewClicked(){
-    sideButtonActions->allViewClicked();
-
+    //button actions in DAQVIZ 
 }
 void Daqmain::cameraClicked(){
-    sideButtonActions->cameraClicked();
+
+    //button actions in DAQVIZ 
+   // sideButtonActions->cameraClicked();
 
 }
 void Daqmain::carInfoClicked(){
-    sideButtonActions->carInfoClicked();
+    //button actions in DAQVIZ 
+  //  sideButtonActions->carInfoClicked();
 
 }
 void Daqmain::gpsClicked(){
-    sideButtonActions->gpsClicked();
+    //button actions in DAQVIZ 
+ //   sideButtonActions->gpsClicked();
 
 }
 void Daqmain::imuClicked(){
-    sideButtonActions->imuClicked();
+    //button actions in DAQVIZ 
+  //  sideButtonActions->imuClicked();
 
 }
 void Daqmain::lidarSideClicked(){
-    sideButtonActions->lidarSideClicked();
+    //button actions in DAQVIZ 
+  //  sideButtonActions->lidarSideClicked();
 
 }
 void Daqmain::lidarTopClicked(){
-
-    sideButtonActions->lidarTopClicked();
+    //button actions in DAQVIZ 
+  //  sideButtonActions->lidarTopClicked();
 }
 void Daqmain::radarClicked(){
-    sideButtonActions->radarClicked();
+    //button actions in DAQVIZ 
+  //  sideButtonActions->radarClicked();
 
 }
 void Daqmain::recordClicked() {

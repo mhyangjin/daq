@@ -11,8 +11,8 @@
 #include <rviz/display.h>
 #include <rviz/display_group.h>
 
-RvizViewer::RvizViewer(Ui::DaqMain* ui, QString _rvizName,QString _title)
-:DAQViz(ui, _title),
+RvizViewer::RvizViewer(Ui::DaqMain* ui, QString _rvizName,QString _title, int x, int y)
+:DAQViz(ui, _title, x,y),
 rvizName(_rvizName)
 {
     DAQViz::buttonState=ButtonState::OFF;
@@ -44,9 +44,6 @@ RvizViewer::~RvizViewer() {
 void RvizViewer::showWindow() {
     DAQViz::buttonState=ButtonState::ON;
     rviz::DisplayGroup* dg=manager->getRootDisplayGroup();
-    ROS_DEBUG(" RvizViewer DisplayGroup-%d", dg->numDisplays());
-     ROS_DEBUG("WindowSie:min-w:%d,max-w:%d,min-h:%d,max-h:%d", panel_->minimumWidth(),
-                        panel_->maximumWidth(), panel_->minimumHeight(), panel_->maximumHeight());
     for (int i=0; i<dg->numDisplays(); i++) {
         dg->getDisplayAt(i)->reset();
     }
@@ -63,9 +60,6 @@ void RvizViewer::showWindow() {
 void RvizViewer::showWindow(int xpos, int ypos) {
     DAQViz::buttonState=ButtonState::ON;
     rviz::DisplayGroup* dg=manager->getRootDisplayGroup();
-    ROS_DEBUG(" RvizViewer DisplayGroup-%d", dg->numDisplays());
-    ROS_DEBUG("WindowSie:min-w:%d,max-w:%d,min-h:%d,max-h%d", panel_->minimumWidth(),
-                        panel_->maximumWidth(), panel_->minimumHeight(), panel_->maximumHeight());
     for (int i=0; i<dg->numDisplays(); i++) {
         dg->getDisplayAt(i)->reset();
     }
