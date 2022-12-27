@@ -5,7 +5,6 @@
 //   Class Def  : Camera Display를  rendering하여 GUI로 보내기 위한 class
 //======================================================================*/
 #include "CameraViewer.h"
-#include "DaqCameraDisplay.h"
 #include "YmlLoader.h"
 #include <rviz/display.h>
 #include <rviz/display_group.h>
@@ -24,7 +23,7 @@ rvizName(_rvizName)
      
     panel_= new rviz::RenderPanel();  
     ROS_DEBUG("rviz::RenderPanel %p", panel_);
-    manager= new rviz::VisualizationManager(panel_);
+    manager= new DaqVisualizationManager(panel_);
     panel_->initialize(manager->getSceneManager(), manager);
     manager->initialize();
     manager->load(config.mapGetChild("Visualization Manager"));
@@ -146,7 +145,7 @@ void CameraViewer::showWindow(int xpos, int ypos) {
         titleLabels[i]->show();
     }
     manager->unlockRender();
-    manager->startUpdate();
+    manager->startUpdate_Slow(1);
     DAQViz::title->show();
     ui->rviz_layout->update();  
     ui->camera_hidden->update();  

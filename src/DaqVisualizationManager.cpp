@@ -80,23 +80,13 @@
 
 #include <rviz/window_manager_interface.h>
 
-class DaqVisualizationManagerPrivate
-{
-public:
-  ros::CallbackQueue threaded_queue_;
-  boost::thread_group threaded_queue_threads_;
-  ros::NodeHandle update_nh_;
-  ros::NodeHandle threaded_nh_;
-  boost::mutex render_mutex_;
-};
-
 DaqVisualizationManager::DaqVisualizationManager(RenderPanel* render_panel,
                                            WindowManagerInterface* wm,
                                            std::shared_ptr<tf2_ros::Buffer> tf_buffer,
                                            std::shared_ptr<tf2_ros::TransformListener> tf_listener)
   : VisualizationManager(render_panel, wm,tf_buffer, tf_listener )
 {
-  
+
 }
 
 DaqVisualizationManager::~DaqVisualizationManager()
@@ -105,21 +95,10 @@ DaqVisualizationManager::~DaqVisualizationManager()
 }
 
 
-void DaqVisualizationManager::load(const Config& config)
-{
-  stopUpdate();
 
-  emitStatusUpdate("Creating tools");
-  tool_manager_->load(config.mapGetChild("Tools"));
+  void DaqVisualizationManager::startUpdate_Slow(int latency) {
 
-  emitStatusUpdate("Creating views");
-  view_manager_->load(config.mapGetChild("Views"));
+      float interval = 1000.0 / float(latency);
+      update_timer_->start(interval);
 
-  startUpdate();
-}
-
-
-void DaqVisualizationManager::addDisplay(Display* display, bool enabled)
-{
-  root_display_group_->addDisplay(display);
-}
+  }

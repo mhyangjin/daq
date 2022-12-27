@@ -104,10 +104,9 @@ public:
       std::shared_ptr<tf2_ros::TransformListener>());
 
  
-  ~DaqVisualizationManager() override;
+  ~DaqVisualizationManager();
 
-  void load(const Config& config);
-  void addDisplay(Display* display, bool enabled);
+  void startUpdate_Slow(int);
 
 };
 

@@ -1,3 +1,10 @@
+# version 1.1.9 - 2022.12.28
+1.reduese frame size in all view case. 
+   camera : 30 frame per sec --> 1 frame per sec
+   Lidar  : 30 frame per sec --> 1 frame per sec
+   Text   : reduese 1/30
+
+
 # version 1.1.8 - 2022.12.28
 1. Lidar Side 오류 수정
 2. Record button click시 config loading 시점 변경

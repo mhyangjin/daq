@@ -8,7 +8,7 @@
 #define RVIZVIEWER_H
 #include "init.h"
 #include "DAQViz.h"
-#include <rviz/visualization_manager.h>
+#include "DaqVisualizationManager.h"
 #include <rviz/render_panel.h>
 #include <rviz/config.h>
 #include <yaml-cpp/yaml.h>
@@ -23,7 +23,7 @@ public:
     virtual void closeWindow();
 
 private:
-    rviz::VisualizationManager* manager=NULL;
+    DaqVisualizationManager* manager=NULL;
     rviz::RenderPanel* panel_=NULL;
     rviz::Config config;
     QString rvizName;

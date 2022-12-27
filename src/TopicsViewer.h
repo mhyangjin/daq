@@ -27,13 +27,17 @@ public:
     virtual void showWindow();
     virtual void showWindow(int , int);
     virtual void closeWindow();
+    
 
 public slots:
     void on_data_update_triggered( const QString&);
 
 private:
+    void setViewInterval(int);
+
     SignalsSlot*   topicSubscribers;
     QListView           qlistView;
     QStringListModel qstringList;
+    int                 viewInterval;
 };
 #endif

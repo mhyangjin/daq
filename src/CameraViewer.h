@@ -9,7 +9,7 @@
 #define CameraViewer_H
 #include "init.h"
 #include "DAQViz.h"
-//#include "DaqCameraDisplay.h"
+#include "DaqVisualizationManager.h"
 #include <rviz/visualization_manager.h>
 #include <rviz/render_panel.h>
 #include <rviz/panel_factory.h>
@@ -44,7 +44,7 @@ private:
     //load config from .rviz file
     void loadNodes(YAML::Node*, rviz::Config*);
 
-    rviz::VisualizationManager* manager;
+    DaqVisualizationManager* manager;
     rviz::RenderPanel* panels[3];
     rviz::RenderPanel* panel_;
     rviz::ImageDisplay* displays[3];

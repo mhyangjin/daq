@@ -6,7 +6,7 @@
 //======================================================================*/
 #include "RvizViewer.h"
 #include "YmlLoader.h"
-#include "DaqVisualizationManager.h"
+
 
 #include <rviz/display.h>
 #include <rviz/display_group.h>
@@ -27,13 +27,11 @@ rvizName(_rvizName)
     }
     panel_= new rviz::RenderPanel();
 
-    manager= new rviz::VisualizationManager(panel_);
+    manager= new DaqVisualizationManager(panel_);
     panel_->initialize(manager->getSceneManager(), manager);
     manager->initialize();
     manager->load(childConfig);
 
-    panel_->setFocusOnMouseMove(false);
-    ROS_INFO("DAQ: Rviz viewer is ready: %s",qPrintable(_rvizName) );
 }
 
 RvizViewer::~RvizViewer() {
@@ -66,7 +64,7 @@ void RvizViewer::showWindow(int xpos, int ypos) {
     ui->rviz_layout->addWidget(DAQViz::title, xpos-1, ypos);
     ui->rviz_layout->addWidget(panel_, xpos, ypos);
     
-    manager->startUpdate();
+    manager->startUpdate_Slow(1);
     DAQViz::title->show();
     panel_->show();
     ui->rviz_layout->update();

@@ -122,6 +122,9 @@ void Daqmain::runClicked() {
     ui->btn_start->setDisabled(true);
     ui->btn_stop->setEnabled(true);
     
+
+    //JIN, TEST
+    //ui->btn_record->setEnabled(true);
     allViewEnabled();
     
 }
@@ -187,7 +190,10 @@ void Daqmain::recordClicked() {
     ROS_INFO("Daqmain::recordClicked()");
     QString confDir= config.getRecordConfig();
     ROS_INFO("Daqmain::recordClicked()-%s", qPrintable(confDir));
-    QString dir = QFileDialog::getExistingDirectory(this, "Open Directory", confDir, QFileDialog::ShowDirsOnly);
+    QString dir = QFileDialog::getExistingDirectory(this, "Open Directory", confDir, QFileDialog::ShowDirsOnly|QFileDialog::DontUseNativeDialog);
+    //QString dir = QFileDialog::getExistingDirectory(this, "Open Directory", confDir, QFileDialog::ShowDirsOnly);
+    
+
     //QString dir = QFileDialog::getExistingDirectory(this, "Open Directory", "/home/jiat/Data", QFileDialog::ShowDirsOnly);
     if (dir != NULL) {
         ui->label_Path->setText(dir);
