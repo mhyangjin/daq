@@ -77,10 +77,12 @@ void DAQViz::imuClicked(){
         closeWindow();
 }
 void DAQViz::lidarSideClicked(){
-    if ( title->text()  == "LiDAR left" || title->text()  == "LiDAR right" )
-        showWindow();
-    else
-        closeWindow();
+    if ( title->text()  == "LiDAR left" )
+        showWindow(1,0);
+    else if ( title->text()  == "LiDAR right" )
+            showWindow(1,1);
+        else
+            closeWindow();
 }
 void DAQViz::lidarTopClicked(){
     if ( title->text()  == "LiDAR top")

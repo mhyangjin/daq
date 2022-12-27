@@ -14,6 +14,7 @@
 #include "ConfigLoader.h"
 
 static void sig_core(int);
+static   ConfigLoader config;
 
 int main(int argc, char *argv[])
 {
@@ -22,7 +23,7 @@ int main(int argc, char *argv[])
   signal(SIGSEGV, sig_core);
   signal(SIGBUS, sig_core);
   signal(SIGABRT, sig_core);
-  ConfigLoader config;
+
   string args=config.getScriptConfig().toStdString() + "/run.sh init";
   system(args.data());
 
@@ -58,7 +59,6 @@ int main(int argc, char *argv[])
 void sig_core(int signal_no) {
   ROS_FATAL("DAQ: abnormal exit by signal-%d", signal_no);
 
-  ConfigLoader config;
   string args=config.getScriptConfig().toStdString() + "/run.sh kill";
   system(args.data());
   system("pkill roscore");

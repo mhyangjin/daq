@@ -18,6 +18,7 @@
 #include "RecordPlayer.h"
 #include "RosRunner.h"
 
+
 class SideButtonActions {
 public:
     SideButtonActions(Ui::DaqMain *);
@@ -35,7 +36,7 @@ public:
     
 private:
     Ui::DaqMain *ui;
-    ConfigLoader config;
+
     QMap <QString, QList<DAQViz*>* > rvizMap;
     ros::MultiThreadedSpinner* spiner=NULL;
     RecordStarter recordStarter;

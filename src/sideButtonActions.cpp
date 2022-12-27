@@ -20,6 +20,9 @@
 #include <daq/Car.h>
 #include <daq/Can.h>
 
+
+static ConfigLoader config;
+
  SideButtonActions::SideButtonActions(Ui::DaqMain *_ui)
  :ui(_ui){
     ROS_DEBUG("SideButtonActions::SideButtonActions");

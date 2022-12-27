@@ -1,6 +1,10 @@
-# version 1.1.7 - 2022.12.28
+# version 1.1.8 - 2022.12.28
+1. Lidar Side 오류 수정
+2. Record button click시 config loading 시점 변경
+
+# version 1.1.7 - 2022.12.27
 1. 내부 로직 개선
-4. LOG level 수정 (DEBUG->INFO)
+2. LOG level 수정 (DEBUG->INFO)
 
 # version 1.1.6 - 2022.12.19
 1. 내부 로직 개선

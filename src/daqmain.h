@@ -19,6 +19,8 @@ namespace Ui { class DaqMain; }
 QT_END_NAMESPACE
 
 
+
+
 class Daqmain : public QMainWindow
 {
 Q_OBJECT
@@ -52,7 +54,6 @@ private:
     Ui::DaqMain *ui;
     SideButtonActions *sideButtonActions;
     AcquisitionStatus *acquisitionStatus;
-    ConfigLoader config;
     QLabel *statusMsg;
     CameraViewer* cameraViewer;
 

@@ -6,6 +6,9 @@
 //======================================================================*/
 #include "RosRunManager.h"
 
+
+static ConfigLoader config;
+
  RosRunManager::RosRunManager() {
     ROS_DEBUG("DAQ::RosRunManager::RosRunManager");
     QMap<QString, QString> nodeMap=config.getnodes();

@@ -28,7 +28,6 @@ public:
 
 private:
     Ui::DialogConfig *ui;
-    ConfigLoader config;
 };
 
 #endif // DIALOGCONFIG_H

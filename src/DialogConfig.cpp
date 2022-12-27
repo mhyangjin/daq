@@ -8,6 +8,7 @@
 #include "ui_DialogConfig.h"
 #include <QFileDialog>
 
+static ConfigLoader config;
 DialogConfig::DialogConfig(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DialogConfig)

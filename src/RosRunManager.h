@@ -14,6 +14,7 @@
 #include <QString>
 
 #include <ros/ros.h>
+
 class RosRunManager {
 public:
     RosRunManager();
@@ -24,6 +25,5 @@ public:
 
 private:
     QList<RosNode*> nodeList;
-    ConfigLoader config;
 };
 #endif
