@@ -1,3 +1,7 @@
+# version 1.2.1 - 2023.01.04
+1. record start 시 sensor stop 버튼 disable,
+   record stop 시  sensor stop 버튼 enable 기능 추가
+
 # version 1.2.0 - 2022.12.29
 1. Lidar side 송출 프레임 버그 수정
 2. sensor All view시에만 frame size 적용 하도록 변경

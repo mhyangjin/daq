@@ -207,7 +207,7 @@ void Daqmain::recordStartClicked(){
     ui->label_fileName->setText(save_to);
     ui->btn_recordStart->setDisabled(true);
     ui->btn_recordStop->setEnabled(true);
-
+    ui->btn_stop->setDisabled(true);
 //    ui->radioButton_sensor->setDisabled(true);
 //    ui->radioButton_replay->setDisabled(true);
     ui->btn_start->setDisabled(true);
@@ -218,7 +218,7 @@ void Daqmain::recordStopClicked(){
     ui->label_fileName->setText("");
     ui->btn_recordStart->setEnabled(true);
     ui->btn_recordStop->setDisabled(true);
-
+    ui->btn_stop->setEnabled(true);
 //    ui->radioButton_sensor->setEnabled(true);
 //    ui->radioButton_replay->setEnabled(true);
 }
