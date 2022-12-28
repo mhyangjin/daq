@@ -1,3 +1,7 @@
+# version 1.2.2 - 2023.01.04
+1. record start 시 record 버튼 disable,
+   record stop 시  record 버튼 enable 기능 추가
+
 # version 1.2.1 - 2023.01.04
 1. record start 시 sensor stop 버튼 disable,
    record stop 시  sensor stop 버튼 enable 기능 추가

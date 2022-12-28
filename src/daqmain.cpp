@@ -205,6 +205,7 @@ void Daqmain::recordStartClicked(){
     QString Dir=ui->label_Path->text();
     QString save_to=sideButtonActions->recordStart(Dir);
     ui->label_fileName->setText(save_to);
+    ui->btn_record->setDisabled(true);
     ui->btn_recordStart->setDisabled(true);
     ui->btn_recordStop->setEnabled(true);
     ui->btn_stop->setDisabled(true);
@@ -216,6 +217,7 @@ void Daqmain::recordStartClicked(){
 void Daqmain::recordStopClicked(){
     sideButtonActions->recordStop();
     ui->label_fileName->setText("");
+    ui->btn_record->setEnabled(true);
     ui->btn_recordStart->setEnabled(true);
     ui->btn_recordStop->setDisabled(true);
     ui->btn_stop->setEnabled(true);
