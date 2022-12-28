@@ -11,8 +11,8 @@
 #include <rviz/display.h>
 #include <rviz/display_group.h>
 
-RvizViewer::RvizViewer(Ui::DaqMain* ui, QString _rvizName,QString _title, int x, int y)
-:DAQViz(ui, _title, x,y),
+RvizViewer::RvizViewer(Ui::DaqMain* ui, QString _rvizName,QString _title, int x, int y, int frame)
+:DAQViz(ui, _title, x,y, frame),
 rvizName(_rvizName)
 {
     DAQViz::buttonState=ButtonState::OFF;
@@ -55,7 +55,7 @@ void RvizViewer::showWindow() {
 
 }
 
-void RvizViewer::showWindow(int xpos, int ypos) {
+void RvizViewer::showWindow(int xpos, int ypos, bool interval) {
     DAQViz::buttonState=ButtonState::ON;
     rviz::DisplayGroup* dg=manager->getRootDisplayGroup();
     for (int i=0; i<dg->numDisplays(); i++) {
@@ -63,8 +63,17 @@ void RvizViewer::showWindow(int xpos, int ypos) {
     }
     ui->rviz_layout->addWidget(DAQViz::title, xpos-1, ypos);
     ui->rviz_layout->addWidget(panel_, xpos, ypos);
-    
-    manager->startUpdate_Slow(1);
+    if ( interval ) {
+        ROS_DEBUG("RvizViewer::showWindow slow %d",frame_cnt );
+           if ( frame_cnt > 0 )
+            manager->startUpdate_Slow(frame_cnt);
+        else
+            manager->startUpdate();
+    }
+    else  {
+      ROS_DEBUG("RvizViewer::showWindow normal");
+        manager->startUpdate();
+    }
     DAQViz::title->show();
     panel_->show();
     ui->rviz_layout->update();

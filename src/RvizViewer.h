@@ -15,11 +15,11 @@
 
 class RvizViewer :public DAQViz{
 public:
-    RvizViewer(Ui::DaqMain*,QString,QString, int, int);
+    RvizViewer(Ui::DaqMain*,QString,QString, int, int, int);
     ~RvizViewer();
 
     virtual void showWindow();
-    virtual void showWindow(int, int );
+    virtual void showWindow(int, int,bool interval=false);
     virtual void closeWindow();
 
 private:

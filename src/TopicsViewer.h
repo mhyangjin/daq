@@ -22,10 +22,10 @@ private:
 
 public:
 
-    TopicsViewer(Ui::DaqMain*,SignalsSlot*, QString, int, int);
+    TopicsViewer(Ui::DaqMain*,SignalsSlot*, QString, int, int, int);
     ~TopicsViewer();
     virtual void showWindow();
-    virtual void showWindow(int , int);
+    virtual void showWindow(int, int,bool interval=false);
     virtual void closeWindow();
     
 
@@ -33,11 +33,11 @@ public slots:
     void on_data_update_triggered( const QString&);
 
 private:
-    void setViewInterval(int);
+
 
     SignalsSlot*   topicSubscribers;
     QListView           qlistView;
     QStringListModel qstringList;
-    int                 viewInterval;
+    bool            interval_mode;
 };
 #endif

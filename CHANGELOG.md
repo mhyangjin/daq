@@ -1,9 +1,25 @@
+# version 1.2.0 - 2022.12.29
+1. Lidar side 송출 프레임 버그 수정
+2. sensor All view시에만 frame size 적용 하도록 변경
+3. sensor All view시 frame define 기능 추가
+   src/defines.h 에서 frame size 변경 가능함.
+   ```
+   const int FRAME_CNT[7] = {
+    10, //  FRAME_CNT[F_CAMERA]       :초당 frame 수, default=30으로 세팅하려면 0
+    10, //  FRAME_CNT[F_LIDAR_TOP]    :초당 frame 수, default=30으로 세팅하려면 0
+    10, //  FRAME_CNT[F_LIDAR_SIDE]   :초당 frame 수, default=30으로 세팅하려면 0
+    0, //  FRAME_CNT[F_RADAR]        :signal interval 개수. N개중 1개만 display. 모두 일 경우 0
+    0, //  FRAME_CNT[F_GPS]          :signal interval 개수. N개중 1개만 display. 모두 일 경우 0
+    0, //  FRAME_CNT[F_CAR]          :signal interval 개수. N개중 1개만 display. 모두 일 경우 0
+    0  //  FRAME_CNT[F_IMU]          :signal interval 개수. N개중 1개만 display. 모두 일 경우 0
+    };
+   ```
+
 # version 1.1.9 - 2022.12.28
 1.reduese frame size in all view case. 
    camera : 30 frame per sec --> 1 frame per sec
    Lidar  : 30 frame per sec --> 1 frame per sec
    Text   : reduese 1/30
-
 
 # version 1.1.8 - 2022.12.28
 1. Lidar Side 오류 수정

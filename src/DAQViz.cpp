@@ -12,10 +12,12 @@
 #include <rviz/display_group.h>
 #include <rviz/config.h>
 
-DAQViz::DAQViz(Ui::DaqMain* daqMain,  QString _title, int x,int y)
+DAQViz::DAQViz(Ui::DaqMain* daqMain,  QString _title, int x,int y, int frame)
 :ui(daqMain),
 title(new QLabel(_title)),
-buttonState(ButtonState::OFF)
+buttonState(ButtonState::OFF),
+sensorMode(SensorMode::SENSOR),
+frame_cnt(frame)
 {
     title->setMaximumSize(10000,20);
     title->adjustSize();
@@ -24,6 +26,8 @@ buttonState(ButtonState::OFF)
     title->setAlignment(Qt::AlignCenter|Qt::AlignBottom);
     title->hide();
     setPosition(x,y);
+    connect(ui->radioButton_sensor, SIGNAL(clicked()), this, SLOT(radioSensorClicked()));
+    connect(ui->radioButton_replay, SIGNAL(clicked()), this, SLOT(radioReplayClicked()));
     connect(ui->btn_stop, SIGNAL(clicked()), this, SLOT(stopClicked()));
     connect(ui->btn_all, SIGNAL(clicked()), this, SLOT(allViewClicked()));
     connect(ui->btn_camera, SIGNAL(clicked()), this, SLOT(cameraClicked()));
@@ -44,8 +48,22 @@ void DAQViz::setPosition(int x,int y) {
     posy=y;
 }
 
+void DAQViz::radioSensorClicked(){
+    sensorMode=SensorMode::SENSOR;
+}
+
+
+void DAQViz::radioReplayClicked(){
+    sensorMode=SensorMode::REPLAY;
+}
+
+
+
 void DAQViz::allViewClicked(){
-    showWindow(posx,posy);
+    if ( sensorMode == SensorMode::SENSOR )
+        showWindow(posx,posy, true);
+    else 
+        showWindow(posx,posy, false);
 }
 
 void DAQViz::stopClicked(){

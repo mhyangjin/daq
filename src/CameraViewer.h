@@ -26,11 +26,11 @@
 
 class CameraViewer : public DAQViz{
 public:
-    CameraViewer(Ui::DaqMain*,QString, QString, int, int);
+    CameraViewer(Ui::DaqMain*,QString, QString, int, int, int);
     ~CameraViewer();
 
     virtual void showWindow();
-    virtual void showWindow(int , int);
+    virtual void showWindow(int, int,bool interval=false);
     virtual void closeWindow();
     void buildDisplay();
     

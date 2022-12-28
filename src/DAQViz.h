@@ -17,6 +17,8 @@ class DAQViz: public QObject
 {
 Q_OBJECT
 public slots:
+    void radioSensorClicked();
+    void radioReplayClicked();
     void stopClicked();
     void allViewClicked();
     void cameraClicked();
@@ -28,11 +30,11 @@ public slots:
     void radarClicked();
     
 public:
-    DAQViz(Ui::DaqMain*, QString, int,int);
+    DAQViz(Ui::DaqMain*, QString, int,int, int);
     ~DAQViz();
     void setPosition(int,int);
     virtual void showWindow()=0;
-    virtual void showWindow(int, int)=0;
+    virtual void showWindow(int, int, bool interval=false)=0;
     virtual void closeWindow()=0;
     inline ButtonState getButtonState() {return buttonState;};
 public:
@@ -43,6 +45,9 @@ protected:
     QGridLayout display_layout;
     int posx;
     int posy;
+    SensorMode  sensorMode;
+    int frame_cnt;
+
 
 };
 #endif // DAQVIZ_H

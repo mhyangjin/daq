@@ -11,8 +11,8 @@
 #include <OgreRenderWindow.h>
 #include <QDockWidget>
 
-CameraViewer::CameraViewer(Ui::DaqMain* ui, QString _rvizName, QString _title, int x , int y)
-:DAQViz(ui, _title, x, y),
+CameraViewer::CameraViewer(Ui::DaqMain* ui, QString _rvizName, QString _title, int x , int y, int frame)
+:DAQViz(ui, _title, x, y, frame),
 rvizName(_rvizName)
 {
     DAQViz::buttonState=ButtonState::OFF;
@@ -107,7 +107,7 @@ void CameraViewer::showWindow() {
     ui->camera_hidden->update(); 
 }
 
-void CameraViewer::showWindow(int xpos, int ypos) {
+void CameraViewer::showWindow(int xpos, int ypos, bool interval) {
     DAQViz::buttonState=ButtonState::ON;
     ui->rviz_layout->addWidget(DAQViz::title,0,1);
     manager->lockRender();
@@ -145,7 +145,18 @@ void CameraViewer::showWindow(int xpos, int ypos) {
         titleLabels[i]->show();
     }
     manager->unlockRender();
-    manager->startUpdate_Slow(1);
+
+    if ( interval ) {
+        ROS_DEBUG("CameraViewer::showWindow slow %d",frame_cnt );
+           if ( frame_cnt > 0 )
+            manager->startUpdate_Slow(frame_cnt);
+        else
+            manager->startUpdate();
+    }
+    else  {
+      ROS_DEBUG("CameraViewer::showWindow normal");
+        manager->startUpdate();
+    }
     DAQViz::title->show();
     ui->rviz_layout->update();  
     ui->camera_hidden->update();  

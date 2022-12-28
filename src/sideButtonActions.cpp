@@ -50,13 +50,13 @@ void SideButtonActions::createRvizViewers() {
     //윈도우 생성시 미리 GUI창을 미리 만들어 둔다.
     QList<DAQViz*> *lidar_tmp= new QList<DAQViz*>();
     //RvizViewer (windiow widget, rivze  file 위치, 윈도우 상에 보여줄 title)
-    lidar_tmp->append( (DAQViz*) new RvizViewer(ui, Dir + "/ouster.rviz","LiDAR top",4,1));
+    lidar_tmp->append( (DAQViz*) new RvizViewer(ui, Dir + "/ouster.rviz","LiDAR top",4,1, FRAME_CNT[FRAME_NAME::F_LIDAR_TOP]));
     QList<DAQViz*> *camera_tmp= new QList<DAQViz*>();
-    camera_tmp->append( (DAQViz*) new CameraViewer(ui, Dir + "/cameras.rviz", "Camera", 1,0 ));
+    camera_tmp->append( (DAQViz*) new CameraViewer(ui, Dir + "/cameras.rviz", "Camera", 1,0,FRAME_CNT[FRAME_NAME::F_CAMERA] ));
 
     QList<DAQViz*> *l_side_tmp= new QList<DAQViz*>();
-    l_side_tmp->append( (DAQViz*) new RvizViewer(ui, Dir + "/left_vel.rviz", "LiDAR left" , 4,0));
-    l_side_tmp->append( (DAQViz*) new RvizViewer(ui, Dir + "/right_vel.rviz", "LiDAR right" ,4,2));
+    l_side_tmp->append( (DAQViz*) new RvizViewer(ui, Dir + "/left_vel.rviz", "LiDAR left" , 4,0, FRAME_CNT[FRAME_NAME::F_LIDAR_SIDE]));
+    l_side_tmp->append( (DAQViz*) new RvizViewer(ui, Dir + "/right_vel.rviz", "LiDAR right" ,4,2, FRAME_CNT[FRAME_NAME::F_LIDAR_SIDE]));
 
     //click event를 받았을 때  display를 hide, show 처리를 위해 map에 넣어둔다.
     rvizMap.insert("lidarTop", lidar_tmp);
@@ -74,20 +74,20 @@ void SideButtonActions::createTopicSubViewers(){
     TopicSubscribers<sensor_msgs::NavSatFix>* gps_topic= new TopicSubscribers<sensor_msgs::NavSatFix>("/gps/fix", spiner);
     QList<DAQViz*> *gps_tmp= new QList<DAQViz*>();
     //TopicsViewer (windiow widget, topic subscriber, 윈도우 상에 보여줄 title)
-    gps_tmp->append( (DAQViz*) new TopicsViewer(ui, (SignalsSlot*)gps_topic, "GPS",6,1));
+    gps_tmp->append( (DAQViz*) new TopicsViewer(ui, (SignalsSlot*)gps_topic, "GPS",6,1, FRAME_CNT[FRAME_NAME::F_GPS]));
     //imu
     TopicSubscribers<sensor_msgs::Imu>* imu_topic= new TopicSubscribers<sensor_msgs::Imu>("/gps/imu", spiner);
     //TopicSubscribers<sensor_msgs::Imu>* imu_topic= new TopicSubscribers<sensor_msgs::Imu>("/diagnostic", spiner);
     QList<DAQViz*> *imu_tmp= new QList<DAQViz*>();
-    imu_tmp->append( (DAQViz*) new TopicsViewer(ui, (SignalsSlot*)imu_topic, "IMU",6,2));
+    imu_tmp->append( (DAQViz*) new TopicsViewer(ui, (SignalsSlot*)imu_topic, "IMU",6,2, FRAME_CNT[FRAME_NAME::F_IMU]));
     //radar
     CanSubscribers* radar_topic= new CanSubscribers("/can/radar", spiner);
     QList<DAQViz*> *radar_tmp= new QList<DAQViz*>();
-    radar_tmp->append( (DAQViz*) new TopicsViewer(ui,(SignalsSlot*)radar_topic,"Radar",6,3));
+    radar_tmp->append( (DAQViz*) new TopicsViewer(ui,(SignalsSlot*)radar_topic,"Radar",6,3,FRAME_CNT[FRAME_NAME::F_RADAR]));
     //car
     CanSubscribers* car_topic= new CanSubscribers("/can/car", spiner);
     QList<DAQViz*> *car_tmp= new QList<DAQViz*>();
-    car_tmp->append( (DAQViz*) new TopicsViewer(ui,(SignalsSlot*)car_topic,"Car Info",6,0 ));
+    car_tmp->append( (DAQViz*) new TopicsViewer(ui,(SignalsSlot*)car_topic,"Car Info",6,0,FRAME_CNT[FRAME_NAME::F_CAR] ));
 
     //click event를 받았을 때  display를 hide, show 처리를 위해 map에 넣어둔다.
     rvizMap.insert("gps", gps_tmp);
